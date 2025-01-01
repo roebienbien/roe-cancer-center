@@ -1,15 +1,8 @@
 import { useState } from 'react';
+import ChemoAppointmentForm from '../../components/forms/chemo-form/ChemoAppointmentForm';
 import Modal from '../../components/Modal';
-import Dropdown from '../../components/ui/Dropdown';
 import PrimaryButton from '../../components/ui/PrimaryButton';
 import SecondaryButton from '../../components/ui/SecondaryButton';
-import Input from '../../components/ui/Input';
-
-const Cars = [
-  { text: 'Volvo', value: 'volvo' },
-  { text: 'Bmw', value: 'bmw' },
-  { text: 'Audi', value: 'audi' },
-];
 
 const AppointmentScheduler = () => {
   const [activeModal, setActiveModal] = useState<null | 'chemotherapy' | 'consultation'>(null);
@@ -20,36 +13,18 @@ const AppointmentScheduler = () => {
     setSelectedOption('');
   };
 
-  const handleOptionChange = (value: string) => {
-    setSelectedOption(value);
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    alert(`You selected ${selectedOption}`);
-  };
-
   return (
     <div className='flex'>
-      <div>
-        <Modal isOpen={activeModal === 'chemotherapy'} onClose={closeModal} title={'This is Modal'}>
-          <p>This is the content of the chemotherapy modal</p>
-          <form onSubmit={handleSubmit}>
-            <Dropdown options={Cars} selectedValue={selectedOption} onChange={handleOptionChange} placeholder='cars' />
-            {/* <Input className={''} type='submit' value='Submit' /> */}
-            <Input label={'Email'} placeholder='Enter email' />
-            <PrimaryButton text='Submit' />
-          </form>
-        </Modal>
-        <Modal isOpen={activeModal === 'consultation'} onClose={closeModal} title={'This is Modal'}>
-          <p>This is the content of the consultation modal</p>
-        </Modal>
-      </div>
+      <Modal isOpen={activeModal === 'chemotherapy'} onClose={closeModal} title={'Chemotherapy Appointment Form'}>
+        <ChemoAppointmentForm selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+      </Modal>
+      <Modal isOpen={activeModal === 'consultation'} onClose={closeModal} title={'Consultation Appointment Form'}>
+        <p>This is the content of the consultation modal</p>
+      </Modal>
       <div className='flex gap-4'>
         <PrimaryButton onClick={() => setActiveModal('chemotherapy')} text='Schedule a chemotherapy' />
         <SecondaryButton onClick={() => setActiveModal('consultation')} text='Schedule a consultation' />
       </div>
-      {/* <SchedulingForm /> */}
     </div>
   );
 };

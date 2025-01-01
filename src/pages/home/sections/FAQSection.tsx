@@ -48,7 +48,7 @@ const FAQSection = () => {
       <h2 className='text-xl font-semibold md:text-4xl'>Frequently Asked Questions</h2>
       <div className='flex flex-col'>
         {FAQs.map((faq, index) => (
-          <Accordion faq={faq} isOpen={openIndex === index} onToggle={() => handleToggle(index)} />
+          <Accordion key={index} faq={faq} isOpen={openIndex === index} onToggle={() => handleToggle(index)} />
         ))}
       </div>
     </div>
