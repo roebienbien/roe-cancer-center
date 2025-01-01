@@ -1,17 +1,22 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./pages/home/HomePage";
-import Layout from "./components/Layout";
-import NotFoundPage from "./pages/NotFoundPage";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import HomePage from './pages/home/HomePage';
+import Layout from './components/Layout';
+import NotFoundPage from './pages/NotFoundPage';
+import AppointmentScheduler from './pages/appointment-page/AppointmentScheduler';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     errorElement: <NotFoundPage />,
     element: <Layout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <HomePage />,
+      },
+      {
+        path: '/appointment-scheduler',
+        element: <AppointmentScheduler />,
       },
     ],
   },

@@ -1,7 +1,17 @@
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge';
 
-const SecondaryButton = ({ text, className }: { text: string; className?: string }) => {
-  return <button className={twMerge(`border border-rose-500 text-rose-500 ${className}`)}>{text}</button>;
+type Props = {
+  text: string;
+  className?: string;
+  onClick: React.ReactEventHandler<HTMLButtonElement>;
+};
+
+const SecondaryButton = ({ text, className, onClick }: Props) => {
+  return (
+    <button onClick={onClick} className={twMerge(`rounded-lg border border-pink-500 p-2 text-pink-500 shadow-xl hover:bg-gray-200 ${className}`)}>
+      {text}
+    </button>
+  );
 };
 
 export default SecondaryButton;

@@ -6,8 +6,8 @@ const NavLinks = [
     to: '/',
   },
   {
-    title: 'About',
-    to: '/about',
+    title: 'Book',
+    to: '/appointment-scheduler',
   },
   {
     title: 'FAQ',
@@ -27,7 +27,9 @@ const Navbar = () => {
   return (
     <nav className='h-16 bg-zinc-100'>
       <div className='flex h-full items-center justify-between px-40'>
-        <span className='text-3xl'>Logo</span>
+        <Link to={'/'} className='text-3xl'>
+          Logo
+        </Link>
         <ul className='flex items-center gap-x-4 text-xl'>
           {NavLinks.map((link, index) => (
             <Link to={link.to} key={index}>
