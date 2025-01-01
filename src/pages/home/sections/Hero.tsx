@@ -1,4 +1,3 @@
-import { TSlides } from '../../../components/carousel/CarouselSlide';
 import AppointmentScheduler from '../../appointment-page/AppointmentScheduler';
 
 // const Slides: TSlides[] = [
