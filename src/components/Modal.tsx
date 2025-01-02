@@ -24,7 +24,7 @@ const Modal = ({ isOpen, onClose, title, children }: Props) => {
   if (!isOpen) return null; // should come after useEffect
 
   return (
-    <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+    <div className='fixed inset-0 z-[999] flex items-center justify-center bg-black bg-opacity-50'>
       <div className='flex w-full max-w-6xl flex-col gap-y-8 rounded-lg bg-white p-6 shadow-lg'>
         {/* Modal Header */}
         <div className='flex items-center justify-center border-b pb-3'>

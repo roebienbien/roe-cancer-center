@@ -13,12 +13,12 @@ type Props = {
   errors?: FieldError | undefined;
 };
 
-const Input = ({ type = 'text', className, label, id, placeholder, value, register, errors }: Props) => {
+const InputWithLabel = ({ type = 'text', className, label, id, placeholder, value, register, errors }: Props) => {
   // const { register, errors } = useFormContext();
   return (
     <div className='flex flex-col gap-y-2'>
+      {label && <span className='shrink-0'>{label}</span>}
       <div className='flex items-center gap-x-4'>
-        {label && <span className='shrink-0'>{label}</span>}
         <div className='flex w-full flex-grow flex-col'>
           <input
             {...register(id)}
@@ -36,4 +36,4 @@ const Input = ({ type = 'text', className, label, id, placeholder, value, regist
   );
 };
 
-export default Input;
+export default InputWithLabel;

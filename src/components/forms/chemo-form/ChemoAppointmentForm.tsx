@@ -1,13 +1,29 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import Dropdown from '../../ui/Dropdown';
 import Input from '../../ui/Input';
 import PrimaryButton from '../../ui/PrimaryButton';
 import ChemoSchema, { FormFields } from './ChemoAppointmentSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import InputWithLabel from '../../ui/InputWithLabel';
 
 const Sex = [
   { text: 'male', value: 'male' },
   { text: 'female', value: 'female' },
+];
+
+const ChemoType = [
+  {
+    text: 'hormone therapy',
+    value: 'hormone',
+  },
+  {
+    text: 'immunotherapy',
+    value: 'immuno',
+  },
+  {
+    text: 'targeted therapy',
+    value: 'targeted',
+  },
 ];
 
 interface Props {
@@ -24,11 +40,11 @@ const ChemoAppointmentForm = ({ selectedOption, setSelectedOption }: Props) => {
   } = useForm<FormFields>({
     resolver: zodResolver(ChemoSchema),
     defaultValues: {
-      firstName: 'roe bien',
-      lastName: 'arnaiz',
-      email: 'roebien@email.com',
       sex: '', //blank
-      mobileNumber: '12345678910',
+      // firstName: 'roe bien',
+      // lastName: 'arnaiz',
+      // email: 'roebien@email.com',
+      // mobileNumber: '12345678910',
     },
   });
 
@@ -47,26 +63,27 @@ const ChemoAppointmentForm = ({ selectedOption, setSelectedOption }: Props) => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='grid grid-cols-2 gap-x-8 gap-y-4'>
-        {/* <div className='col-span-2 flex gap-x-4'> */}
-        <span className='col-span-2 font-semibold'>Full Name</span>
+      <div className='grid grid-cols-1 gap-x-8 gap-y-4 lg:grid-cols-3'>
+        {/* <span className='col-span-3 font-semibold'>Chemotherapy</span> */}
+        <span className='font-semibold lg:col-span-3'>Full Name</span>
+        {/* <Input register={register} errors={errors.lastName} id={'lastName'} placeholder='Last name' className={''} />
         <Input register={register} errors={errors.firstName} id={'firstName'} placeholder='First name' className={''} />
-        <Input register={register} errors={errors.lastName} id={'lastName'} placeholder='Last name' className={''} />
-        {/* </div> */}
-        <span className='col-span-2 font-semibold'>Contacts</span>
-        <Input register={register} errors={errors.email} label={'Email'} id={'email'} placeholder='Enter email' className={''} type='email' />
-        <Input
-          register={register}
-          errors={errors.mobileNumber}
-          label={'Mobile Number'}
-          id={'mobileNumber'}
-          placeholder='Enter mobile number'
-          className={''}
-        />
+        <Input register={register} errors={errors.middleName} id={'middleName'} placeholder='Middle name' className={''} /> */}
+        <InputWithLabel register={register} errors={errors.lastName} id={'lastName'} label={'Last name'} placeholder='De la cruz' className={''} />
+        <InputWithLabel register={register} errors={errors.firstName} id={'firstName'} label={'First name'} placeholder='Juan' />
+        <InputWithLabel register={register} errors={errors.middleName} id={'middleName'} label={'Middle name'} placeholder='Smith' />
+        <span className='font-semibold lg:col-span-3'>Contacts</span>
+        <div className='flex flex-col gap-y-2 lg:col-span-2'>
+          <span className=''>Email</span>
+          <Input register={register} errors={errors.email} id={'email'} placeholder='Enter email' className={''} type='email' />
+        </div>
+        <div className='flex flex-col gap-2'>
+          <span className='text-sm'>Mobile number</span>
+          <Input register={register} errors={errors.mobileNumber} id={'mobileNumber'} placeholder='Enter mobile number' className={''} />
+        </div>
 
-        <span className='col-span-2'>Additional Info</span>
+        <span className='lg:col-span-2'>Additional Info</span>
         <div className='flex flex-col gap-y-2'>
-          {/* <span>Sex</span> */}
           <Dropdown
             id={'sex'}
             register={register}
@@ -78,7 +95,7 @@ const ChemoAppointmentForm = ({ selectedOption, setSelectedOption }: Props) => {
             label={'Sex'}
           />
         </div>
-        <PrimaryButton text='Submit' className='col-span-2' />
+        <PrimaryButton text='Submit' className='lg:col-span-3' />
       </div>
     </form>
   );
