@@ -28,7 +28,7 @@ const Modal = ({ isOpen, onClose, title, children }: Props) => {
       <div className='flex w-full max-w-6xl flex-col gap-y-8 rounded-lg bg-white p-6 shadow-lg'>
         {/* Modal Header */}
         <div className='flex items-center justify-center border-b pb-3'>
-          <h2 className='text-lg font-bold'>{title}</h2>
+          <h2 className='text-2xl font-bold'>{title}</h2>
         </div>
         {/* Modal Body */}
         <div>{children}</div>

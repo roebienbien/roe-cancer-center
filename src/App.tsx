@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import HomePage from './pages/home/HomePage';
 import Layout from './components/Layout';
 import NotFoundPage from './pages/NotFoundPage';
 import AppointmentScheduler from './pages/appointment-page/AppointmentScheduler';
+import ChemotheraphyScheduler from './pages/chemotherapy-scheduler/ChemotheraphyScheduler';
+import HomePage from './pages/home/HomePage';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />,
+      },
+      {
+        path: '/chemotheraphy-scheduler',
+        element: <ChemotheraphyScheduler />,
       },
       {
         path: '/appointment-scheduler',

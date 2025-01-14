@@ -1,20 +1,21 @@
+import { ErrorMessage } from '@hookform/error-message';
+import { UseFormRegister } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
-import { FieldError, UseFormRegister } from 'react-hook-form';
-import { useFormContext } from '../context/FormProvider';
 
 type Props = {
   id: string;
   label?: string;
-  type?: 'text' | 'email' | 'number' | 'password' | 'submit'; //default: text
+  // type?: 'text' | 'email' | 'number' | 'password' | 'submit'; //default: text
+  type?: string;
   className?: string;
   placeholder?: string;
   value?: string;
   register: UseFormRegister<any>; //replace any with schema
-  errors?: FieldError | undefined;
+  // errors?: FieldError | undefined;
+  errors?: any;
 };
 
 const Input = ({ type = 'text', className, label, id, placeholder, value, register, errors }: Props) => {
-  // const { register, errors } = useFormContext();
   return (
     <div className='flex flex-col gap-y-2'>
       <div className='flex items-center gap-x-4'>
@@ -30,8 +31,10 @@ const Input = ({ type = 'text', className, label, id, placeholder, value, regist
           />
         </div>
       </div>
-      {/* {errors[id] && <span className='w-full text-right text-xs text-red-500'>{errors[id]?.message}</span>} */}
-      {errors && <span className='w-full text-right text-xs text-red-500'>{errors.message}</span>}
+      <ErrorMessage errors={errors} name={id} render={({ message }) => <span className='text-xs text-red-500'>{message}</span>} />
+
+      {/* {errors[id] && <span className='w-full text-right text-xs text-red-500'>{errors[id]?.message as string}</span>} */}
+      {/* {errors && <span className='w-full text-right text-xs text-red-500'>{errors.message}</span>} */}
     </div>
   );
 };
