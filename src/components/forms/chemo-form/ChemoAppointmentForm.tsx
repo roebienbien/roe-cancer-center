@@ -3,10 +3,13 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStep, updateForm } from '../../../state/slices/form-slice';
 import { RootState } from '../../../state/store';
+import Dropdown from '../../ui/Dropdown';
 import Input from '../../ui/Input';
 import PrimaryButton from '../../ui/PrimaryButton';
 import RadioButton from '../../ui/RadioButton';
 import { FormFields, Steps } from './ChemoAppointmentSchema';
+import { useState } from 'react';
+import DatePicker from '../../ui/DatePicker';
 
 const ChemoType = [
   {
@@ -27,6 +30,11 @@ const ChemoAppointmentForm = () => {
   const dispatch = useDispatch();
   const { data, step } = useSelector((state: RootState) => state.form);
   const currentStep = Steps[step - 1];
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+  };
 
   const {
     register,
@@ -40,17 +48,17 @@ const ChemoAppointmentForm = () => {
     defaultValues: {
       // sex: '', //blank
       sex: 'MALE', //blank
-      firstName: 'roe bien',
-      lastName: 'arnaiz',
-      middleName: 'pedragosa',
+      firstName: 'juan',
+      lastName: 'dela cruz',
+      middleName: 'pegasus',
       email: 'roebien@email.com',
       mobileNumber: '12345678910',
-      motherFirstName: 'roe bien',
-      motherLastName: 'arnaiz',
-      motherMiddleName: 'pedragosa',
-      fatherFirstName: 'roe bien',
-      fatherLastName: 'arnaiz',
-      fatherMiddleName: 'pedragosa',
+      motherFirstName: 'maria',
+      motherLastName: 'clara',
+      motherMiddleName: 'sevilleja',
+      fatherFirstName: 'boyet',
+      fatherLastName: 'dela cruz',
+      fatherMiddleName: 'robles',
     },
   });
 
@@ -116,9 +124,25 @@ const ChemoAppointmentForm = () => {
         </div>
 
         <RadioButton register={register} errors={errors} id={'sex'} label='Select Sex' options={['MALE', 'FEMALE']} />
-        <Input register={register} errors={errors} id={'height'} label='Height' placeholder='MIDDLE NAME' type='number' />
-        <Input register={register} errors={errors} id={'weight'} label='Weight' placeholder='MIDDLE NAME' type='number' />
+        <Input register={register} errors={errors} id={'height'} label='Height (kg)' placeholder='Enter Height ' type='number' />
+        <Input register={register} errors={errors} id={'weight'} label='Weight (cm)' placeholder='Enter Weight' type='number' />
 
+        <Dropdown register={register} errors={errors} id={'chemoType'} label='Select chemo type' options={ChemoType} />
+        <Input register={register} errors={errors} id={'weight'} label='Weight (cm)' placeholder='Enter Weight' type='number' />
+
+        <div className='col-span-full grid grid-cols-3 gap-x-8'>
+          <span className='col-span-full font-semibold'>MOTHER'S MAIDEN FULL NAME</span>
+          <Input register={register} errors={errors} id={'motherLastName'} placeholder='LAST NAME' />
+          <Input register={register} errors={errors} id={'motherFirstName'} placeholder='FIRST NAME' />
+          <Input register={register} errors={errors} id={'motherMiddleName'} placeholder='MIDDLE NAME' />
+        </div>
+        <div className='col-span-full grid grid-cols-3 gap-x-8'>
+          <span className='col-span-full font-semibold'>FATHER's FULL NAME</span>
+          <Input register={register} errors={errors} id={'fatherLastName'} placeholder='LAST NAME' />
+          <Input register={register} errors={errors} id={'fatherFirstName'} placeholder='FIRST NAME' />
+          <Input register={register} errors={errors} id={'fatherMiddleName'} placeholder='MIDDLE NAME' />
+        </div>
+        <DatePicker selectedDate={selectedDate} onDateChange={handleDateChange} />
         <div className='col-span-full flex justify-between'>
           {step > 1 ? (
             <PrimaryButton onClick={() => dispatch(setStep(step - 1))} text='Previous' />

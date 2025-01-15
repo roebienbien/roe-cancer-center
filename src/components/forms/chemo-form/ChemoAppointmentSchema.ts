@@ -5,14 +5,14 @@ const personalDetailsSchema = z.object({
   lastName: z.string({ required_error: 'required' }).min(1, 'Last name is required'),
   middleName: z.string({ required_error: 'required' }).min(1, 'Middle name is required'),
   // height: z.number({ required_error: 'height is required' }).min(1, 'Height is required'),
-  sex: z.string({ required_error: 'required' }).min(1, 'sex is required'),
-  // sex: z
-  //   .enum(['MALE', 'FEMALE'], {
-  //     required_error: 'Sex is required',
-  //   })
-  //   .refine((value) => value !== null && value !== undefined, {
-  //     message: 'Sex is required',
-  //   }),
+  // sex: z.string({ required_error: 'required' }).min(1, 'sex is required'),
+  sex: z
+    .enum(['MALE', 'FEMALE'], {
+      required_error: 'Sex is required',
+    })
+    .refine((value) => value !== null && value !== undefined, {
+      message: 'Sex is required',
+    }),
   height: z
     .string({ required_error: 'Height is required' })
     .min(1, 'Height is required')
@@ -27,6 +27,7 @@ const personalDetailsSchema = z.object({
     .refine((value) => !isNaN(value) && value > 0, {
       message: 'Weight must be a positive number',
     }),
+  chemoType: z.string({ required_error: 'required' }).min(1, 'chemo type is required'),
 });
 
 const contactDetailsSchema = z.object({

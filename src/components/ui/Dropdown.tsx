@@ -1,4 +1,6 @@
+import { ErrorMessage } from '@hookform/error-message';
 import { FieldError, UseFormRegister } from 'react-hook-form';
+import { FormFields } from '../forms/chemo-form/ChemoAppointmentSchema';
 
 type TOptions = {
   value: string;
@@ -8,11 +10,9 @@ type TOptions = {
 interface Props {
   id: string;
   options: TOptions[];
-  selectedValue: string;
-  onChange: (value: string) => void;
-  placeholder: string;
+  placeholder?: string;
   register: UseFormRegister<any>;
-  errors: FieldError | undefined;
+  errors: any; //change any
   label?: string;
 }
 
@@ -21,21 +21,19 @@ const Dropdown = ({ id, options, placeholder, register, errors, label }: Props) 
   //   onChange(event.target.value);
   // };
   return (
-    <div className='flex'>
-      <div className='flex w-full items-center gap-x-4'>
-        {label && <label>{label}</label>}
-        <select {...register(id)} className='p-2'>
-          <option value='' disabled>
-            {placeholder}
+    <div key={id} className='mb-4'>
+      <label className='block'>{label}</label>
+      <select {...register(id)} id={id} className='w-full rounded border p-2'>
+        <option value='' disabled defaultValue={''}>
+          {placeholder || 'Select an option'}
+        </option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.text}
           </option>
-          {options.map((option, index) => (
-            <option key={index} value={option.value} className=''>
-              {option.text}
-            </option>
-          ))}
-        </select>
-        {errors && <span className='text-left text-sm text-red-500'>{errors.message}</span>}
-      </div>
+        ))}
+      </select>
+      <ErrorMessage errors={errors} name={id} render={({ message }) => <span className='text-xs text-red-500'>{message}</span>} />
     </div>
   );
 };
