@@ -27,7 +27,7 @@ const Input = ({ type = 'text', className, label, id, placeholder, value, regist
             value={value}
             type={type}
             placeholder={placeholder}
-            className={twMerge(`border border-gray-400 p-2 ${className}`)}
+            className={twMerge(`border border-gray-400 p-2 uppercase ${className}`)}
           />
         </div>
       </div>
