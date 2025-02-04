@@ -23,7 +23,7 @@ const Dropdown = ({ id, options, placeholder, register, errors, label }: Props) 
   return (
     <div key={id} className='mb-4'>
       <label className='block'>{label}</label>
-      <select {...register(id)} id={id} className='w-full rounded border p-2'>
+      <select {...register(id)} id={id} className='w-full rounded border bg-white p-2'>
         <option value='' disabled defaultValue={''}>
           {placeholder || 'Select an option'}
         </option>

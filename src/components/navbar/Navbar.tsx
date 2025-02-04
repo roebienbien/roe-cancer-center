@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import rccLogo from '../../assets/rcc-logo.svg';
 
 const NavLinks = [
   {
@@ -28,7 +29,7 @@ const Navbar = () => {
     <nav className='h-16 bg-zinc-100'>
       <div className='flex h-full items-center justify-between px-40'>
         <Link to={'/'} className='text-3xl'>
-          Logo
+          <img src={rccLogo} alt='rcc-logo' className='h-32 w-32' />
         </Link>
         <ul className='flex items-center gap-x-4 text-xl'>
           {NavLinks.map((link, index) => (

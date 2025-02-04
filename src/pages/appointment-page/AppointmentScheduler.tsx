@@ -4,6 +4,8 @@ import Modal from '../../components/Modal';
 import PrimaryButton from '../../components/ui/PrimaryButton';
 import SecondaryButton from '../../components/ui/SecondaryButton';
 import { Link } from 'react-router-dom';
+import PrimaryLink from '../../components/ui/link/PrimaryLink';
+import SecondaryLink from '../../components/ui/link/SecondaryLink';
 
 const AppointmentScheduler = () => {
   const [activeModal, setActiveModal] = useState<null | 'chemotherapy' | 'consultation'>(null);
@@ -24,8 +26,9 @@ const AppointmentScheduler = () => {
       </Modal>
       <div className='flex gap-4'>
         {/* <PrimaryButton onClick={() => setActiveModal('chemotherapy')} text='Schedule a chemotherapy' /> */}
-        <Link to={'/chemotheraphy-scheduler'}>Schedule a Chemotherapy</Link>
-        <SecondaryButton onClick={() => setActiveModal('consultation')} text='Schedule a consultation' />
+        {/* <SecondaryButton onClick={() => setActiveModal('consultation')} text='Schedule a consultation' /> */}
+        <PrimaryLink to={'/chemotheraphy-scheduler'} text={'Schedule a Chemotherapy'} />
+        <SecondaryLink to={'/chemotheraphy-scheduler'} text={'Schedule a Consultation'} />
       </div>
     </div>
   );

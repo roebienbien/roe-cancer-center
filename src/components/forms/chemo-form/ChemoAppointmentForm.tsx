@@ -36,6 +36,21 @@ const ChemoAppointmentForm = () => {
     setSelectedDate(date);
   };
 
+  const DefaultValues = {
+    sex: 'MALE', //blank
+    firstName: 'juan',
+    lastName: 'dela cruz',
+    middleName: 'pegasus',
+    email: 'roebien@email.com',
+    mobileNumber: '12345678910',
+    motherFirstName: 'maria',
+    motherLastName: 'clara',
+    motherMiddleName: 'sevilleja',
+    fatherFirstName: 'boyet',
+    fatherLastName: 'dela cruz',
+    fatherMiddleName: 'robles',
+  };
+
   const {
     register,
     handleSubmit,
@@ -45,21 +60,7 @@ const ChemoAppointmentForm = () => {
     // resolver: zodResolver(ChemoSchema),
     resolver: zodResolver(currentStep.schema),
     // defaultValues: data,
-    defaultValues: {
-      // sex: '', //blank
-      sex: 'MALE', //blank
-      firstName: 'juan',
-      lastName: 'dela cruz',
-      middleName: 'pegasus',
-      email: 'roebien@email.com',
-      mobileNumber: '12345678910',
-      motherFirstName: 'maria',
-      motherLastName: 'clara',
-      motherMiddleName: 'sevilleja',
-      fatherFirstName: 'boyet',
-      fatherLastName: 'dela cruz',
-      fatherMiddleName: 'robles',
-    },
+    defaultValues: DefaultValues,
   });
 
   const capitalizeData = (stepData: FormFields) => {
@@ -142,7 +143,8 @@ const ChemoAppointmentForm = () => {
           <Input register={register} errors={errors} id={'fatherFirstName'} placeholder='FIRST NAME' />
           <Input register={register} errors={errors} id={'fatherMiddleName'} placeholder='MIDDLE NAME' />
         </div>
-        <DatePicker selectedDate={selectedDate} onDateChange={handleDateChange} />
+        <DatePicker />
+        {/* <DatePicker selectedDate={selectedDate} onDateChange={handleDateChange} /> */}
         <div className='col-span-full flex justify-between'>
           {step > 1 ? (
             <PrimaryButton onClick={() => dispatch(setStep(step - 1))} text='Previous' />

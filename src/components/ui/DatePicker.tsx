@@ -1,13 +1,32 @@
-import DatePicker1 from 'react-datepicker';
+import { useState } from 'react';
+import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-type Props = {
-  selectedDate: Date | null;
-  onDateChange: (date: Date | null) => void;
-};
-
-const DatePicker = ({ selectedDate, onDateChange }: Props) => {
+const DatePicker = () => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   console.log(selectedDate);
-  return <DatePicker1 selected={selectedDate} onChange={onDateChange} showIcon className='cursor-pointer text-center' />;
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+  };
+
+  const isWeekday = (date: Date) => {
+    const day = date.getDay();
+    return day !== 0 && day !== 6;
+  };
+
+  return (
+    <div className='flex items-center gap-4'>
+      <span className=''>Choose a date</span>
+      <ReactDatePicker
+        selected={selectedDate}
+        onChange={handleDateChange}
+        filterDate={isWeekday}
+        fixedHeight
+        showIcon
+        className='cursor-pointer text-center'
+      />
+    </div>
+  );
 };
 export default DatePicker;
