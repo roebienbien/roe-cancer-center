@@ -1,6 +1,4 @@
 import SecondaryLink from '../link/SecondaryLink';
-import PrimaryButton from '../PrimaryButton';
-import SecondaryButton from '../SecondaryButton';
 import Card, { CardProps } from './Card';
 
 // type CardInfoProps = {

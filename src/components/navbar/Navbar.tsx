@@ -1,6 +1,5 @@
 import { Link } from 'react-router';
 import rccLogo from '../../assets/rcc-logo.svg';
-import PrimaryButton from '../ui/PrimaryButton';
 import PrimaryLink from '../ui/link/PrimaryLink';
 import SecondaryLink from '../ui/link/SecondaryLink';
 

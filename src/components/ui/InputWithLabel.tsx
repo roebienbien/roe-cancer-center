@@ -1,6 +1,5 @@
-import { twMerge } from 'tailwind-merge';
 import { FieldError, UseFormRegister } from 'react-hook-form';
-import { useFormContext } from '../context/FormProvider';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
   id: string;

@@ -1,6 +1,5 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { FieldError, UseFormRegister } from 'react-hook-form';
-import { FormFields } from '../forms/chemo-form/ChemoAppointmentSchema';
+import { UseFormRegister } from 'react-hook-form';
 
 type TOptions = {
   value: string;

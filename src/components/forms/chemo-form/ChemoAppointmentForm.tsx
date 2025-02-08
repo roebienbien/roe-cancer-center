@@ -3,13 +3,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStep, updateForm } from '../../../state/slices/form-slice';
 import { RootState } from '../../../state/store';
+import DatePicker from '../../ui/DatePicker';
 import Dropdown from '../../ui/Dropdown';
 import Input from '../../ui/Input';
 import PrimaryButton from '../../ui/PrimaryButton';
 import RadioButton from '../../ui/RadioButton';
 import { FormFields, Steps } from './ChemoAppointmentSchema';
-import { useState } from 'react';
-import DatePicker from '../../ui/DatePicker';
 
 const ChemoType = [
   {
@@ -30,11 +29,11 @@ const ChemoAppointmentForm = () => {
   const dispatch = useDispatch();
   const { data, step } = useSelector((state: RootState) => state.form);
   const currentStep = Steps[step - 1];
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  /*   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
-  };
+  }; */
 
   const DefaultValues = {
     sex: 'MALE', //blank
@@ -92,13 +91,6 @@ const ChemoAppointmentForm = () => {
     } catch (error) {
       console.error('Error during submission:', error);
     }
-  };
-
-  const handlePrevious = () => {
-    dispatch(setStep(step - 1));
-    console.log('previous');
-
-    // reset(data);
   };
 
   return (
