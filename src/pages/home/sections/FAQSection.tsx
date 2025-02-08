@@ -8,33 +8,39 @@ export type TFaq = {
 
 const FAQs: TFaq[] = [
   {
-    question: 'How do I book a hiking tour?',
+    question: 'What services does Roe Cancer Clinic provide?',
     answer:
-      'To book a tour, choose the hiking trail, select your date and group size, and complete the booking process online. Once your payment is confirmed, you’ll receive an email with your booking details and itinerary.',
+      'Roe Cancer Clinic offers comprehensive cancer care, including diagnostic imaging, personalized treatment plans (chemotherapy, radiation, immunotherapy), surgical consultations, and supportive care services such as nutrition counseling and psychological support.',
   },
   {
-    question: 'What is the cancellation policy for hiking tours?',
+    question: 'How do I schedule an appointment?',
     answer:
-      'For a full refund, cancellations must be made at least 48 hours before the tour. Cancellations within 48 hours are non-refundable. Please review our full cancellation policy for details.',
+      'Appointments can be scheduled by calling our dedicated appointment line or through our online booking system available on our website. Our staff will assist you in selecting a convenient time and guide you through any necessary preparations.',
   },
   {
-    question: 'Do I need prior hiking experience?',
+    question: 'What types of cancers do you treat?',
     answer:
-      'Our trails vary in difficulty. We offer beginner-friendly routes as well as challenging trails. Please check each trail’s difficulty level and consult with us if you’re unsure which trail is best for you.',
+      'We specialize in treating a wide range of cancers, including breast, lung, colorectal, prostate, gynecological cancers, hematologic malignancies (such as lymphoma and leukemia), and rare or complex cancers.',
   },
   {
-    question: 'What should I bring for the hike?',
+    question: 'Do you accept insurance?',
     answer:
-      'For most hikes, we recommend comfortable hiking boots, water, sunscreen, and snacks. We’ll provide a full packing list based on your selected trail with your booking confirmation.',
+      'Yes, Roe Cancer Clinic accepts most major insurance plans. We also offer financial counseling to help you understand your coverage and any potential out-of-pocket costs. Please contact our billing department for more details.',
   },
   {
-    question: 'Can I reschedule my hike?',
-    answer: 'Yes, you can reschedule up to 48 hours in advance, subject to availability. To reschedule, contact our support team for assistance.',
+    question: 'What should I expect during my first visit?',
+    answer:
+      'During your initial visit, you will meet with our multidisciplinary team of specialists, undergo necessary diagnostic tests, review your medical history, and discuss your treatment options. We will provide guidance on what to expect during treatment and how to prepare.',
   },
   {
-    question: 'Are pets allowed on the hikes?',
+    question: 'Are there any support services available?',
     answer:
-      'Pets are allowed on some trails, but restrictions apply. Please check the specific trail details or contact us to confirm if pets are permitted on your chosen route.',
+      'Yes, we offer various support services including patient support groups, counseling, nutritional and wellness guidance, and access to social workers and patient navigators to assist you throughout your treatment journey.',
+  },
+  {
+    question: 'How can I get more information about your clinic?',
+    answer:
+      'For more detailed information, please visit our website, call our clinic, or contact our patient services team. We are here to answer any questions and provide the support you need.',
   },
 ];
 

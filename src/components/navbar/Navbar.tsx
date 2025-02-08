@@ -1,6 +1,8 @@
 import { Link } from 'react-router';
 import rccLogo from '../../assets/rcc-logo.svg';
 import PrimaryButton from '../ui/PrimaryButton';
+import PrimaryLink from '../ui/link/PrimaryLink';
+import SecondaryLink from '../ui/link/SecondaryLink';
 
 const NavLinks = [
   {
@@ -40,7 +42,11 @@ const Navbar = () => {
             </Link>
           ))}
         </ul>
-        <PrimaryButton text={'Schedule now'} className='px-4 py-3 text-base font-bold' />
+        {/* <PrimaryButton text={'Schedule now'} className='px-4 py-3 text-base font-bold' /> */}
+        <div className='flex gap-x-4'>
+          <PrimaryLink to={'/login'} text={'Login'} className='h-12 w-24' />
+          <SecondaryLink to={'/sign-up'} text={'Sign up'} className='h-12 w-24' />
+        </div>
       </div>
     </nav>
   );

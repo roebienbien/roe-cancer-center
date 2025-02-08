@@ -1,20 +1,12 @@
-import { useState } from 'react';
-import ChemoAppointmentForm from '../../components/forms/chemo-form/ChemoAppointmentForm';
-import Modal from '../../components/Modal';
-import PrimaryButton from '../../components/ui/PrimaryButton';
-import SecondaryButton from '../../components/ui/SecondaryButton';
-import { Link } from 'react-router-dom';
 import PrimaryLink from '../../components/ui/link/PrimaryLink';
-import SecondaryLink from '../../components/ui/link/SecondaryLink';
 
 const AppointmentScheduler = () => {
-  const [activeModal, setActiveModal] = useState<null | 'chemotherapy' | 'consultation'>(null);
+  // const [activeModal, setActiveModal] = useState<null | 'chemotherapy' | 'consultation'>(null);
   // const [selectedOption, setSelectedOption] = useState<string>('');
-
-  const closeModal = () => {
-    setActiveModal(null);
-    // setSelectedOption('');
-  };
+  // const closeModal = () => {
+  //   setActiveModal(null);
+  //   // setSelectedOption('');
+  // };
 
   return (
     <div className='flex w-full'>
