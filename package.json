@@ -1,0 +1,15 @@
+{
+  "name": "roe-cancer-center",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -n SERVER,CLIENT -c yellow,blue \"npm run dev:server \" \" npm run dev:client \" ",
+    "dev:client": "npm run dev --prefix client --silent",
+    "dev:server": "npm run dev --prefix server --silent",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
