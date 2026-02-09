@@ -1,14 +1,21 @@
 import express, { Request, Response } from "express";
+import config from "./config";
+import cors from "cors";
 
 const app = express();
 
-const PORT = 1337;
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 
 app.get("/", (_req: Request, res: Response) => {
   res.send("Hello from typescript");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at ${PORT}`);
+app.listen(config.port, () => {
+  console.log(`Server running at ${config.port}`);
 });
