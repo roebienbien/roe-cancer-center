@@ -9,6 +9,10 @@ services:
     volumes:
       - ./server:/app
       - /app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
 
   client:
     build:
@@ -24,7 +28,7 @@ services:
       - server
 
   db:
-    image: "mysql:8.0"
+    image: mysql:8.0
     container_name: rcc_mysql
     restart: unless-stopped
     environment:
@@ -34,6 +38,11 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   db_data:
