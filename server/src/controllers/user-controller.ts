@@ -3,7 +3,7 @@ import userService from "../services/user-service";
 import { asyncHandler } from "../utils/async-handler";
 import { sendError, sendSuccess } from "../utils/response-handler";
 
-const createUser = async (req: Request, res: Response) => {
+const createUserHandler = async (req: Request, res: Response) => {
   try {
     const user = await userService.createUser(req.body);
     return sendSuccess(res, user, 201, "User created successfully");
@@ -17,14 +17,26 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
-const getUsers = asyncHandler(async (_: Request, res: Response) => {
-  const users = await userService.getUsers();
+const getUserHandler = asyncHandler(async (req: Request, res: Response) => {
+  const users = await userService.getUserById(Number(req.params.id));
+  return sendSuccess(res, users);
+});
+
+const deleteUserHandler = asyncHandler(async (req: Request, res: Response) => {
+  const users = await userService.deleteUser(Number(req.params.id));
+  return sendSuccess(res, users);
+});
+
+const getAllUsersHandler = asyncHandler(async (_: Request, res: Response) => {
+  const users = await userService.getAllUsers();
   return sendSuccess(res, users);
 });
 
 const userController = {
-  createUser,
-  getUsers,
+  createUserHandler,
+  getAllUsersHandler,
+  getUserHandler,
+  deleteUserHandler,
 };
 
 export default userController;

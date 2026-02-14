@@ -14,14 +14,30 @@ async function createUser(data: CreateUserInput) {
   return user;
 }
 
-async function getUsers() {
+async function getAllUsers() {
   const users = await prisma.user.findMany();
   return users;
 }
 
+async function getUserById(id: number) {
+  const user = await prisma.user.findUnique({ where: { id } });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return user;
+}
+
+async function deleteUser(id: number) {
+  const deletedUser = await prisma.user.delete({ where: { id } });
+  return deletedUser;
+}
+
 const userService = {
   createUser,
-  getUsers,
+  getAllUsers,
+  getUserById,
+  deleteUser,
 };
 
 export default userService;
