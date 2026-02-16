@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import config from '../../config';
+import { baseQueryWithUnwrap } from './base-query';
 
 // type User = {
 //   id: string;
@@ -21,9 +22,7 @@ type TUser = {
 
 export const apiSlice = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({
-    baseUrl: config.baseUrl,
-  }),
+  baseQuery: baseQueryWithUnwrap,
   tagTypes: ['Users'], // for caching
   endpoints: (builder) => ({
     registerUser: builder.mutation({
@@ -44,12 +43,9 @@ export const apiSlice = createApi({
         url: '/users',
         method: 'GET',
       }),
-      transformResponse: (response: ApiResponse<TUser[]>) => {
-        return response.data; // unwrap once here
-      },
       providesTags: ['Users'],
     }),
   }),
 });
 
-export const { useRegisterUserMutation, useGetUsersQuery } = apiSlice;
+export const { useRegisterUserMutation, useGetUsersQuery, useGetUserByIdQuery } = apiSlice;

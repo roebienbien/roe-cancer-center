@@ -4,6 +4,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import AppointmentScheduler from './pages/appointment-page/AppointmentScheduler';
 import ChemotheraphyScheduler from './pages/chemotherapy-scheduler/ChemotheraphyScheduler';
 import HomePage from './pages/home/HomePage';
+import UserPage from './pages/UserPage';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: '/appointment-scheduler',
         element: <AppointmentScheduler />,
+      },
+      {
+        path: '/users/:id',
+        element: <UserPage />,
       },
     ],
   },
