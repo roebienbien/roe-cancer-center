@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import type { RegisterUserInput } from '../../schemas/user';
 import axios from 'axios';
 import { api } from '../../lib/axios';
+import { useRegisterUserMutation } from '../../store/api/api-slice';
 
 type Props = {
   onSuccess: () => void;
@@ -15,21 +16,35 @@ const RegisterUserForm = () => {
     formState: { errors },
   } = useForm<RegisterUserInput>();
 
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
+
   const onSubmit = async (data: RegisterUserInput) => {
     try {
-      const res = await api.post('/users', data);
-      console.log('Register successful', res.data);
-      // onSuccess();
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        setError('root', {
-          message: err.response?.data?.message || 'Login failed',
-        });
-      } else {
-        setError('root', { message: 'Something went wrong' });
-      }
+      const res = await registerUser(data).unwrap();
+      console.log('register successful', res);
+    } catch (error: any) {
+      setError('root', {
+        message: error?.data?.message || 'login failed',
+      });
     }
+
+    // try {
+    //   const res = await api.post('/users', data);
+    //   console.log('Register successful', res.data);
+    //   // onSuccess();
+    // } catch (err) {
+    //   if (axios.isAxiosError(err)) {
+    //     setError('root', {
+    //       message: err.response?.data?.message || 'Login failed',
+    //     });
+    //   } else {
+    //     setError('root', { message: 'Something went wrong' });
+    //   }
+    // }
   };
+
+  if (isLoading) return <p>Registering...</p>;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
       {/* Email */}

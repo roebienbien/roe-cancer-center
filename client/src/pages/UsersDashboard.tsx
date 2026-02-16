@@ -1,45 +1,17 @@
-import { useEffect, useState } from 'react';
-import userApi from '../services/user-services';
 import RegisterUserForm from '../components/forms/registerUserForm';
-
-type TUser = {
-  id: number;
-  email: string;
-  createdAt: string;
-};
+import { useGetUsersQuery } from '../store/api/api-slice';
 
 const UsersDashboard = () => {
-  const [users, setUsers] = useState<TUser[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data = [], isLoading, isError } = useGetUsersQuery();
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const data = await userApi.getUsers();
-        setUsers(data);
-      } catch (error) {
-        setError('Failed to load users');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUsers();
-  }, []);
-
-  const handleUpdate = async (id: number) => {
+  const handleUpdate = async (id: string) => {
     console.log('update');
   };
 
-  const handleDelete = async (id: number) => {
-    if (!confirm('Delete this users')) return;
+  const handleDelete = async (id: string) => {};
 
-    await userApi.deleteUser(id);
-    setUsers((prev) => prev.filter((u) => u.id !== id));
-  };
-
-  if (loading) return <p>Loading users...</p>;
-  if (error) return <p className='text-red-500'>{error}</p>;
+  if (isLoading) return <p>Loading users...</p>;
+  if (isError) return <p className='text-red-500'>Failed to load users</p>;
 
   return (
     <div className='grid h-screen grid-cols-2 items-center justify-center bg-red-200'>
@@ -53,7 +25,7 @@ const UsersDashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((u) => (
+          {data.map((u) => (
             <tr key={u.id}>
               <td className='border p-2'>{u.id}</td>
               <td className='border p-2'>{u.email}</td>
