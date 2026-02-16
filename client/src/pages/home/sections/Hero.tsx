@@ -1,6 +1,5 @@
 import Carousel from '../../../components/carousel/Carousel';
 import { TSlides } from '../../../components/carousel/CarouselSlide';
-import AppointmentScheduler from '../../appointment-page/AppointmentScheduler';
 import rccJustLogo from '../../../assets/rcc-just-logo.svg';
 
 const Slides: TSlides[] = [
@@ -31,7 +30,6 @@ const Hero = () => {
           <h1 className='text-4xl font-semibold'>Roe Cancer Clinic</h1>
         </div>
         <h2 className='text-xl'>Hi, What would you like to do today?</h2>
-        <AppointmentScheduler />
       </div>
       <Carousel Slides={Slides} className='mx-auto w-11/12' />
     </div>
