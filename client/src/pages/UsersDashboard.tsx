@@ -4,9 +4,7 @@ import { useGetUsersQuery } from '../store/api/api-slice';
 const UsersDashboard = () => {
   const { data = [], isLoading, isError } = useGetUsersQuery();
 
-  const handleUpdate = async (id: string) => {
-    console.log('update');
-  };
+  const handleUpdate = async (id: string) => {};
 
   const handleDelete = async (id: string) => {};
 
