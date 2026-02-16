@@ -1,7 +1,5 @@
 import { useForm } from 'react-hook-form';
 import type { RegisterUserInput } from '../../schemas/user';
-import axios from 'axios';
-import { api } from '../../lib/axios';
 import { useRegisterUserMutation } from '../../store/api/api-slice';
 
 type Props = {
