@@ -4,9 +4,12 @@ import { useGetUsersQuery } from '../store/api/api-slice';
 const UsersDashboard = () => {
   const { data = [], isLoading, isError } = useGetUsersQuery();
 
-  const handleUpdate = async (id: string) => {};
-
-  const handleDelete = async (id: string) => {};
+  const handleUpdate = async (id: string) => {
+    console.log(id)
+  };
+  const handleDelete = async (id: string) => {
+    console.log(id)
+  };
 
   if (isLoading) return <p>Loading users...</p>;
   if (isError) return <p className='text-red-500'>Failed to load users</p>;

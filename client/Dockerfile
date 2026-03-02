@@ -5,7 +5,7 @@ WORKDIR /app
 # copy only package files
 COPY package*.json ./
 
-# DON'T run npm install here
+#DON'T run npmrm -rf ~/.config/nvim/.git install here
 
 COPY . .
 

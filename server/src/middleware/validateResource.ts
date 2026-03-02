@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { z, ZodError } from "zod";
+import { sendError } from "../utils/response-handler";
 
 export const validateResource =
   (schema: z.ZodSchema) =>
@@ -11,16 +12,15 @@ export const validateResource =
         params: req.params,
       });
       next();
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof ZodError) {
         const formattedErrors = error.issues.map((issue) => ({
           path: issue.path.join("."),
           message: issue.message,
         }));
 
-        // return sendError(res, "Validation failed", formattedErrors, 400);
-        return res.send(error).status(400);
+        return sendError(res, "validation failed", 400, formattedErrors);
       }
-      return res.send(error).status(400);
+      return sendError(res, error.message, 400, error);
     }
   };
