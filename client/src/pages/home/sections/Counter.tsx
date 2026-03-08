@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../state/store';
 import { decrement, increment, incrementByAmount } from '../../../state/slices/counter-slice';
 
 const Counter = () => {

@@ -3,6 +3,7 @@ import Layout from './components/Layout';
 import NotFoundPage from './pages/NotFoundPage';
 import HomePage from './pages/home/HomePage';
 import UserPage from './pages/UserPage';
+import BookingPage from './features/booking/pages/BookingPage';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />,
+      },
+      {
+        path: '/booking',
+        element: <BookingPage />,
       },
       // {
       //   path: '/chemotheraphy-scheduler',
