@@ -1,6 +1,7 @@
+import { useGetUserByIdQuery } from '@/store/api/api-slice';
 import { useParams } from 'react-router-dom';
 
-import { useGetUserByIdQuery } from '../store/api/api-slice';
+// import { useGetUserByIdQuery } from '../store/api/api-slice';
 
 const UserPage = () => {
   const { id } = useParams();

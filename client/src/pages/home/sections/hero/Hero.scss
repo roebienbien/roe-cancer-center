@@ -1,0 +1,22 @@
+@use "../../../../styles/util/breakpoints" as u;
+
+.hero {
+  min-height: calc(100vh - var(--navbar-height));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  @include u.bp(md) {
+    color: blue;
+  }
+
+
+}

@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
-import type { RegisterUserInput } from '../../schemas/user';
+import type { RegisterUserInput } from '../../features/auth/schemas/user';
 import { useRegisterUserMutation } from '../../store/api/api-slice';
 
-type Props = {
-  onSuccess: () => void;
-};
+// type Props = {
+//   onSuccess: () => void;
+// };
 
 const RegisterUserForm = () => {
   const {

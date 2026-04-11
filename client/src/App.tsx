@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Layout from './components/Layout';
+import Layout from './components/layout/Layout';
 import NotFoundPage from './pages/NotFoundPage';
 import HomePage from './pages/home/HomePage';
-import UserPage from './pages/UserPage';
-import BookingPage from './features/booking/pages/BookingPage';
+import UserPage from '@/features/auth/pages/UserPage';
+import BookingPage from '@/features/booking/pages';
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/booking',
-        element: <BookingPage />,
+        element: <BookingPage />
       },
       // {
       //   path: '/chemotheraphy-scheduler',

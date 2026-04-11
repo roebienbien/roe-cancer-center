@@ -1,5 +1,8 @@
-import RegisterUserForm from '../components/forms/registerUserForm';
-import { useGetUsersQuery } from '../store/api/api-slice';
+// import RegisterUserForm from '../components/forms/registerUserForm';
+// import { useGetUsersQuery } from '../store/api/api-slice';
+
+import RegisterUserForm from "@/components/forms/registerUserForm";
+import { useGetUsersQuery } from "@/store/api/api-slice";
 
 const UsersDashboard = () => {
   const { data = [], isLoading, isError } = useGetUsersQuery();

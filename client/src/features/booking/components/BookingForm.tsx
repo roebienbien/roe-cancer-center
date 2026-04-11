@@ -1,6 +1,11 @@
 const BookingForm = () => {
   return (
-    <div>This is a BookingForm</div>
+    <div>
+      <h2>This is a BookingForm</h2>
+      <form>
+        <div></div>
+      </form>
+    </div>
   )
 }
 

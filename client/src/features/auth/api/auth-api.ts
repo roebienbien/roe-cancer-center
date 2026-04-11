@@ -1,8 +1,8 @@
-import { baseApi } from '@/app/baseApi';
 // import { baseApi } from '../../../app/baseApi';
+// import {baseApi} from '../../'
 
 export const authApi = baseApi.injectEndpoints({
-  endponts: (builder) => ({
+  endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
         url: 'auth/login',

@@ -1,0 +1,31 @@
+@use 'sass:math';
+
+@function rem($px, $base: 16) {
+  @if not math.is-unitless($px) {
+    @error 'dont put unit'
+  }
+
+  @return ($px / $base) * 1rem;
+
+}
+
+@function em($px, $parent: 16) {
+  @return ($px / $parent) * rem
+}
+
+// Useful for grid columns like Tailwind 1/3, 2/5
+@function fraction($numerator, $denominator) {
+  @return ($numerator / $denominator) * 100%;
+}
+
+// Usage: font-size: fluid(16, 4, 24);
+// min = 16px, preferred = 4vw, max = 24px
+@function fluid($min, $preferred, $max) {
+  @return clamp(rem($min), $preferred, rem($max));
+}
+
+// 5️⃣ Optional: Pixel to viewport width (vw)
+// Convert px to vw based on a design width (default 1440px)
+@function px-to-vw($px, $design: 1440) {
+  @return ($px / $design) * 100vw;
+}

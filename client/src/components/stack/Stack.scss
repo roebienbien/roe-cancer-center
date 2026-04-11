@@ -1,0 +1,26 @@
+$spaces: (
+  xs: var(--space-xs),
+  sm: var(--space-sm),
+  md: var(--space-md),
+  // lg: var(--space-lg),
+  lg: 10rem,
+  xl: var(--space-xl),
+);
+
+.stack {
+  display: flex;
+
+  &--row {
+    flex-direction: row;
+  }
+
+  &--col {
+    flex-direction: column;
+  }
+
+  @each $key, $value in $spaces {
+    &--#{$key} {
+      gap: $value;
+    }
+  }
+}

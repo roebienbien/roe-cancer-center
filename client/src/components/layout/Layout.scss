@@ -1,0 +1,15 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  background-color: var(--color-background);
+
+  // &__text {
+  //   background-color: blue;
+  //   height: 100vh;
+  // }
+}
