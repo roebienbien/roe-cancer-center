@@ -4,8 +4,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-
-
+  gap: var(--space-xl);
 
   &__title {
     font-weight: 600;
@@ -19,19 +18,8 @@
     gap: var(--space-lg);
     justify-items: center;
     width: 70%;
-    background-color: red;
+    // align-items: stretch; //key
   }
 
-  .card {
-    max-width: 350px;
-    width: 100%;
-    background-color: (var(--color-surface));
-
-    &__header {}
-
-    &__title {}
-
-    &__body {}
-  }
 
 }

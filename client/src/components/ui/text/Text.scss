@@ -1,0 +1,28 @@
+.text {
+  line-height: 1.4;
+
+  &--h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+  }
+
+  &--h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 600;
+  }
+
+  &--h3 {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 600;
+  }
+
+  &--body {
+    font-size: clamp(.9rem, 1vw, 1rem);
+  }
+
+  &--label {
+    font-size: clamp(.75rem, 0.8vw, .85rem);
+    text-transform: capitalize;
+    letter-spacing: 0.05em;
+  }
+}
