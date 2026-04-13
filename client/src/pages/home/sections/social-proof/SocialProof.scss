@@ -5,9 +5,7 @@
   place-content: center;
   min-height: 100vh;
   padding: 4rem 2rem;
-  /* add spacing */
   background: #f9f9f9;
-  /* light bg so cards are visible */
   text-align: center;
 
   &__content {
@@ -20,15 +18,15 @@
   //Each card needs at least 250px. Fit as many as possible per row. Stretch them nicely
   &__certificates {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    width: 80vw;
+    margin-inline: auto;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: var(--space-md);
   }
 
   &__cards {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-md);
-    flex-wrap: wrap;
-    justify-content: center;
-    /* allow wrapping on small screens */
   }
 }

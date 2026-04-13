@@ -34,6 +34,10 @@ const Certificates = [
   {
     title: 'Health Cerfiticate',
     img: 'img',
+  },
+  {
+    title: 'Health Cerfiticate',
+    img: 'img',
   }
 ]
 
@@ -41,7 +45,7 @@ const Certificates = [
 const SocialProof = () => {
   return (
     <section className="social-proof" >
-      <h2 className="heading heading--2">What our Patients Say</h2>
+      <h2 className="heading heading--2">Roe Cancer Center is a leading cancer care <br /> provider  serving  Taguig City.</h2>
       <div className="social-proof__content">
         <div className="social-proof__certificates">
           {Certificates.map((cert, index) => (
