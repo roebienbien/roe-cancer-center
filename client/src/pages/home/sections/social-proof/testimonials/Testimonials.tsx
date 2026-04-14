@@ -1,6 +1,7 @@
 import Text from '@/components/ui/text/Text'
 import './Testimonials.scss'
 import TestimonialCard, { TTestimonial } from './TestimonialCard';
+import Stack from '@/components/stack/Stack';
 
 
 
@@ -52,8 +53,9 @@ const TestimonialList: TTestimonial[] = [
 const Testimonials = () => {
   return (
     <div className='testimonials'>
-      <Text as='h2'>Testimonials</Text>
-      <div className='testimonials__wrapper'>
+      <Text className='testimonials__subtitle'>Testimonials</Text>
+      <Text as='h2' variant='h1' className='testimonials__title'>Our Trusted Clients</Text>
+      <div className='testimonials__grid'>
         {TestimonialList.map((testimonial, index) => (
           <TestimonialCard key={index} {...testimonial} />
         ))}
@@ -61,4 +63,5 @@ const Testimonials = () => {
     </div>
   )
 }
+
 export default Testimonials

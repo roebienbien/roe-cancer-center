@@ -1,10 +1,42 @@
+// @use "../../../../../styles/util/" as u;
+@use "@styles/util" as u;
+
+
 .testimonials {
   min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-  &__wrapper {
+
+  &__title {
+    font-weight: normal;
+  }
+
+  &__subtitle {
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    padding: .4rem;
+  }
+
+  &__grid {
     padding: 2rem;
     display: grid;
-    grid-template-columns: repeat(3, minmax(250px, 3fr));
+    grid-template-columns: repeat(1, minmax(250px, 3fr));
     gap: var(--space-xl);
+
+    // @include u.bp(sm) {
+    //   grid-template-columns: repeat(1, 1fr);
+    //   background-color: blue;
+    // }
+
+    @include u.bp(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include u.bp(lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 }
