@@ -1,0 +1,10 @@
+.testimonials {
+  min-height: 100dvh;
+
+  &__wrapper {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(250px, 3fr));
+    gap: var(--space-xl);
+  }
+}

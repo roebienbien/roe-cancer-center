@@ -8,39 +8,37 @@ const Plans: TPlan[] = [
     title: "Basic Plan",
     price: 22,
     features: [
-      "Access to core features",
-      "Up to 5 active projects",
-      "Email support",
-      "Basic analytics dashboard",
-      "Community access"
+      { name: "Projects", included: true },
+      { name: "Analytics", included: true },
+      { name: "Priority Support", included: false },
+      { name: "Team Collaboration", included: false },
+      { name: "Custom Reports", included: false },
     ]
   },
   {
     title: "Business Plan",
     price: 67,
     features: [
-      "Everything in Basic Plan",
-      "Unlimited projects",
-      "Priority email & chat support",
-      "Advanced analytics & reports",
-      "Team collaboration tools",
-      "Custom integrations"
+      { name: "Projects", included: true },
+      { name: "Analytics", included: true },
+      { name: "Priority Support", included: true },
+      { name: "Team Collaboration", included: true },
+      { name: "Custom Reports", included: false },
     ]
   },
   {
     title: "Enterprise Plan",
     price: 100,
     features: [
-      "Everything in Business Plan",
-      "Dedicated account manager",
-      "24/7 priority support",
-      "Custom onboarding & training",
-      "Enterprise-grade security",
-      "API access & automation",
-      "Custom feature requests"
+      { name: "Projects", included: true },
+      { name: "Analytics", included: true },
+      { name: "Priority Support", included: true },
+      { name: "Team Collaboration", included: true },
+      { name: "Custom Reports", included: true },
     ]
   },
-]
+];
+
 
 
 const PricingPlan = () => {

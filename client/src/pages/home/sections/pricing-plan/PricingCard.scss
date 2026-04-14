@@ -1,5 +1,6 @@
 .card {
-  max-width: 350px;
+  max-width: 400px;
+  // min-width: 400px;
   width: 100%;
   height: 100%;
   background-color: var(--color-surface);
@@ -10,12 +11,11 @@
   &__header {}
 
   &__title {
-    font-size: 1.25rem;
+    font-size: clamp(50rem, 5vw, 50rem);
   }
 
   &__price {
-    font-size: 2rem;
-    font-size: 600;
+    font-weight: normal;
   }
 
   &__btn {}
@@ -23,7 +23,7 @@
   &__separator {
     width: 100%;
     height: 1px;
-    background-color: var(--color-primary);
+    background-color: hsl(0, 0, 85%);
   }
 
   &__body {
@@ -35,9 +35,21 @@
   &__list {
     display: flex;
     flex-direction: column;
-    gap: .25rem;
+    gap: var(--space-md);
   }
 
-  &__item {}
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  &__icon--check {
+    color: #22c55e;
+  }
+
+  &__icon--x {
+    color: #9ca3af;
+  }
 
 }

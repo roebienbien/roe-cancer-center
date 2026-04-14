@@ -1,18 +1,18 @@
 .btn {
-  border: none;
+  width: 100%;
   padding: .5rem 1rem;
-  border-radius: .5rem;
   font-weight: 500;
+  background: var(--color-primary);
+  border: none;
+  border-radius: .5rem;
   transition: .2s ease;
   cursor: pointer;
-  background: var(--color-accent);
-  width: 100%;
 
   &--primary {
     color: #f5f5f5;
 
     &:hover {
-      background-color: red;
+      background-color: var(--color-primary-hover);
     }
   }
 
@@ -21,7 +21,7 @@
     border: 1px solid green;
 
     &:hover {
-      background-color: red;
+      background-color: var(--color-secondary);
     }
   }
 
