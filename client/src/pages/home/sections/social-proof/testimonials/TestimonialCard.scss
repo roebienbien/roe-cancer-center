@@ -1,7 +1,33 @@
 .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   &__separator {
     height: 1px;
-    background-color: hsl(0, 0, 85%);
+    background-color: hsl(0deg 0% 85%);
+  }
+
+  &__body {
+    flex: 1
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__image {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+  }
+
+
+  &__role {
+    font-size: var(--fs-xs);
+    color: var(--color-text-muted);
   }
 
 }

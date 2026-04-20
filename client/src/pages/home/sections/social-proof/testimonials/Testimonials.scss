@@ -3,11 +3,11 @@
 
 
 .testimonials {
-  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
 
 
   &__title {
@@ -15,21 +15,18 @@
   }
 
   &__subtitle {
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
     padding: .4rem;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
   }
 
   &__grid {
-    padding: 2rem;
     display: grid;
-    grid-template-columns: repeat(1, minmax(250px, 3fr));
+    align-items: stretch;
     gap: var(--space-xl);
-
-    // @include u.bp(sm) {
-    //   grid-template-columns: repeat(1, 1fr);
-    //   background-color: blue;
-    // }
+    // grid-template-columns: repeat(1, minmax(250px, 3fr));
+    grid-template-columns: 1fr;
+    padding: 2rem;
 
     @include u.bp(md) {
       grid-template-columns: repeat(2, 1fr);

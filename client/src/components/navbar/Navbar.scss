@@ -1,34 +1,32 @@
 .header {
-  height: var(--navbar-height);
-  width: 100%;
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  backdrop-filter: blur(8px);
   position: sticky;
   top: 0;
   z-index: 999;
+  width: 100%;
+  height: var(--navbar-height);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(8px);
 
 
   &__nav {
-    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // border: 1px solid blue;
     max-width: 80%;
+    height: 100%;
     margin-inline: auto;
     padding: .2rem 0;
   }
 
   &__logo {
-    height: 100%;
     width: auto;
-    // background: var(--color-border);
+    height: 100%;
   }
 
   &__logo-img {
-    height: 100%;
     width: auto;
+    height: 100%;
     object-fit: contain;
   }
 

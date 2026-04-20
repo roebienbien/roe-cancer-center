@@ -1,0 +1,49 @@
+@use '@/styles/util' as u;
+
+.footer {
+  min-height: 60vh;
+  padding: 4rem;
+  color: hsl(0deg 0% 95%);
+  background-color: hsl(0deg 0% 10%);
+
+  &__grid {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr;
+
+    @include u.bp(md) {
+      grid-template-columns: 3fr 1fr 1fr;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    max-width: 540px;
+  }
+
+  &__action {
+    width: fit-content;
+  }
+
+  &__socials {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  &__social {
+    color: var(--icon-color);
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    color: var(--icon-color);
+    background-color: blue;
+  }
+
+
+
+}

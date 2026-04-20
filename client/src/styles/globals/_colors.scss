@@ -1,47 +1,42 @@
 :root {
-  /* ===== COLORS ===== */
-
-  /* Primary (HSL parts for flexibility) */
-  --color-primary-h: 343;
+  /* ===== PRIMARY (HSL PARTS) ===== */
+  --color-primary-h: 343deg;
   --color-primary-s: 91%;
   --color-primary-l: 60%;
-
   --color-primary: hsl(var(--color-primary-h) var(--color-primary-s) var(--color-primary-l));
   --color-primary-hover: hsl(var(--color-primary-h) var(--color-primary-s) calc(var(--color-primary-l) - 10%));
   --color-primary-active: hsl(var(--color-primary-h) var(--color-primary-s) calc(var(--color-primary-l) - 15%));
   --color-primary-soft: hsl(var(--color-primary-h) var(--color-primary-s) calc(var(--color-primary-l) + 30%));
-  /* Secondary */
-  --color-secondary: hsl(215 20% 65%);
 
-  /* Accent */
-  --color-accent: hsl(24 95% 53%);
+  /* ===== SECONDARY ===== */
+  --color-secondary: hsl(215deg 20% 65%);
 
-  /* Backgrounds */
-  --color-background: hsl(0 0% 96%);
-  --color-surface: hsl(0 0% 100%);
-  --color-border: hsl(220 13% 91%);
+  /* ===== ACCENT ===== */
+  --color-accent: hsl(24deg 95% 53%);
 
-  /* Text */
-  --color-text: hsl(220 15% 10%);
-  --color-text-muted: hsl(220 10% 50%);
+  /* ===== BACKGROUNDS ===== */
+  --color-background: hsl(0deg 0% 96%);
+  --color-surface: hsl(0deg 0% 100%);
+  --color-border: hsl(220deg 13% 91%);
+
+  /* ===== TEXT ===== */
+  --color-text: hsl(220deg 15% 10%);
+  --color-text-muted: hsl(220deg 10% 50%);
 }
 
 /* ===== DARK MODE ===== */
 [data-theme="dark"] {
-  --color-primary-h: 343;
+  --color-primary-h: 343deg;
   --color-primary-s: 91%;
   --color-primary-l: 65%;
-
   --color-primary: hsl(var(--color-primary-h) var(--color-primary-s) var(--color-primary-l));
   --color-primary-hover: hsl(var(--color-primary-h) var(--color-primary-s) calc(var(--color-primary-l) - 10%));
-
-  --color-secondary: hsl(215 20% 70%);
-  --color-accent: hsl(24 95% 60%);
-
-  --color-background: hsl(220 15% 10%);
-  --color-surface: hsl(220 15% 15%);
-  --color-border: hsl(220 10% 25%);
-
-  --color-text: hsl(0 0% 95%);
-  --color-text-muted: hsl(220 10% 65%);
+  --color-primary-active: hsl(var(--color-primary-h) var(--color-primary-s) calc(var(--color-primary-l) - 15%));
+  --color-secondary: hsl(215deg 20% 70%);
+  --color-accent: hsl(24deg 95% 60%);
+  --color-background: hsl(220deg 15% 10%);
+  --color-surface: hsl(220deg 15% 15%);
+  --color-border: hsl(220deg 10% 25%);
+  --color-text: hsl(0deg 0% 95%);
+  --color-text-muted: hsl(220deg 10% 65%);
 }

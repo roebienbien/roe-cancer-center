@@ -26,7 +26,7 @@ export const Button = ({ onClick, children, href, to, variant = 'primary', class
 
   if (href) {
     return (
-      <a href={href} target="_blank">{children}</a>
+      <a href={href} target="_blank" className={baseClass}>{children}</a>
     )
   }
 
