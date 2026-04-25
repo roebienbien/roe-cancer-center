@@ -1,14 +1,11 @@
 .card {
   max-width: 400px;
-  // min-width: 400px;
-  width: 100%;
   height: 100%;
-  background-color: var(--color-surface);
   padding: 2rem;
+  background-color: var(--color-surface);
 
 
 
-  &__header {}
 
   &__title {
     font-size: clamp(50rem, 5vw, 50rem);
@@ -18,12 +15,11 @@
     font-weight: normal;
   }
 
-  &__btn {}
 
   &__separator {
     width: 100%;
     height: 1px;
-    background-color: hsl(0, 0, 85%);
+    background-color: hsl(0deg 0% 85%);
   }
 
   &__body {

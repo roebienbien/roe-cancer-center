@@ -1,10 +1,16 @@
+// middleware/authenticate.ts
 import { Request, Response, NextFunction } from "express";
 import config from "../config";
 import jwt from "jsonwebtoken";
+import { Role } from "@prisma/client";
+import { JwtPayload } from "../types/auth";
 
 export interface AuthRequest extends Request {
-  user?: { userId: string; role: string };
+  // user?: { userId: string; role: Role };
+  user?: JwtPayload
 }
+
+const validRoles: Role[] = ["ADMIN", "DOCTOR", "NURSE", "PATIENT"];
 
 export const authenticate = (
   req: AuthRequest,
@@ -12,18 +18,36 @@ export const authenticate = (
   next: NextFunction,
 ) => {
   const header = req.headers.authorization;
-  if (!header) return res.status(401).json({ message: "Unauthorized user" });
+
+  if (!header || !header.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Unauthorized: missing token" });
+  }
 
   const token = header.split(" ")[1];
+
   try {
-    const payload = jwt.verify(token, config.key.public, {
+    const decoded = jwt.verify(token, config.key.public, {
       algorithms: ["RS256"],
-    }) as { userId: string; role: string };
-    req.user = payload; // ✅ runtime assignment
-    console.log(payload);
-    console.log("authenticated user: ", req.user);
+    }) as JwtPayload;
+    // }) as { userId?: unknown; role?: unknown };
+
+    // ✅ Validate payload shape
+    if (
+      typeof decoded.userId !== "string" ||
+      !validRoles.includes(decoded.role as Role)
+    ) {
+      return res.status(401).json({ message: "Invalid token payload" });
+    }
+
+    // ✅ Safe assignment
+    req.user = {
+      userId: decoded.userId,
+      role: decoded.role as Role,
+    };
+
     next();
-  } catch {
-    return res.status(401).json({ message: "Invalid token" });
+  } catch (err) {
+    console.log("JWT ERROR:", err);
+    return res.status(401).json({ message: "Invalid or expired token" });
   }
 };

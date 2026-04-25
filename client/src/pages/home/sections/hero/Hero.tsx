@@ -30,9 +30,8 @@ import UnsplashImage from '@/components/img/UnsplashImage';
 //
 
 
-const woman = 'https://images.unsplash.com/photo-1631815590058-860e4f83c1e8?q=80&w=842&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+const doctorPatient = 'https://images.unsplash.com/photo-1631815590058-860e4f83c1e8?q=80&w=842&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 
-const couple = 'https://images.unsplash.com/photo-1631217873436-b0fa88e71f0a?q=80&w=1650&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 
 const Hero = () => {
   return (
@@ -51,7 +50,7 @@ const Hero = () => {
             </h2>
             <Button to='/book' className='hero__action'> Book an appointment </Button>
           </Stack>
-          <UnsplashImage src={woman} alt={'woman-in-blue'} className='hero__image' />
+          <UnsplashImage src={doctorPatient} alt={'doctor-and-patient'} className='hero__image' />
         </div>
       </div>
 

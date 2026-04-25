@@ -1,12 +1,16 @@
-// src/types/express.d.ts
+import { Role } from "@prisma/client";
 
-import "express";
-
-declare module "express-serve-static-core" {
-  interface Request {
-    user?: {
+declare global {
+  namespace Express {
+    interface UserPayload {
       userId: string;
-      role: string;
-    };
+      role: Role;
+    }
+
+    interface Request {
+      user?: UserPayload;
+    }
   }
 }
+
+export { };

@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
 }
 
 datasource db {
@@ -10,6 +11,7 @@ datasource db {
 enum Role {
   ADMIN
   DOCTOR
+  NURSE
   PATIENT
 }
 
@@ -38,3 +40,43 @@ model Booking {
   // userId  @abc
   schedule   Schedule @relation(fields: [scheduleId], references: [id])
 }
+
+//
+// model User {
+//   id    String @id @default(cuid())
+//   email String @unique
+//   roles UserRole[]
+// }
+//
+// model Role {
+//   id          String @id @default(cuid())
+//   name        String @unique
+//   permissions RolePermission[]
+//   users       UserRole[]
+// }
+//
+// model Permission {
+//   id    String @id @default(cuid())
+//   name  String @unique
+//   roles RolePermission[]
+// }
+//
+// model UserRole {
+//   userId String
+//   roleId String
+//
+//   user User @relation(fields: [userId], references: [id])
+//   role Role @relation(fields: [roleId], references: [id])
+//
+//   @@id([userId, roleId])
+// }
+//
+// model RolePermission {
+//   roleId       String
+//   permissionId String
+//
+//   role       Role       @relation(fields: [roleId], references: [id])
+//   permission Permission @relation(fields: [permissionId], references: [id])
+//
+//   @@id([roleId, permissionId])
+// }
