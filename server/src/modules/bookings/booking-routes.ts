@@ -1,8 +1,8 @@
 import { Router, Response, } from 'express'
-import { authenticate, AuthRequest } from '../middleware/authenticate';
-import { authorize } from '../middleware/authorize';
-import { prisma } from '../lib/prisma';
-import { createBookingSchema } from '../schema/booking-schema';
+import { authenticate, AuthRequest } from '../../middleware/authenticate';
+import { authorize } from '../../middleware/authorize';
+import { prisma } from '../../lib/prisma';
+import { createBookingSchema } from './booking-schema';
 
 
 const router = Router();

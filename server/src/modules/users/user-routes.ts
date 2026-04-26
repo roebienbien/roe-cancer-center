@@ -1,10 +1,10 @@
 import { Router, Request, Response } from "express";
-import userController from "../controllers/user-controller";
-import { validateResource } from "../middleware/validateResource";
-import { createUserSchema } from "../schema/user-schema";
-import { authenticate, AuthRequest } from "../middleware/authenticate";
-import { authorize } from "../middleware/authorize";
-import { prisma } from "../lib/prisma";
+import { prisma } from "../../lib/prisma";
+import { authenticate, AuthRequest } from "../../middleware/authenticate";
+import { authorize } from "../../middleware/authorize";
+import { validateResource } from "../../middleware/validateResource";
+import { createUserSchema } from "./user-schema";
+import userController from "./user-controller";
 
 const router = Router();
 

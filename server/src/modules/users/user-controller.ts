@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import userService from "../services/user-service";
-import { asyncHandler } from "../utils/async-handler";
-import { sendError, sendSuccess } from "../utils/response-handler";
+import userService from "./user-service";
+import { asyncHandler } from "../../utils/async-handler";
+import { sendError, sendSuccess } from "../../utils/response-handler";
 
 type Params = {
   id: string;

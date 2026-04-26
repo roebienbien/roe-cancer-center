@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import { CreateUserInput } from "../schema/user-schema";
-import { prisma } from "../lib/prisma";
+import { CreateUserInput } from "./user-schema";
+import { prisma } from "../../lib/prisma";
 
 async function createUser(data: CreateUserInput) {
   const hashedPassword = await bcrypt.hash(data.password, 10);

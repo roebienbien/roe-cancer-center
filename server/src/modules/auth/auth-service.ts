@@ -1,8 +1,8 @@
-import config from "../config";
-import { prisma } from "../lib/prisma";
+import config from "../../config";
+import { prisma } from "../../lib/prisma";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { AuthJwtPayload } from "../types/auth";
+import { AuthJwtPayload } from "../../types/auth";
 
 
 export const login = async (email: string, password: string) => {
