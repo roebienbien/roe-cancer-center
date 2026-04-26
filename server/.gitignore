@@ -2,4 +2,8 @@ node_modules
 dist
 .env
 
+#keys
+*.pem
+keys/
+
 /src/generated/prisma
