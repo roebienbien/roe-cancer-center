@@ -8,7 +8,7 @@ async function createUser(data: CreateUserInput) {
     data: {
       email: data.email,
       password: hashedPassword,
-      role: "PATIENT",
+      // role: "PATIENT",
     },
   });
 
@@ -16,12 +16,17 @@ async function createUser(data: CreateUserInput) {
 }
 
 async function getAllUsers() {
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany()
+  // const users = await prisma.user.findMany({
+  //   include: {
+  //     bookings: true,
+  //   }
+  // });
   return users;
 }
 
-async function getUserById(id: number) {
-  const user = await prisma.user.findUnique({ where: { id } });
+async function getUserById(id: string) {
+  const user = await prisma.user.findUnique({ where: { id }, include: { bookings: true } });
 
   if (!user) {
     throw new Error("User not found");
@@ -29,7 +34,7 @@ async function getUserById(id: number) {
   return user;
 }
 
-async function deleteUser(id: number) {
+async function deleteUser(id: string) {
   const deletedUser = await prisma.user.delete({ where: { id } });
   return deletedUser;
 }

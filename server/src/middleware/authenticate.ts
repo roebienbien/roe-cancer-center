@@ -3,15 +3,17 @@ import { Request, Response, NextFunction } from "express";
 import config from "../config";
 import jwt from "jsonwebtoken";
 import { Role } from "@prisma/client";
-import { JwtPayload } from "../types/auth";
+import { AuthJwtPayload } from "../types/auth";
 
 export interface AuthRequest extends Request {
   // user?: { userId: string; role: Role };
-  user?: JwtPayload
+  user?: {
+    userId: string;
+    role: Role;
+  }
 }
 
 const validRoles: Role[] = ["ADMIN", "DOCTOR", "NURSE", "PATIENT"];
-
 export const authenticate = (
   req: AuthRequest,
   res: Response,
@@ -28,8 +30,7 @@ export const authenticate = (
   try {
     const decoded = jwt.verify(token, config.key.public, {
       algorithms: ["RS256"],
-    }) as JwtPayload;
-    // }) as { userId?: unknown; role?: unknown };
+    }) as AuthJwtPayload;
 
     // ✅ Validate payload shape
     if (

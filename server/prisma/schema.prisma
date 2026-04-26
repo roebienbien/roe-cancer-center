@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  // url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -16,67 +16,20 @@ enum Role {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   email     String   @unique
   password  String
   role      Role     @default(PATIENT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model Schedule {
-  id        String   @id @default(cuid())
-  date      DateTime
-  startTime DateTime
-  endTime   DateTime
-  capacity  Int      @default(1)
 
   bookings Booking[]
 }
 
 model Booking {
-  id         String   @id @default(cuid())
-  scheduleId String
-  // userId  @abc
-  schedule   Schedule @relation(fields: [scheduleId], references: [id])
+  id     String   @id @default(uuid())
+  userId String
+  date   DateTime
+  status String   @default("PENDING")
+  user   User     @relation(fields: [userId], references: [id])
 }
-
-//
-// model User {
-//   id    String @id @default(cuid())
-//   email String @unique
-//   roles UserRole[]
-// }
-//
-// model Role {
-//   id          String @id @default(cuid())
-//   name        String @unique
-//   permissions RolePermission[]
-//   users       UserRole[]
-// }
-//
-// model Permission {
-//   id    String @id @default(cuid())
-//   name  String @unique
-//   roles RolePermission[]
-// }
-//
-// model UserRole {
-//   userId String
-//   roleId String
-//
-//   user User @relation(fields: [userId], references: [id])
-//   role Role @relation(fields: [roleId], references: [id])
-//
-//   @@id([userId, roleId])
-// }
-//
-// model RolePermission {
-//   roleId       String
-//   permissionId String
-//
-//   role       Role       @relation(fields: [roleId], references: [id])
-//   permission Permission @relation(fields: [permissionId], references: [id])
-//
-//   @@id([roleId, permissionId])
-// }

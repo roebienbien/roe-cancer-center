@@ -1,12 +1,11 @@
 // src/middleware/authorize.ts
 // My PEP
-import { Request, NextFunction, Response } from 'express'
+import { NextFunction, Response } from 'express'
 import { hasRole, Role } from "./authorization";
+import { AuthRequest } from './authenticate';
 
 export const authorize = (...allowedRoles: Role[]) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    console.log("USER IN REQUEST:", req.user);
-    console.log("AUTH HEADER:", req.headers.authorization);
+  return (req: AuthRequest, res: Response, next: NextFunction) => {
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" })
     }

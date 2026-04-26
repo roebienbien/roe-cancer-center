@@ -3,6 +3,10 @@ import userService from "../services/user-service";
 import { asyncHandler } from "../utils/async-handler";
 import { sendError, sendSuccess } from "../utils/response-handler";
 
+type Params = {
+  id: string;
+}
+
 const createUserHandler = async (req: Request, res: Response) => {
   try {
     const user = await userService.createUser(req.body);
@@ -17,13 +21,13 @@ const createUserHandler = async (req: Request, res: Response) => {
   }
 };
 
-const getUserHandler = asyncHandler(async (req: Request, res: Response) => {
-  const users = await userService.getUserById(Number(req.params.id));
+const getUserHandler = asyncHandler(async (req: Request<Params>, res: Response) => {
+  const users = await userService.getUserById(req.params.id);
   return sendSuccess(res, users);
 });
 
-const deleteUserHandler = asyncHandler(async (req: Request, res: Response) => {
-  const users = await userService.deleteUser(Number(req.params.id));
+const deleteUserHandler = asyncHandler(async (req: Request<Params>, res: Response) => {
+  const users = await userService.deleteUser(req.params.id);
   return sendSuccess(res, users);
 });
 

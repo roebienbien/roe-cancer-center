@@ -1,8 +1,7 @@
-import { Role } from "@prisma/client";
-
+// express.d.ts
 declare global {
   namespace Express {
-    interface UserPayload {
+    interface User {
       userId: string;
       role: Role;
     }
@@ -12,5 +11,3 @@ declare global {
     }
   }
 }
-
-export { };

@@ -2,9 +2,7 @@ import express from "express";
 import config from "./config";
 import cors from "cors";
 import router from "./routes/index";
-import { errorHandler } from "./utils/error-handler";
-import { authenticate } from "./middleware/authenticate";
-import { authorize } from "./middleware/authorize";
+// import { errorHandler } from "./utils/error-handler";
 
 const app = express();
 
@@ -14,17 +12,6 @@ app.use(
     origin: "http://localhost:5173",
     credentials: true,
   }),
-);
-
-app.get(
-  "/api/test-admin",
-  authenticate,
-  authorize("PATIENT"),
-  (req, res) => {
-    const role = req.user?.role;
-
-    res.json({ message: ` You are ${role}` });
-  }
 );
 
 
