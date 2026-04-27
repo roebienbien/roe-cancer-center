@@ -2,8 +2,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import NotFoundPage from './pages/NotFoundPage';
 import HomePage from './pages/home/HomePage';
-import UserPage from '@/features/auth/pages/UserPage';
 import BookingPage from '@/features/booking/pages';
+import TestRoute from './features/auth/TestRoute';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +19,10 @@ const router = createBrowserRouter([
         path: '/booking',
         element: <BookingPage />
       },
+      {
+        path: '/test',
+        element: <TestRoute />
+      },
       // {
       //   path: '/chemotheraphy-scheduler',
       //   element: <ChemotheraphyScheduler />,
@@ -27,10 +31,10 @@ const router = createBrowserRouter([
       //   path: '/appointment-scheduler',
       //   element: <AppointmentScheduler />,
       // },
-      {
-        path: '/users/:id',
-        element: <UserPage />,
-      },
+      // {
+      //   path: '/users/:id',
+      //   element: <UserPage />,
+      // },
     ],
   },
 ]);

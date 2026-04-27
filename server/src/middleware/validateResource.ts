@@ -4,23 +4,24 @@ import { sendError } from "../utils/response-handler";
 
 export const validateResource =
   (schema: z.ZodSchema) =>
-  (req: Request, res: Response, next: NextFunction) => {
-    try {
-      schema.parse({
-        body: req.body,
-        query: req.query,
-        params: req.params,
-      });
-      next();
-    } catch (error: any) {
-      if (error instanceof ZodError) {
-        const formattedErrors = error.issues.map((issue) => ({
-          path: issue.path.join("."),
-          message: issue.message,
-        }));
+    (req: Request, res: Response, next: NextFunction) => {
+      try {
+        schema.parse({
+          body: req.body,
+          query: req.query,
+          params: req.params,
+        });
+        next();
+      } catch (error: any) {
+        if (error instanceof ZodError) {
+          const formattedErrors = error.issues.map((issue) => ({
+            path: issue.path.join("."),
+            message: issue.message,
+          }));
 
-        return sendError(res, "validation failed", 400, formattedErrors);
+          return sendError(res, { errors: formattedErrors, message: "Varidation Errors", statusCode: 400 });
+        }
+        return sendError(res, { errors: error, message: error.message, statusCode: 400 });
+        // return sendError(res, error.message, 400, error);
       }
-      return sendError(res, error.message, 400, error);
-    }
-  };
+    };

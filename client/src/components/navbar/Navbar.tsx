@@ -13,8 +13,8 @@ const NavLinks = [
     to: '/booking',
   },
   {
-    title: 'FAQ',
-    to: '/faq',
+    title: 'Test',
+    to: '/test',
   },
   {
     title: 'About',
