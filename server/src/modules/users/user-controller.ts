@@ -39,7 +39,6 @@ const deleteUserHandler = asyncHandler(async (req: Request<Params>, res: Respons
 const getAllUsersHandler = asyncHandler(async (_: Request, res: Response) => {
   const users = await userService.getAllUsers();
   return sendSuccess(res, { data: users })
-  // return sendSuccess(res, users);
 });
 
 const userController = {

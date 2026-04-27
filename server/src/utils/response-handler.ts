@@ -17,6 +17,6 @@ export function sendSuccess<T>(res: Response, { data, statusCode = 200, message 
 
 type ErrorOptions = { errors?: unknown, message?: string; statusCode?: number; }
 
-export function sendError(res: Response, { errors, message = "Something went wrong", statusCode = 500 }: ErrorOptions) {
-  return res.status(statusCode).json({ success: false, message, errors, });
+export function sendError(res: Response, { errors = null, message = "Something went wrong", statusCode = 500 }: ErrorOptions) {
+  return res.status(statusCode).json({ errors, success: false, message, });
 }

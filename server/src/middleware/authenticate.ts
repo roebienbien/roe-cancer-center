@@ -4,6 +4,7 @@ import config from "../config";
 import jwt from "jsonwebtoken";
 import { Role } from "@prisma/client";
 import { AuthJwtPayload } from "../types/auth";
+import { sendError } from "../utils/response-handler";
 
 export interface AuthRequest extends Request {
   // user?: { userId: string; role: Role };
@@ -22,7 +23,8 @@ export const authenticate = (
   const header = req.headers.authorization;
 
   if (!header || !header.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "Unauthorized: missing token" });
+    return sendError(res, { message: "Unauthorized: missing token", statusCode: 401 })
+    // return res.status(401).json({ message: "Unauthorized: missing token" });
   }
 
   const token = header.split(" ")[1];
@@ -37,7 +39,8 @@ export const authenticate = (
       typeof decoded.userId !== "string" ||
       !validRoles.includes(decoded.role as Role)
     ) {
-      return res.status(401).json({ message: "Invalid token payload" });
+      return sendError(res, { message: "Invalid token payload", statusCode: 403 })
+      // return res.status(401).json({ message: "Invalid token payload" });
     }
 
     // ✅ Safe assignment
@@ -49,6 +52,7 @@ export const authenticate = (
     next();
   } catch (err) {
     console.log("JWT ERROR:", err);
-    return res.status(401).json({ message: "Invalid or expired token" });
+    return sendError(res, { message: "Invalid or expired token", statusCode: 401 })
+    // return res.status(401).json({ message: "Invalid or expired token" });
   }
 };

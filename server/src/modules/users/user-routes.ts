@@ -8,12 +8,10 @@ import userController from "./user-controller";
 
 const router = Router();
 
-router.post(
-  "/",
-  validateResource(createUserSchema),
-  userController.createUserHandler,
-);
-router.get("/", userController.getAllUsersHandler);
+router.post("/", validateResource(createUserSchema), userController.createUserHandler,);
+router.get("/", authenticate, authorize("ADMIN"), userController.getAllUsersHandler);
+// router.get("/", userController.getAllUsersHandler);
+
 router.get("/test-admin", authenticate,
   authorize("PATIENT", "ADMIN"),
   (req: AuthRequest, res: Response) => {
@@ -42,7 +40,7 @@ router.get(
 
 
 
-router.get("/:id", userController.getUserHandler);
-router.delete("/:id", userController.deleteUserHandler);
+// router.get("/:id", userController.getUserHandler);
+// router.delete("/:id", userController.deleteUserHandler);
 
 export default router;
