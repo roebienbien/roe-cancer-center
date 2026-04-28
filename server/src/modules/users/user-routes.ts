@@ -4,12 +4,12 @@ import { authenticate, AuthRequest } from "../../middleware/authenticate";
 import { authorize } from "../../middleware/authorize";
 import { validateResource } from "../../middleware/validateResource";
 import { createUserSchema } from "./user-schema";
-import userController from "./user-controller";
+import * as userController from "./user-controller";
 
 const router = Router();
 
-router.post("/", validateResource(createUserSchema), userController.createUserHandler,);
-router.get("/", authenticate, authorize("ADMIN"), userController.getAllUsersHandler);
+router.post("/", validateResource(createUserSchema), userController.createUser);
+router.get("/", authenticate, authorize("ADMIN"), userController.getAllUsers);
 // router.get("/", userController.getAllUsersHandler);
 
 router.get("/test-admin", authenticate,

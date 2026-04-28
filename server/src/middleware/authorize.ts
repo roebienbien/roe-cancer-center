@@ -13,7 +13,7 @@ export const authorize = (...allowedRoles: Role[]) => {
     }
 
     if (!hasRole(req.user.role, allowedRoles)) {
-      return sendError(res, { message: "Forbidden", statusCode: 403 })
+      return sendError(res, { message: "Authorization: Forbidden", statusCode: 403 })
     }
 
     next();

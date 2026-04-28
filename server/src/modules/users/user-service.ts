@@ -1,18 +1,26 @@
 import bcrypt from "bcrypt";
 import { CreateUserInput } from "./user-schema";
 import { prisma } from "../../lib/prisma";
+import { createError } from "../../utils/app-error";
 
 async function createUser(data: CreateUserInput) {
-  const hashedPassword = await bcrypt.hash(data.password, 10);
-  const user = await prisma.user.create({
-    data: {
-      email: data.email,
-      password: hashedPassword,
-      // role: "ADMIN",
-    },
-  });
+  try {
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const user = await prisma.user.create({
+      data: {
+        email: data.email,
+        password: hashedPassword,
+        // role: "ADMIN",
+      },
+    });
+    return user;
+  } catch (err: any) {
+    if (err.code === "P2002" && err.meta?.target?.includes("email")) {
+      throw createError("Email already exists", 400);
+    }
+    throw err; //let global error handle
+  }
 
-  return user;
 }
 
 async function getAllUsers() {

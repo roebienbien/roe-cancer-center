@@ -7,45 +7,45 @@ type Params = {
   id: string;
 }
 
-const createUserHandler = async (req: Request, res: Response) => {
-  try {
-    const user = await userService.createUser(req.body);
-    return sendSuccess(res, { data: user, message: "User created successfully", statusCode: 201 });
-  } catch (error: any) {
-    // Check for Prisma unique constraint
-    if (error.code === "P2002" && error.meta?.target?.includes("email")) {
-      // return sendError(res, "Email already exists", 400);
-      return sendError(res, { message: "email already exists", statusCode: 400 })
+export const createUser = asyncHandler(async (req: Request, res: Response) => {
+  const user = await userService.createUser(req.body);
+  return sendSuccess(res,
+    {
+      data: user,
+      message: "User created successfully",
+      statusCode: 201
+    })
+})
 
-    }
+// const createUserHandler = async (req: Request, res: Response) => {
+//   try {
+//     const user = await userService.createUser(req.body);
+//     return sendSuccess(res, { data: user, message: "User created successfully", statusCode: 201 });
+//   } catch (error: any) {
+//     // Check for Prisma unique constraint
+//     if (error.code === "P2002" && error.meta?.target?.includes("email")) {
+//       // return sendError(res, "Email already exists", 400);
+//       return sendError(res, { message: "email already exists", statusCode: 400 })
+//
+//     }
+//     return sendError(res, { message: error.message || "Internal server error" });
+//   }
+// };
 
-    // return sendError(res, error.message || "Internal server error", 500);
-    return sendError(res, { message: error.message || "Internal server error" });
-  }
-};
-
-const getUserHandler = asyncHandler(async (req: Request<Params>, res: Response) => {
+export const getUser = asyncHandler(async (req: Request<Params>, res: Response) => {
   const users = await userService.getUserById(req.params.id);
   return sendSuccess(res, { data: users })
   // return sendSuccess(res, users);
 });
 
-const deleteUserHandler = asyncHandler(async (req: Request<Params>, res: Response) => {
+export const deleteUser = asyncHandler(async (req: Request<Params>, res: Response) => {
   const users = await userService.deleteUser(req.params.id);
   return sendSuccess(res, { data: users });
   // return sendSuccess(res, users);
 });
 
-const getAllUsersHandler = asyncHandler(async (_: Request, res: Response) => {
+export const getAllUsers = asyncHandler(async (_: Request, res: Response) => {
   const users = await userService.getAllUsers();
   return sendSuccess(res, { data: users })
 });
 
-const userController = {
-  createUserHandler,
-  getAllUsersHandler,
-  getUserHandler,
-  deleteUserHandler,
-};
-
-export default userController;

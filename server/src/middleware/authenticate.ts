@@ -23,7 +23,7 @@ export const authenticate = (
   const header = req.headers.authorization;
 
   if (!header || !header.startsWith("Bearer ")) {
-    return sendError(res, { message: "Unauthorized: missing token", statusCode: 401 })
+    return sendError(res, { message: "Authentication Failed: missing token", statusCode: 401 })
     // return res.status(401).json({ message: "Unauthorized: missing token" });
   }
 
@@ -39,7 +39,7 @@ export const authenticate = (
       typeof decoded.userId !== "string" ||
       !validRoles.includes(decoded.role as Role)
     ) {
-      return sendError(res, { message: "Invalid token payload", statusCode: 403 })
+      return sendError(res, { message: "Authentication Failed: Invalid token payload", statusCode: 403 })
       // return res.status(401).json({ message: "Invalid token payload" });
     }
 
@@ -52,7 +52,7 @@ export const authenticate = (
     next();
   } catch (err) {
     console.log("JWT ERROR:", err);
-    return sendError(res, { message: "Invalid or expired token", statusCode: 401 })
+    return sendError(res, { message: "Authentication Failed: Invalid or expired token", statusCode: 401 })
     // return res.status(401).json({ message: "Invalid or expired token" });
   }
 };
