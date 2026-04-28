@@ -1,4 +1,3 @@
-// middleware/authenticate.ts
 import { Request, Response, NextFunction } from "express";
 import config from "../config";
 import jwt from "jsonwebtoken";
@@ -14,6 +13,7 @@ export interface AuthRequest extends Request {
   }
 }
 
+// const validRoles: Role[] = Object.values(Role).in
 const validRoles: Role[] = ["ADMIN", "DOCTOR", "NURSE", "PATIENT"];
 export const authenticate = (
   req: AuthRequest,
@@ -24,7 +24,6 @@ export const authenticate = (
 
   if (!header || !header.startsWith("Bearer ")) {
     return sendError(res, { message: "Authentication Failed: missing token", statusCode: 401 })
-    // return res.status(401).json({ message: "Unauthorized: missing token" });
   }
 
   const token = header.split(" ")[1];
@@ -34,7 +33,7 @@ export const authenticate = (
       algorithms: ["RS256"],
     }) as AuthJwtPayload;
 
-    // ✅ Validate payload shape
+    //  Validate payload shape
     if (
       typeof decoded.userId !== "string" ||
       !validRoles.includes(decoded.role as Role)
@@ -43,7 +42,7 @@ export const authenticate = (
       // return res.status(401).json({ message: "Invalid token payload" });
     }
 
-    // ✅ Safe assignment
+    //  Safe assignment
     req.user = {
       userId: decoded.userId,
       role: decoded.role as Role,
