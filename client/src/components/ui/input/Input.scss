@@ -1,0 +1,8 @@
+.input {
+  display: flex;
+  color: blue;
+
+  &__error {
+    color: red;
+  }
+}

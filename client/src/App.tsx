@@ -3,7 +3,7 @@ import Layout from './components/layout/Layout';
 import NotFoundPage from './pages/NotFoundPage';
 import HomePage from './pages/home/HomePage';
 import BookingPage from '@/features/booking/pages';
-import TestRoute from './features/auth/TestRoute';
+import LoginForm from './features/auth/components/LoginForm';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/test',
-        element: <TestRoute />
+        element: <LoginForm />
       },
       // {
       //   path: '/chemotheraphy-scheduler',
