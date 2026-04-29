@@ -7,7 +7,7 @@
 //   localStorage.setItem("token", data.token)
 // }
 
-import { api } from "@/lib/axios";
+import { api } from "@/shared/lib/axios";
 
 export const login = async (credentials: { email: string, password: string }) => {
   const res = await api.post("/auth/login", credentials)

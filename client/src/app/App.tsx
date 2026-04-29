@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Layout from './components/layout/Layout';
-import NotFoundPage from './pages/NotFoundPage';
-import HomePage from './pages/home/HomePage';
+import NotFoundPage from '../pages/NotFoundPage';
+import HomePage from '../pages/home/HomePage';
 import BookingPage from '@/features/booking/pages';
-import LoginForm from './features/auth/components/LoginForm';
+import LoginPage from '../features/auth/pages/LoginPage';
+import Layout from '../components/layout/Layout';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/test',
-        element: <LoginForm />
+        element: <LoginPage />
       },
       // {
       //   path: '/chemotheraphy-scheduler',

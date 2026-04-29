@@ -1,6 +1,19 @@
 .input {
   display: flex;
-  color: blue;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    gap: .25rem
+  }
+
+  &__field {
+    width: 100%;
+    padding: .5rem;
+  }
 
   &__error {
     color: red;

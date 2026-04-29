@@ -1,8 +1,9 @@
 import express from "express"
 import cors from 'cors'
 import router from './routes/'
-import { Request, Response, NextFunction } from 'express'
-import { sendError } from "./utils/response-handler";
+import { errorMiddleware } from "./middleware/errror-middlware";
+import { httpLogger } from "./middleware/logger-middleware";
+import { logger } from "./utils/logger";
 
 
 const app = express();
@@ -15,17 +16,28 @@ app.use(
   }),
 );
 
+app.get("/api/test-error", (req, res) => {
+  throw new Error("something broke")
+})
+
+app.get("/api/test-operational", (req, res, next) => {
+  const err = {
+    message: "Email already exists",
+    statusCode: 400,
+    isOperational: true,
+    errors: { email: "taken" },
+  };
+
+  next(err);
+});
 app.use("/api", router);
 
-// ERROR HANDLER SHOULD BE LAST
-app.use((err: any, _: Request, res: Response, next: NextFunction) => {
+logger.info("Info")
+logger.warn("Warning")
+logger.error("Error")
 
-
-  return sendError(res, {
-    message: err.message || "Internal Server Error",
-    statusCode: err.statusCode || 500,
-  })
-  // return res.status(err.statusCode || 500).json({ success: false, message: err.message || "Internal Server Error" })
-})
+app.use(httpLogger);
+// Error middleware SHOULD BE LAST
+app.use(errorMiddleware)
 
 export default app;

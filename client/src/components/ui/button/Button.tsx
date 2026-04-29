@@ -12,9 +12,11 @@ type Props = {
   to?: string;
   variant?: Variant;
   className?: string
+  disabled?: boolean
+  type?: "submit" | "button";
 }
 
-export const Button = ({ onClick, children, href, to, variant = 'primary', className }: Props) => {
+export const Button = ({ onClick, children, href, to, variant = 'primary', className, disabled, type = 'button' }: Props) => {
   const baseClass = `btn btn--${variant} ${className}`
 
   // React Router Link
@@ -31,7 +33,7 @@ export const Button = ({ onClick, children, href, to, variant = 'primary', class
   }
 
   return (
-    <button onClick={onClick} className={baseClass}>
+    <button onClick={onClick} type={type} className={baseClass} disabled={disabled}>
       {children}
     </button>
   )

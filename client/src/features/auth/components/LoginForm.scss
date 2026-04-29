@@ -1,0 +1,9 @@
+.login-form {
+  background-color: var(--color-surface);
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

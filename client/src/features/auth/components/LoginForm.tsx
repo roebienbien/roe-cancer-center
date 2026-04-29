@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { LoginFormData, loginSchema } from "../login-schema";
 import Input from "@/components/ui/input/Input";
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from "@/components/ui/button/Button";
+import './LoginForm.scss'
 
 export default function LoginForm() {
   const { mutate, isPending, error } = useLogin();
@@ -15,35 +17,28 @@ export default function LoginForm() {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "margaiaaret.beatty@example.com",
+      email: "margaret.beatty@example.com",
       password: "Password123!"
     },
-    // mode: "onSubmit", // or onBlur
-    // reValidateMode: "onChange"
   })
 
   const onSubmit = (data: LoginFormData) => {
-    console.log("submitting login")
     console.log(JSON.stringify(data));
     mutate(data);
   };
 
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/* <input */}
-      {/*   type="email" */}
-      {/*   {...register("email")} */}
-      {/* /> */}
-      {/* {errors.email && <p>{errors.email.message}</p>} */}
-      <Input<LoginFormData> id='email' label={"Email"} type="email" register={register} errors={errors} />
-      <Input<LoginFormData> id='password' label={"password"} type="password" register={register} errors={errors} />
+    <form onSubmit={handleSubmit(onSubmit)} className="login-form">
+      <div className="login-form__wrapper">
+        <Input<LoginFormData> id='email' label={"Email"} type="email" register={register} errors={errors} />
+        <Input<LoginFormData> id='password' label={"password"} type="password" register={register} errors={errors} />
+      </div>
 
-      <button type="submit" disabled={isPending}>
-        {isPending ? "Logging in..." : "Login"}
-      </button>
-
-      {error && <p>Login failed</p>}
+      <Button type="submit" disabled={isPending} className="login-form__submit">
+        {isPending ? "Logging in" : "Login"}
+      </Button>
+      {error && <p className="login-form__error">Login failed</p>}
     </form>
   );
 };
