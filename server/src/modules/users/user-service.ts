@@ -24,12 +24,14 @@ async function createUser(data: CreateUserInput) {
 }
 
 async function getAllUsers() {
-  const users = await prisma.user.findMany()
-  // const users = await prisma.user.findMany({
-  //   include: {
-  //     bookings: true,
-  //   }
-  // });
+  const users = await prisma.user.findMany({
+    where: {
+      deletedAt: null,
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  })
   return users;
 }
 
@@ -47,11 +49,23 @@ async function deleteUser(id: string) {
   return deletedUser;
 }
 
+async function deactivateUser(id: string, actorId: string) {
+  return prisma.user.update({
+    where: { id },
+    data: {
+      deletedAt: new Date(),
+      deletedById: actorId,
+    }
+  })
+
+}
+
 const userService = {
   createUser,
   getAllUsers,
   getUserById,
   deleteUser,
+  deactivateUser,
 };
 
 export default userService;

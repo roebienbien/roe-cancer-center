@@ -3,7 +3,6 @@ import cors from 'cors'
 import router from './routes/'
 import { errorMiddleware } from "./middleware/errror-middlware";
 import { httpLogger } from "./middleware/logger-middleware";
-import { logger } from "./utils/logger";
 
 
 const app = express();
@@ -31,10 +30,6 @@ app.get("/api/test-operational", (req, res, next) => {
   next(err);
 });
 app.use("/api", router);
-
-logger.info("Info")
-logger.warn("Warning")
-logger.error("Error")
 
 app.use(httpLogger);
 // Error middleware SHOULD BE LAST

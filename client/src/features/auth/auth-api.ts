@@ -14,6 +14,7 @@ export const login = async (credentials: { email: string, password: string }) =>
 
   return res.data.data;
 }
+
 // export const login = async (email: string, password: string) => {
 //   const res = await api.post("/auth/login", { email, password })
 //

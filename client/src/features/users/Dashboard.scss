@@ -1,0 +1,33 @@
+.dashboard-users {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 900px;
+    padding: 4px;
+    border: solid 1px #000;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 2rem;
+  }
+
+  &__btn {
+    &--update {
+      background-color: blue;
+    }
+
+    &--delete {
+      background-color: red;
+    }
+  }
+
+
+}

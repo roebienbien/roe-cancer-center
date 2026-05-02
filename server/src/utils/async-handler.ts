@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 
 /**
  * Wraps an async Express route handler and forwards any errors to Express error middleware.
@@ -11,11 +11,20 @@ import { RequestHandler } from "express";
  * @returns A new handler that catches and forwards errors via next()
  */
 export const asyncHandler =
-  (fn: RequestHandler): RequestHandler =>
-    (req, res, next) =>
-      // Ensure the handler result is treated as a Promise
-      // (works for both async and non-async functions)
-      Promise.resolve(fn(req, res, next))
-        // If the promise rejects or an error is thrown,
-        // pass it to Express error handling middleware
-        .catch(next);
+  <P = any, ResBody = any, ReqBody = any, ReqQuery = any>(
+    fn: RequestHandler<P, ResBody, ReqBody, ReqQuery>
+  ): RequestHandler<P, ResBody, ReqBody, ReqQuery> =>
+    (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response, next: NextFunction) => {
+      Promise.resolve(fn(req, res, next)).catch(next);
+    };
+
+// export const asyncHandler =
+//   (fn: RequestHandler): RequestHandler =>
+//     (req, res, next) =>
+//       // Ensure the handler result is treated as a Promise
+//       // (works for both async and non-async functions)
+//       Promise.resolve(fn(req, res, next))
+//         // If the promise rejects or an error is thrown,
+//         // pass it to Express error handling middleware
+//         .catch(next);
+//

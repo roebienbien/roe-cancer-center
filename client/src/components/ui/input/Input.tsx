@@ -17,7 +17,7 @@ const Input = <T extends FieldValues>({ type = 'text', className, label, id, pla
   return (
     <div className='input'>
       <div className='input__wrapper'>
-        {label && <span className='input__label'>{label}</span>}
+        {label && <label htmlFor={id} className='input__label'>{label}</label>}
         <input
           {...register(id as any)}
           id={id}

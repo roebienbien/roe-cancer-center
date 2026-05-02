@@ -41,6 +41,6 @@ router.get(
 
 
 // router.get("/:id", userController.getUserHandler);
-// router.delete("/:id", userController.deleteUserHandler);
+router.delete("/:id", authenticate, authorize("ADMIN"), userController.deleteUser);
 
 export default router;
