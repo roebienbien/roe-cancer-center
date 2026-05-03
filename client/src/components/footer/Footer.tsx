@@ -2,7 +2,6 @@ import Text from "../ui/text/Text"
 import { SiFacebook, SiX, SiInstagram, SiLinkedin } from 'react-icons/si'
 import { IconType } from "react-icons/lib";
 import { Button } from "../ui/button/Button";
-import "./Footer.scss"
 import FooterLinks, { TLinkList } from "./FooterLinks";
 
 type TSocials = {

@@ -1,7 +1,7 @@
 import { useLogin } from "../useLogin";
 import { useForm } from "react-hook-form";
 import { LoginFormData, loginSchema } from "../login-schema";
-import Input from "@/components/ui/input/Input";
+import Input from "@/components/ui/Input";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from "@/components/ui/button/Button";
 import './LoginForm.scss'
@@ -17,8 +17,8 @@ export default function LoginForm() {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "margaret.beatty@example.com",
-      password: "Password123!"
+      // email: "margaret.beatty@example.com",
+      // password: "Password123!"
     },
   })
 

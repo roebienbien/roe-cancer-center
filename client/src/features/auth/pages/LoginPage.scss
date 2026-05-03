@@ -4,12 +4,16 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-color: blue;
 
   &__wrapper {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    padding: 4rem;
+    border-radius: 10px;
     text-align: center;
+    background-color: var(--color-surface);
   }
 
   &__submit {

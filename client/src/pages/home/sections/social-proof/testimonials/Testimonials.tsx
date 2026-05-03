@@ -1,5 +1,4 @@
 import Text from '@/components/ui/text/Text'
-import './Testimonials.scss'
 import TestimonialCard, { TTestimonial } from './TestimonialCard';
 import Stack from '@/components/stack/Stack';
 

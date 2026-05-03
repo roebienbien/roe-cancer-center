@@ -1,9 +1,58 @@
-.login-form {
-  background-color: var(--color-surface);
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 
   &__wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    position: relative;
+  }
+
+  &__field {
+    width: 100%;
+    padding: 16px 12px 12px;
+    border: 1px solid #666;
+    border-radius: 6px;
+    font-size: 14px;
+    color: white;
+    background: white;
+
+    &:focus {
+      outline: none;
+      border-color: white;
+    }
+
+    &:focus + .input__label,
+    &:not(:placeholder-shown) + .input__label {
+      top: -8px;
+      left: 10px;
+      padding: 0 4px;
+      font-size: 11px;
+      color: white;
+      background: #0f0f0f; // match your background
+    }
+  }
+
+  &__label {
+    position: absolute;
+    top: 14px;
+    left: 12px;
+    font-size: 14px;
+    color: #888;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+
+  &__error {
+    font-size: 12px;
+    color: #ef4444;
+    text-align: right;
+  }
+
+  .error {
+    border-color: #ef4444;
+  }
+
+  .error + .input__label {
+    color: #ef4444;
   }
 }

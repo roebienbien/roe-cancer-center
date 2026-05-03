@@ -1,8 +1,4 @@
-// import Carousel from '../../../../components/carousel/Carousel';
-// import { TSlides } from '../../../../components/carousel/CarouselSlide';
 import { Button } from '@/components/ui/button/Button';
-import rccJustLogo from '../../../../assets/rcc-just-logo.svg';
-import "./Hero.scss"
 import Stack from '@/components/stack/Stack';
 import Br from '@/components/ui/br/Br';
 import UnsplashImage from '@/components/img/UnsplashImage';

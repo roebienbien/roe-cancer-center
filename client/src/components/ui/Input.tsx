@@ -1,6 +1,5 @@
 import { ErrorMessage } from '@hookform/error-message';
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
-import './Input.scss'
 
 type Props<T extends FieldValues> = {
   id: string;
@@ -15,21 +14,30 @@ type Props<T extends FieldValues> = {
 
 const Input = <T extends FieldValues>({ type = 'text', className, label, id, placeholder, register, errors }: Props<T>) => {
   return (
-    <div className='input'>
-      <div className='input__wrapper'>
-        {label && <label htmlFor={id} className='input__label'>{label}</label>}
+    <div className="bg-blue-500">
+      <div className=''>
+        {label && (
+          <label htmlFor={id} className=''>
+            {label}
+          </label>
+        )}
         <input
           {...register(id as any)}
           id={id}
           type={type}
           placeholder={placeholder}
-          className={`input__field ${className}`}
+          className="bg-red-200"
         />
-      </div>
-      <ErrorMessage errors={errors} name={id as any} render={({ message }) => <span className='input__error'>{message}</span>} />
 
-      {/* {errors[id] && <span className='w-full text-right text-xs text-red-500'>{errors[id]?.message as string}</span>} */}
-      {/* {errors && <span className='w-full text-right text-xs text-red-500'>{errors.message}</span>} */}
+      </div>
+
+      <ErrorMessage
+        errors={errors}
+        name={id as any}
+        render={({ message }) => (
+          <span className=''>{message}</span>
+        )}
+      />
     </div>
   );
 };

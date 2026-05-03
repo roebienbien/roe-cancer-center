@@ -10,10 +10,6 @@
       [
         "position",
         "top",
-        "right",
-        "bottom",
-        "left",
-        "z-index",
         "display",
         "flex",
         "flex-direction",
