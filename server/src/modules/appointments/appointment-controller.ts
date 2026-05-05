@@ -1,13 +1,12 @@
 import { AuthRequest } from "../../middleware/authenticate";
 import * as appointmentService from './appointment-service'
-import { prisma } from '../../lib/prisma';
 import { Request, Response } from "express";
 import { createAppointmentSchema } from "./appointment-schema";
 import { asyncHandler } from "../../utils/async-handler";
 import { sendSuccess } from "../../utils/response-handler";
 import { requireUser } from "../../utils/requireUser";
-import app from "../../app";
 import { createError } from "../../utils/app-error";
+import { getPatientByUserId } from "../patients/patient-service";
 
 export const createAppointment = asyncHandler(async (req: AuthRequest, res: Response) => {
   const parsed = createAppointmentSchema.safeParse(req.body);
@@ -22,11 +21,8 @@ export const createAppointment = asyncHandler(async (req: AuthRequest, res: Resp
   }
 
   const { userId } = requireUser(req);
-  const patient = await prisma.patient.findUnique({
-    where: {
-      userId
-    }
-  })
+  const patient = await getPatientByUserId(userId)
+  // const patient = await getPatientById(userId)
 
   if (!patient) {
     throw createError("Patient profile required before booking", 400)
@@ -42,16 +38,7 @@ export const createAppointment = asyncHandler(async (req: AuthRequest, res: Resp
 })
 
 export const getAllAppointments = asyncHandler(async (_: Request, res: Response) => {
-  const appointments = await prisma.appointment.findMany({
-    // where: { id: appointmentId },
-    include: {
-      user: {
-        select: {
-          email: true,
-        }
-      }
-    }
-  });
+  const appointments = await appointmentService.getAllAppointments();
 
   return sendSuccess(res, { data: appointments })
 })
@@ -63,4 +50,19 @@ export const getAppointmentById = asyncHandler(async (req: AuthRequest, res: Res
 
 
   sendSuccess(res, { data: appointment })
+})
+
+export const updateAppointmentStatus = asyncHandler(async (req: AuthRequest, res: Response) => {
+  const { userId } = requireUser(req)
+  const { id } = req.params
+  const { status } = req.body
+
+  // validate status input
+  if (!["APPROVED", "REJECTED"].includes(status)) {
+    throw createError("Invalid status", 400)
+  }
+
+  const appointment = appointmentService.updateAppointmentStatus(id as string, userId, status)
+
+  return sendSuccess(res, { data: appointment, message: `Appointment: ${status}` })
 })

@@ -10,9 +10,19 @@ async function createUser(data: CreateUserInput) {
       data: {
         email: data.email,
         password: hashedPassword,
-        // role: "ADMIN",
+        // role: "DOCTOR",
       },
     });
+
+
+    // await prisma.doctor.create({
+    //   data: {
+    //     userId: user.id,
+    //     firstName: "Test",
+    //     lastName: "Doctor",
+    //     specialization: "Oncology",
+    //   },
+    // });
 
     await prisma.patient.create({
       data: {

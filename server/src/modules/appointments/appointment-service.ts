@@ -1,3 +1,4 @@
+import { create } from "domain";
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
 
@@ -19,7 +20,7 @@ export async function createAppointment(
       },
     });
 
-    const MAX_CAPACITY = 3;
+    const MAX_CAPACITY = 5;
 
     if (overlappingCount >= MAX_CAPACITY) {
       throw createError("Time slot full", 409);
@@ -35,13 +36,26 @@ export async function createAppointment(
   });
 }
 
+export async function getAllAppointments() {
+  return await prisma.appointment.findMany({
+    // where: { id: appointmentId },
+    include: {
+      patient: {
+        select: {
+          firstName: true,
+        }
+      }
+    }
+  });
+}
+
 export async function getAppointmentById(id: string) {
   const appointment = await prisma.appointment.findUnique({
     where: { id },
     include: {
-      user: {
+      patient: {
         select: {
-          email: true
+          firstName: true
         }
       }
     },
@@ -52,4 +66,41 @@ export async function getAppointmentById(id: string) {
   }
 
   return appointment;
+}
+
+export async function updateAppointmentStatus(appointmentId: string, doctorUserId: string, status: "APPROVED" | "REJECTED") {
+  // get doctor profile
+  const doctor = await prisma.doctor.findUnique(
+    {
+      where: { userId: doctorUserId }
+    }
+  )
+
+  if (!doctor) throw createError("Doctor not found", 404)
+
+  // get appointmnet
+  const appointment = await getAppointmentById(appointmentId);
+
+  if (!appointment) throw createError("Appointment not found", 404)
+  if (appointment.status !== "PENDING") throw createError("Appointment alread processed", 400)
+
+  //  assign doctor if not yet assigned
+  if (!appointment.doctorId) {
+    return prisma.appointment.update({
+      where: { id: appointmentId },
+      data: {
+        doctorId: doctor.id,
+        status,
+      },
+    });
+  }
+
+  // ensure doctor owns the appointment
+  if (appointment.doctorId !== doctor.id) throw createError("Not authorized for this appointment", 403)
+
+  // update status
+  return prisma.appointment.update({
+    where: { id: appointmentId },
+    data: { status }
+  })
 }

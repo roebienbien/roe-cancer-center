@@ -9,7 +9,7 @@ import * as userController from "./user-controller";
 const router = Router();
 
 router.post("/", validateResource(createUserSchema), userController.createUser);
-router.get("/", authenticate, authorize("ADMIN"), userController.getAllUsers);
+router.get("/", userController.getAllUsers);
 // router.get("/", userController.getAllUsersHandler);
 
 router.get("/test-admin", authenticate,

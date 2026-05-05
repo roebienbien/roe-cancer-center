@@ -51,7 +51,7 @@ model Doctor {
   userId String @unique
 
   firstName String
-  LastName  String
+  lastName  String
 
   specialization String? //oncology, general, etc.
   licenseNumber  String? @unique
