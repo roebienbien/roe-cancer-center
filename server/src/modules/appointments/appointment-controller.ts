@@ -1,21 +1,12 @@
 import { AuthRequest } from "../../middleware/authenticate";
 import * as appointmentService from './appointment-service'
 import { prisma } from '../../lib/prisma';
-import { Request, RequestHandler, Response } from "express";
+import { Request, Response } from "express";
 import { createAppointmentSchema } from "./appointment-schema";
 import { asyncHandler } from "../../utils/async-handler";
 import { sendSuccess } from "../../utils/response-handler";
+import { requireUser } from "../../utils/requireUser";
 
-
-type Params = { id: string }
-
-//HELPER
-// export const requireUser = (req: AuthRequest) => {
-//   if (!req.user) {
-//     throw new Error("Unauthorized");
-//   }
-//   return req.user;
-// };
 export const createAppointment = asyncHandler(async (req: AuthRequest, res: Response) => {
   const parsed = createAppointmentSchema.safeParse(req.body);
 
@@ -26,10 +17,7 @@ export const createAppointment = asyncHandler(async (req: AuthRequest, res: Resp
     })
   }
 
-  if (!req.user) {
-    res.status(401).json({ message: "Unauthorized" })
-    return
-  }
+  const { userId } = requireUser(req);
 
   if (!parsed.data) {
     res.status(401).json({ message: "Unauthorized" })
@@ -37,11 +25,11 @@ export const createAppointment = asyncHandler(async (req: AuthRequest, res: Resp
   }
 
   const appointment = await appointmentService.createAppointment(
-    req.user?.userId,
+    userId,
     parsed.data.scheduleAt
   )
-  return sendSuccess(res, { data: appointment, message: "Appointment created", statusCode: 201 })
 
+  return sendSuccess(res, { data: appointment, message: "Appointment created", statusCode: 201 })
 })
 
 export const getAppointments = asyncHandler(async (_: Request, res: Response) => {
@@ -55,5 +43,6 @@ export const getAppointments = asyncHandler(async (_: Request, res: Response) =>
       }
     }
   });
+
   return sendSuccess(res, { data: appointments })
 })
