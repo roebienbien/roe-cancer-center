@@ -1,10 +1,9 @@
 import { z } from "zod";
 
 export const createAppointmentSchema = z.object({
-  scheduleAt: z
-    .string()
-    .transform((val) => new Date(val))
-    .refine((date) => !isNaN(date.getTime()), {
-      message: "Invalid date/time",
-    }),
+  startAt: z.string().transform((val) => new Date(val)),
+  endAt: z.string().transform((val) => new Date(val)),
+}).refine((data) => data.endAt > data.startAt, {
+  message: "End time must be after start time",
+  path: ["endAt"],
 });

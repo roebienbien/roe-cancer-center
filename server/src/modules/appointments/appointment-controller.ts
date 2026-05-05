@@ -13,22 +13,29 @@ export const createAppointment = asyncHandler(async (req: AuthRequest, res: Resp
   const parsed = createAppointmentSchema.safeParse(req.body);
 
   if (!parsed.success) {
-    res.status(400).json({
-      message: "Validation Error",
-      errors: parsed.error.format(), //deprecated
-    })
+    const errors = parsed.error.issues.map((err) => ({
+      field: err.path.join("."),
+      message: err.message,
+    }));
+
+    throw createError("validation error", 400, errors)
   }
 
   const { userId } = requireUser(req);
+  const patient = await prisma.patient.findUnique({
+    where: {
+      userId
+    }
+  })
 
-  if (!parsed.data) {
-    res.status(401).json({ message: "Unauthorized" })
-    return
+  if (!patient) {
+    throw createError("Patient profile required before booking", 400)
   }
 
   const appointment = await appointmentService.createAppointment(
-    userId,
-    parsed.data.scheduleAt
+    patient.id,
+    parsed.data.startAt,
+    parsed.data.endAt
   )
 
   return sendSuccess(res, { data: appointment, message: "Appointment created", statusCode: 201 })

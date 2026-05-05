@@ -1,42 +1,38 @@
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
 
-function normalizeToSlot(date: Date) {
-  const slotMinutes = 30;
 
-  const ms = date.getTime();
-  const slot = slotMinutes * 60 * 1000;
+export async function createAppointment(
+  patientId: string,
+  startAt: Date,
+  endAt: Date
+) {
+  return prisma.$transaction(async (tx) => {
+    // count overlapping appointments
+    const overlappingCount = await tx.appointment.count({
+      where: {
+        AND: [
+          { startAt: { lt: endAt } },
+          { endAt: { gt: startAt } },
+        ],
+        status: { in: ["PENDING", "APPROVED"] },
+      },
+    });
 
-  return new Date(Math.floor(ms / slot) * slot)
-}
+    const MAX_CAPACITY = 3;
 
-export async function createAppointment(userId: string, date: Date) {
-  const normalizedDate = normalizeToSlot(date);
-
-  const count = await prisma.appointment.count({
-    where: {
-      scheduleAt: normalizedDate,
-      status: { in: ["PENDING", "APPROVED"] }
+    if (overlappingCount >= MAX_CAPACITY) {
+      throw createError("Time slot full", 409);
     }
-  })
 
-  const MAX_CAPACITY = 3; //create this into a proper DB logic later
-
-  if (count >= MAX_CAPACITY) {
-    throw createError("Time slot full", 409)
-  }
-
-
-  return prisma.appointment.create({
-    data: {
-      scheduleAt: normalizedDate,
-      user: {
-        connect: {
-          id: userId,
-        }
-      }
-    }
-  })
+    return tx.appointment.create({
+      data: {
+        patientId,
+        startAt,
+        endAt,
+      },
+    });
+  });
 }
 
 export async function getAppointmentById(id: string) {

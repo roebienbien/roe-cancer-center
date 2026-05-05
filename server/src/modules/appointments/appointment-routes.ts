@@ -9,35 +9,21 @@ import { Role } from '@prisma/client';
 const router = express.Router();
 
 router.post("/", authenticate, authorize(Role.ADMIN, Role.PATIENT), appointmentController.createAppointment);
-router.get("/me", authenticate, async (req: AuthRequest, res: Response) => {
-  const bookings = await prisma.appointment.findMany({
-    where: {
-      userId: req.user!.userId,
-    },
-    orderBy: {
-      scheduleAt: "desc"
-    }
-  })
-
-  res.json(bookings)
-})
-
 router.get("/", appointmentController.getAllAppointments)
-// router.get("/:id", authenticate, authorize("PATIENT"), appointmentController.getAllAppointments)
 router.get("/:id", appointmentController.getAppointmentById)
 
-// router.get("/bookings/:id", async (req: Request, res: Response) => {
-//   const booking = await prisma.booking.findUnique({
+// router.get("/me", authenticate, async (req: AuthRequest, res: Response) => {
+//   const bookings = await prisma.appointment.findMany({
 //     where: {
-//       id: Number(req.params.id),
+//       userId: req.user!.userId,
 //     },
-//     include: {
-//       user: true,
-//     },
-//   });
+//     orderBy: {
+//       scheduleAt: "desc"
+//     }
+//   })
 //
-//   res.json(booking);
-// });
-
+//   res.json(bookings)
+// })
+//
 export default router;
 
