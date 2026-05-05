@@ -62,7 +62,7 @@ export const updateAppointmentStatus = asyncHandler(async (req: AuthRequest, res
     throw createError("Invalid status", 400)
   }
 
-  const appointment = appointmentService.updateAppointmentStatus(id as string, userId, status)
+  const appointment = await appointmentService.updateAppointmentStatus(id as string, userId, status)
 
   return sendSuccess(res, { data: appointment, message: `Appointment: ${status}` })
 })

@@ -1,4 +1,3 @@
-import { create } from "domain";
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
 
@@ -76,13 +75,16 @@ export async function updateAppointmentStatus(appointmentId: string, doctorUserI
     }
   )
 
-  if (!doctor) throw createError("Doctor not found", 404)
+  if (!doctor) {
+    throw createError("Doctor not found", 404)
+  }
 
   // get appointmnet
   const appointment = await getAppointmentById(appointmentId);
 
-  if (!appointment) throw createError("Appointment not found", 404)
-  if (appointment.status !== "PENDING") throw createError("Appointment alread processed", 400)
+  if (appointment.status !== "PENDING") {
+    throw createError("Appointment alread processed", 400)
+  }
 
   //  assign doctor if not yet assigned
   if (!appointment.doctorId) {
