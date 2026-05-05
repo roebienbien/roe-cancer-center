@@ -8,13 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  ADMIN
-  DOCTOR
-  NURSE
-  PATIENT
-}
-
 model User {
   id          String    @id @default(uuid())
   email       String    @unique
@@ -25,15 +18,44 @@ model User {
   deletedAt   DateTime?
   deletedById String?
 
-  bookings Booking[]
+  patientProfile PatientProfile?
+  appointments   Appointment[]
 }
 
-model Booking {
-  id     String   @id @default(uuid())
-  userId String
-  date   DateTime
-  status String   @default("PENDING")
-  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model PatientProfile {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  lastName   String?
+  firstName  String?
+  middleName String?
+  birthDate  DateTime
+  phone      String?
+  // make this full address later
+  address    String?
+
+  //medical-related 
+  notes String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Appointment {
+  id         String            @id @default(uuid())
+  userId     String
+  scheduleAt DateTime
+  status     AppointmentStatus @default(PENDING)
+
+  //optional: link to doctor later
+  //doctorId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
 }
 
 model AuditLog {
@@ -47,4 +69,18 @@ model AuditLog {
   createdAt DateTime @default(now())
 
   @@index([entity, entityId])
+}
+
+enum AppointmentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum Role {
+  ADMIN
+  DOCTOR
+  NURSE
+  PATIENT
 }

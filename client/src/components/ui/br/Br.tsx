@@ -1,7 +1,5 @@
 const Br = () => {
-  return (
-    <br className="break" />
-  )
-}
+  return <br className='break' />;
+};
 
-export default Br
+export default Br;

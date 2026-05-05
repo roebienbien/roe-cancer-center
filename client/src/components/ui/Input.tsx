@@ -1,5 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message';
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
+import { twMerge } from 'tailwind-merge';
 
 type Props<T extends FieldValues> = {
   id: string;
@@ -8,36 +9,23 @@ type Props<T extends FieldValues> = {
   className?: string;
   placeholder?: string;
   value?: string;
-  register: UseFormRegister<T> //replace any with schema
+  register: UseFormRegister<T>; //replace any with schema
   errors?: FieldErrors<T>;
 };
 
 const Input = <T extends FieldValues>({ type = 'text', className, label, id, placeholder, register, errors }: Props<T>) => {
   return (
-    <div className="bg-blue-500">
-      <div className=''>
+    <div className={twMerge('', className)}>
+      <div className='flex gap-x-1'>
         {label && (
           <label htmlFor={id} className=''>
             {label}
           </label>
         )}
-        <input
-          {...register(id as any)}
-          id={id}
-          type={type}
-          placeholder={placeholder}
-          className="bg-red-200"
-        />
-
+        <input {...register(id as any)} id={id} type={type} placeholder={`Enter ${label}`} className='' />
       </div>
 
-      <ErrorMessage
-        errors={errors}
-        name={id as any}
-        render={({ message }) => (
-          <span className=''>{message}</span>
-        )}
-      />
+      <ErrorMessage errors={errors} name={id as any} render={({ message }) => <span className=''>{message}</span>} />
     </div>
   );
 };

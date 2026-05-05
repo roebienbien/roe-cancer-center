@@ -2,27 +2,28 @@ import express, { Response, Request } from 'express'
 import { authenticate, AuthRequest } from '../../middleware/authenticate';
 import { authorize } from '../../middleware/authorize';
 import { prisma } from '../../lib/prisma';
-import * as bookingsController from './booking-controller';
+import * as appointmentController from './appointment-controller';
+import { Role } from '@prisma/client';
 
 
 const router = express.Router();
 
-router.post("/", authenticate, authorize("PATIENT"), bookingsController.createBooking);
+router.post("/", authenticate, authorize(Role.ADMIN, Role.PATIENT), appointmentController.createAppointment);
 router.get("/me", authenticate, async (req: AuthRequest, res: Response) => {
-  const bookings = await prisma.booking.findMany({
+  const bookings = await prisma.appointment.findMany({
     where: {
       userId: req.user!.userId,
     },
     orderBy: {
-      date: "desc"
+      scheduleAt: "desc"
     }
   })
 
   res.json(bookings)
 })
 
-router.get("/", bookingsController.getBookings)
-router.get("/:id", authenticate, authorize("PATIENT"), bookingsController.getBookingById)
+router.get("/", appointmentController.getAppointments)
+// router.get("/:id", authenticate, authorize("PATIENT"), appointmentController.getBookingById)
 
 // router.get("/bookings/:id", async (req: Request, res: Response) => {
 //   const booking = await prisma.booking.findUnique({

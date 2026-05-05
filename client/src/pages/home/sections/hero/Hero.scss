@@ -1,4 +1,4 @@
-@use "../../../../styles/util/breakpoints" as u;
+@use '../../../../styles/util/breakpoints' as u;
 
 .hero {
   display: flex;
@@ -36,7 +36,7 @@
     width: 580px;
     height: 620px;
     object-fit: cover;
-    object-position: 90% 10%; // x y 
+    object-position: 90% 10%; // x y
     border-radius: 20px;
   }
 
@@ -44,7 +44,4 @@
     width: fit-content;
     padding: 16px;
   }
-
-
-
 }

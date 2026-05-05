@@ -10,12 +10,12 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      "@styles": fileURLToPath(new URL("./src/styles/", import.meta.url))
+      '@styles': fileURLToPath(new URL('./src/styles/', import.meta.url)),
     },
   },
   test: {
-    environment: "jsdom",
+    environment: 'jsdom',
     globals: true,
-    setupFiles: "./src/test/setup.ts"
-  }
-})
+    setupFiles: './src/test/setup.ts',
+  },
+});

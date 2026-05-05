@@ -6,7 +6,7 @@ const BookingForm = () => {
         <div></div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default BookingForm
+export default BookingForm;

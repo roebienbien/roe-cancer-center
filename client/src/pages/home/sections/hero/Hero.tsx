@@ -2,8 +2,7 @@ import { Button } from '@/components/ui/button/Button';
 import Stack from '@/components/stack/Stack';
 import Br from '@/components/ui/br/Br';
 import UnsplashImage from '@/components/img/UnsplashImage';
-
-
+import Typography from '@/components/ui/Typography';
 
 // const Slides: TSlides[] = [
 //   {
@@ -25,29 +24,31 @@ import UnsplashImage from '@/components/img/UnsplashImage';
 // ];
 //
 
-
-const doctorPatient = 'https://images.unsplash.com/photo-1631815590058-860e4f83c1e8?q=80&w=842&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-
+const doctorPatient =
+  'https://images.unsplash.com/photo-1631815590058-860e4f83c1e8?q=80&w=842&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
 
 const Hero = () => {
   return (
-    <section className='hero'>
-      <div className='hero__content'>
-        <div className='hero__header'>
-          {/* <img src={rccJustLogo} alt='rcc-logo' className='hero__logo' /> */}
-          <Stack>
-            <h1 className='hero__title'>
-              Get a professional <Br />
-              diagnosis in your<Br />
-              neighborhood</h1>
-            <h2 className='hero__subtitle'>
-              Leading experts in all major fields are just around the corner <Br />
-              Book your appointment today.
-            </h2>
-            <Button to='/book' className='hero__action'> Book an appointment </Button>
-          </Stack>
-          <UnsplashImage src={doctorPatient} alt={'doctor-and-patient'} className='hero__image' />
-        </div>
+    <section className='flex min-h-screen items-center justify-center'>
+      <div className='flex items-center justify-center gap-10'>
+        {/* <img src={rccJustLogo} alt='rcc-logo' className='hero__logo' /> */}
+        <Stack className='gap-y-4'>
+          <Typography as='h1' variant='h1' className='text-6xl'>
+            Get a professional <Br />
+            diagnosis in your
+            <Br />
+            neighborhood
+          </Typography>
+          <h2 className=''>
+            Leading experts in all major fields are just around the corner <Br />
+            Book your appointment today.
+          </h2>
+          <Button to='/book' className='w-fit'>
+            {' '}
+            Book an appointment{' '}
+          </Button>
+        </Stack>
+        <UnsplashImage src={doctorPatient} alt={'doctor-and-patient'} className='h-[700px] w-[500px]' />
       </div>
 
       {/* <Carousel Slides={Slides} className='hero__carousel' /> */}

@@ -9,7 +9,7 @@
   }
 
   &__body {
-    flex: 1
+    flex: 1;
   }
 
   &__header {
@@ -24,10 +24,8 @@
     border-radius: 100%;
   }
 
-
   &__role {
     font-size: var(--fs-xs);
     color: var(--color-text-muted);
   }
-
 }

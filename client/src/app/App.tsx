@@ -17,11 +17,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/booking',
-        element: <BookingPage />
+        element: <BookingPage />,
       },
       {
         path: '/test',
-        element: <LoginPage />
+        element: <LoginPage />,
       },
       // {
       //   path: '/chemotheraphy-scheduler',

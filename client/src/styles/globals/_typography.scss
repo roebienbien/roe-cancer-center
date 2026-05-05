@@ -1,0 +1,45 @@
+@use '../util' as u;
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+p {
+  margin-top: 0;
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+.heading {
+  font-weight: 700;
+  line-height: 1.1;
+
+  &--1 {
+    font-size: clamp(1.75rem, calc(1rem + 2vw), 2.5rem); // h1
+  }
+
+  &--2 {
+    font-size: clamp(1.5rem, calc(0.9rem + 1.5vw), 2rem); // h2
+  }
+
+  &--3 {
+    font-size: clamp(1.25rem, calc(0.8rem + 1vw), 1.5rem); // h3
+  }
+
+  /* modifiers */
+  &--center {
+    text-align: center;
+  }
+
+  &--muted {
+    opacity: 0.7;
+  }
+}

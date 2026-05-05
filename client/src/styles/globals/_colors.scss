@@ -1,0 +1,42 @@
+:root {
+  /* ===== PRIMARY (HSL PARTS) ===== */
+  --color-primary-h: 343deg;
+  --color-primary-s: 91%;
+  --color-primary-l: 60%;
+  --color-primary: hsl(var(--color-primary-h) var(--color-primary-s) var(--color-primary-l));
+  --color-primary-hover: hsl(var(--color-primary-h) var(--color-primary-s) calc(var(--color-primary-l) - 10%));
+  --color-primary-active: hsl(var(--color-primary-h) var(--color-primary-s) calc(var(--color-primary-l) - 15%));
+  --color-primary-soft: hsl(var(--color-primary-h) var(--color-primary-s) calc(var(--color-primary-l) + 30%));
+
+  /* ===== SECONDARY ===== */
+  --color-secondary: hsl(215deg 20% 65%);
+
+  /* ===== ACCENT ===== */
+  --color-accent: hsl(24deg 95% 53%);
+
+  /* ===== BACKGROUNDS ===== */
+  --color-background: hsl(0deg 0% 96%);
+  --color-surface: hsl(0deg 0% 100%);
+  --color-border: hsl(220deg 13% 91%);
+
+  /* ===== TEXT ===== */
+  --color-text: hsl(220deg 15% 10%);
+  --color-text-muted: hsl(220deg 10% 50%);
+}
+
+/* ===== DARK MODE ===== */
+[data-theme='dark'] {
+  --color-primary-h: 343deg;
+  --color-primary-s: 91%;
+  --color-primary-l: 65%;
+  --color-primary: hsl(var(--color-primary-h) var(--color-primary-s) var(--color-primary-l));
+  --color-primary-hover: hsl(var(--color-primary-h) var(--color-primary-s) calc(var(--color-primary-l) - 10%));
+  --color-primary-active: hsl(var(--color-primary-h) var(--color-primary-s) calc(var(--color-primary-l) - 15%));
+  --color-secondary: hsl(215deg 20% 70%);
+  --color-accent: hsl(24deg 95% 60%);
+  --color-background: hsl(220deg 15% 10%);
+  --color-surface: hsl(220deg 15% 15%);
+  --color-border: hsl(220deg 10% 25%);
+  --color-text: hsl(0deg 0% 95%);
+  --color-text-muted: hsl(220deg 10% 65%);
+}

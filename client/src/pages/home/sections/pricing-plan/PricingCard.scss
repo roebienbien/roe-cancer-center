@@ -4,9 +4,6 @@
   padding: 2rem;
   background-color: var(--color-surface);
 
-
-
-
   &__title {
     font-size: clamp(50rem, 5vw, 50rem);
   }
@@ -14,7 +11,6 @@
   &__price {
     font-weight: normal;
   }
-
 
   &__separator {
     width: 100%;
@@ -47,5 +43,4 @@
   &__icon--x {
     color: #9ca3af;
   }
-
 }

@@ -13,9 +13,8 @@
   //   font-weight: 600;
   // }
 
-
   &__body {
-    font-size: 0.90rem;
+    font-size: 0.9rem;
     line-height: 1.5;
   }
 
@@ -31,7 +30,7 @@
 
   &--outlined {
     background: transparent;
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
 
     // &:hover {
     //   transform: translateY(-4px);

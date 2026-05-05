@@ -21,12 +21,12 @@ router.get("/test-admin", authenticate,
 );
 
 router.get(
-  "/book",
+  "/appointments",
   async (_: Request, res: Response) => {
     try {
       const users = await prisma.user.findMany({
         include: {
-          bookings: true,
+          appointments: true,
         },
       });
 

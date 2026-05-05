@@ -1,7 +1,5 @@
-import { Link } from 'react-router';
-import rccLogo from '../../assets/rcc-logo.svg';
 import { Button } from '../ui/button/Button';
-import './Navbar.scss'
+import './Navbar.scss';
 
 const NavLinks = [
   {
@@ -28,21 +26,22 @@ const NavLinks = [
 
 const Navbar = () => {
   return (
-    <header className='header'>
-      <nav className='header__nav'>
-        <Link to={'/'} className='header__logo' >
-          <img src={rccLogo} alt='rcc-logo' className='header__logo-img' />
-        </Link>
-        <ul className='header__list'>
+    <header className='z-99 fixed flex h-[80px] w-full justify-center bg-blue-200'>
+      <nav className='flex w-[80%] items-center justify-between'>
+        <Button to={'/'} variant='tertiary' className='text-xl'>
+          {/* <img src={rccLogo} alt='rcc-logo' className='text-sm' height={10} width={10} /> */}
+          Logo
+        </Button>
+        <ul className='flex gap-x-2'>
           {NavLinks.map((link, index) => (
-            <li key={index} className='header__item'>
-              <Link to={link.to} key={index} className='header__link'>
+            <li key={index} className=''>
+              <Button to={link.to} key={index} variant='tertiary'>
                 {link.title}
-              </Link>
+              </Button>
             </li>
           ))}
         </ul>
-        <div className='header__actions'>
+        <div className='flex gap-x-2'>
           <Button>Login</Button>
           <Button variant='secondary'>Sign up</Button>
         </div>

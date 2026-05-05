@@ -1,8 +1,8 @@
-import './Stack.scss'
+import './Stack.scss';
 
-type StackDirection = 'row' | 'col'
+type StackDirection = 'row' | 'col';
 
-type StackGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+type StackGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 // const gapMap: Record<StackGap, string> = {
 //   xs: "gap-1",
@@ -17,21 +17,15 @@ type StackGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 //   col: 'flex-col',
 // }
 
-
 type StackProps = {
   children: React.ReactNode;
   className?: string;
   direction?: StackDirection;
   gap?: StackGap;
-}
-
+};
 
 const Stack = ({ children, gap = 'md', direction = 'col', className }: StackProps) => {
-  return (
-    <div className={`stack stack--${direction} stack--${gap} ${className}`}>
-      {children}
-    </div>
-  )
-}
+  return <div className={`stack stack--${direction} stack--${gap} ${className}`}>{children}</div>;
+};
 
-export default Stack
+export default Stack;

@@ -1,18 +1,19 @@
-import LoginForm from "../components/LoginForm"
-import './LoginPage.scss'
-import { Dashboard } from "@/features/users/Dashboard";
+import Typography from '@/components/ui/Typography';
+import LoginForm from '../components/LoginForm';
+import { Dashboard } from '@/features/users/Dashboard';
 
 const LoginPage = () => {
-
   return (
-    <div className="login-page">
-      <div className="login-page__wrapper">
-        <h2 className="heading heading--2 login-page__title">Login Page</h2>
+    <div className='flex h-screen items-center justify-center'>
+      <div className='flex flex-col gap-y-4 rounded-xl bg-blue-200 p-8'>
+        <Typography variant='h1' className='text-center'>
+          Login Page
+        </Typography>
         <LoginForm />
       </div>
-      <Dashboard />
+      {/* <Dashboard /> */}
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
