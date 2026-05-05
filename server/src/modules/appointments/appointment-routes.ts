@@ -22,8 +22,9 @@ router.get("/me", authenticate, async (req: AuthRequest, res: Response) => {
   res.json(bookings)
 })
 
-router.get("/", appointmentController.getAppointments)
-// router.get("/:id", authenticate, authorize("PATIENT"), appointmentController.getBookingById)
+router.get("/", appointmentController.getAllAppointments)
+// router.get("/:id", authenticate, authorize("PATIENT"), appointmentController.getAllAppointments)
+router.get("/:id", appointmentController.getAppointmentById)
 
 // router.get("/bookings/:id", async (req: Request, res: Response) => {
 //   const booking = await prisma.booking.findUnique({

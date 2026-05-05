@@ -6,6 +6,8 @@ import { createAppointmentSchema } from "./appointment-schema";
 import { asyncHandler } from "../../utils/async-handler";
 import { sendSuccess } from "../../utils/response-handler";
 import { requireUser } from "../../utils/requireUser";
+import app from "../../app";
+import { createError } from "../../utils/app-error";
 
 export const createAppointment = asyncHandler(async (req: AuthRequest, res: Response) => {
   const parsed = createAppointmentSchema.safeParse(req.body);
@@ -32,7 +34,7 @@ export const createAppointment = asyncHandler(async (req: AuthRequest, res: Resp
   return sendSuccess(res, { data: appointment, message: "Appointment created", statusCode: 201 })
 })
 
-export const getAppointments = asyncHandler(async (_: Request, res: Response) => {
+export const getAllAppointments = asyncHandler(async (_: Request, res: Response) => {
   const appointments = await prisma.appointment.findMany({
     // where: { id: appointmentId },
     include: {
@@ -45,4 +47,13 @@ export const getAppointments = asyncHandler(async (_: Request, res: Response) =>
   });
 
   return sendSuccess(res, { data: appointments })
+})
+
+
+export const getAppointmentById = asyncHandler(async (req: AuthRequest, res: Response) => {
+  const { id } = req.params;
+  const appointment = await appointmentService.getAppointmentById(id as string)
+
+
+  sendSuccess(res, { data: appointment })
 })

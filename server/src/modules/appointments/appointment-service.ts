@@ -12,18 +12,6 @@ function normalizeToSlot(date: Date) {
 
 export async function createAppointment(userId: string, date: Date) {
   const normalizedDate = normalizeToSlot(date);
-  // const existing = await prisma.appointment.findFirst({
-  //   where: {
-  //     scheduleAt: normalizedDate,
-  //     status: {
-  //       in: ["PENDING", "APPROVED"]
-  //     }
-  //   }
-  // })
-  //
-  // if (existing) {
-  //   throw createError("Time slot already taken", 409)
-  // }
 
   const count = await prisma.appointment.count({
     where: {
@@ -32,7 +20,7 @@ export async function createAppointment(userId: string, date: Date) {
     }
   })
 
-  const MAX_CAPACITY = 3; //create this into a logic later
+  const MAX_CAPACITY = 3; //create this into a proper DB logic later
 
   if (count >= MAX_CAPACITY) {
     throw createError("Time slot full", 409)
@@ -51,15 +39,21 @@ export async function createAppointment(userId: string, date: Date) {
   })
 }
 
+export async function getAppointmentById(id: string) {
+  const appointment = await prisma.appointment.findUnique({
+    where: { id },
+    include: {
+      user: {
+        select: {
+          email: true
+        }
+      }
+    },
+  });
 
+  if (!appointment) {
+    throw createError("Appointment not found", 404);
+  }
 
-
-// export function getBookingById(id: string) {
-//   return prisma.booking.findUnique({
-//     where: { id },
-//     include: {
-//       user: true,
-//     }
-//   })
-// }
-//
+  return appointment;
+}
