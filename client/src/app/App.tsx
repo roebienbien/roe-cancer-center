@@ -4,6 +4,9 @@ import HomePage from '../pages/home/HomePage';
 import BookingPage from '@/features/booking/pages';
 import LoginPage from '../features/auth/pages/LoginPage';
 import Layout from '../components/layout/Layout';
+import RegisterPage from '@/features/auth/pages/RegisterPage';
+import { Dashboard } from '@/features/users/Dashboard';
+import MyAppointmentsPage from '@/features/appointment/MyAppointmentPage';
 
 const router = createBrowserRouter([
   {
@@ -16,12 +19,20 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/booking',
-        element: <BookingPage />,
+        path: '/appointments',
+        element: <MyAppointmentsPage />,
       },
       {
-        path: '/test',
+        path: '/register',
+        element: <RegisterPage />,
+      },
+      {
+        path: '/login',
         element: <LoginPage />,
+      },
+      {
+        path: '/users',
+        element: <Dashboard />,
       },
       // {
       //   path: '/chemotheraphy-scheduler',

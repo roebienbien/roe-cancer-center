@@ -1,34 +1,37 @@
 import { Button } from '@/components/ui/button/Button';
 import Input from '@/components/ui/Input';
 import { useForm } from 'react-hook-form';
+import { useRegister } from '../userRegister';
+import { RegisterFormValues } from '../register-schema';
 
 const RegisterForm = () => {
+  const registerMutation = useRegister();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: {},
+    defaultValues: {
+      email: 'test@test.email',
+      password: 'Password123!',
+      confirmPassword: 'Password123!',
+    },
   });
 
-  const onSubmit = () => {
-    console.log('submitted');
+  const onSubmit = (data: RegisterFormValues) => {
+    const { confirmPassword, ...payload } = data;
+    registerMutation.mutate(payload);
+    console.log('User registered');
   };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className=''>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className='grid grid-cols-3 gap-2'>
-        <Input id='lastName' label={'Last Name'} register={register} errors={errors} />
-        <Input id='firstName' label={'First Name'} register={register} errors={errors} />
-        <Input id='middleName' label={'Middle Name'} register={register} errors={errors} />
-        <Input id='email' label={'Email address'} register={register} errors={errors} />
-        <Input id='mobileNumber' label={'Mobile Number'} register={register} errors={errors} />
-        <Input id='middleName' label={'Middle Name'} register={register} errors={errors} />
-        <Input id='birthDate' label={'Date of Birth'} register={register} errors={errors} />
-        <Input id='sex' label={'Sex'} register={register} errors={errors} />
+        <Input id='email' label={'Email'} register={register} errors={errors} />
+        <Input id='password' type='password' label={'Password'} register={register} errors={errors} />
+        <Input id='confirmPassword' type='password' label={'Confirm password'} register={register} errors={errors} />
       </div>
-      <Button type='submit' className=''>
-        Register
-      </Button>
+      <Button type='submit'>Register</Button>
     </form>
   );
 };

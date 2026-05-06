@@ -11,22 +11,18 @@ const NavLinks = [
     to: '/booking',
   },
   {
-    title: 'Test',
-    to: '/test',
+    title: 'Users',
+    to: '/users',
   },
   {
-    title: 'About',
-    to: '/about',
-  },
-  {
-    title: 'FAQ',
-    to: '/faq',
+    title: 'Appointment',
+    to: '/appointments',
   },
 ];
 
 const Navbar = () => {
   return (
-    <header className='z-99 fixed flex h-[80px] w-full justify-center bg-blue-200'>
+    <header className='fixed z-[999] flex h-[80px] w-full justify-center bg-blue-200'>
       <nav className='flex w-[80%] items-center justify-between'>
         <Button to={'/'} variant='tertiary' className='text-xl'>
           {/* <img src={rccLogo} alt='rcc-logo' className='text-sm' height={10} width={10} /> */}
@@ -42,8 +38,10 @@ const Navbar = () => {
           ))}
         </ul>
         <div className='flex gap-x-2'>
-          <Button>Login</Button>
-          <Button variant='secondary'>Sign up</Button>
+          <Button to='/login'>Login</Button>
+          <Button to={'/register'} variant='secondary'>
+            Sign up
+          </Button>
         </div>
       </nav>
     </header>
