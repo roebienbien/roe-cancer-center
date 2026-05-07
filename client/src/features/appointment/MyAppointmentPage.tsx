@@ -6,6 +6,10 @@ export default function MyAppointmentsPage() {
 
   if (isLoading) return <p>Loading...</p>;
 
+  if (!data) {
+    return <div>No Appointments found</div>;
+  }
+
   return (
     <div>
       <h1 className='mb-4 text-xl font-bold'>My Appointments</h1>

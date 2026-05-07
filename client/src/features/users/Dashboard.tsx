@@ -12,6 +12,12 @@ export const Dashboard = () => {
   const { data: users, isLoading, isError } = useUsers();
   const { mutate: deleteUserMutation, isPending } = useDeleteUser();
 
+  const isAuthenticated = !!localStorage.getItem('accessToken');
+
+  if (!isAuthenticated) {
+    return <p>Please login First</p>;
+  }
+
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching users</p>;
 

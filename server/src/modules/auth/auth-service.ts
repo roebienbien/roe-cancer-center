@@ -1,8 +1,6 @@
 import { prisma } from "../../lib/prisma";
 import bcrypt from "bcrypt";
-import { AuthJwtPayload } from "../../types/auth";
 import { createError } from "../../utils/app-error";
-
 
 export const login = async (email: string, password: string) => {
   const user = await prisma.user.findUnique({ where: { email } });
@@ -25,7 +23,7 @@ export const login = async (email: string, password: string) => {
   //
   // return token;
 
-  return user
+  return user;
 };
 
 const authService = {

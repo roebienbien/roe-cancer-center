@@ -1,3 +1,4 @@
+import { useLogout } from '@/features/auth/useLogout';
 import { Button } from '../ui/button/Button';
 import './Navbar.scss';
 
@@ -7,12 +8,12 @@ const NavLinks = [
     to: '/',
   },
   {
-    title: 'Book',
-    to: '/booking',
-  },
-  {
     title: 'Users',
     to: '/users',
+  },
+  {
+    title: 'Patient',
+    to: '/patient',
   },
   {
     title: 'Appointment',
@@ -21,6 +22,7 @@ const NavLinks = [
 ];
 
 const Navbar = () => {
+  const { mutate: logout } = useLogout();
   return (
     <header className='fixed z-[999] flex h-[80px] w-full justify-center bg-blue-200'>
       <nav className='flex w-[80%] items-center justify-between'>
@@ -41,6 +43,9 @@ const Navbar = () => {
           <Button to='/login'>Login</Button>
           <Button to={'/register'} variant='secondary'>
             Sign up
+          </Button>
+          <Button onClick={() => logout()} variant='secondary'>
+            Log out
           </Button>
         </div>
       </nav>
