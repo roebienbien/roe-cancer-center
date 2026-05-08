@@ -12,17 +12,42 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const accessToken = createAccessToken(user);
   const refreshToken = createRefreshToken(user);
 
-  res.cookie("refreshToken", refreshToken, {
+  res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: false,
-    sameSite: "lax",
+    sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: false,
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+  console.log(req.cookies);
+
   return sendSuccess(res, {
-    data: { accessToken },
+    data: null,
     message: "login successful",
   });
+});
+
+export const logoutUser = asyncHandler((_: Request, res: Response) => {
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+  });
+
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    // secure: process.env.NODE_ENV === "production",
+    secure: false,
+    sameSite: "lax",
+  });
+
+  return sendSuccess(res, { data: null, message: "Logout successful" });
 });
 
 // export const refreshToken = asyncHandler(async (req: Request, res: Response) => {
@@ -45,13 +70,3 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
 //   return sendSuccess(res, { data: { accessToken } })
 // })
 //
-export const logoutUser = asyncHandler((_: Request, res: Response) => {
-  res.clearCookie("refershToken", {
-    httpOnly: true,
-    // secure: process.env.NODE_ENV === "production",
-    secure: false,
-    sameSite: "lax",
-  });
-
-  return sendSuccess(res, { data: null, message: "Logout successful" });
-});

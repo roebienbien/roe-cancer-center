@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button/Button';
-import { useUsers } from './hooks/useUsers';
 import './Dashboard.scss';
-import { useDeleteUser } from './hooks/useDeleteUser';
+import { useGetUsersQuery } from './api/users-api';
 
 type User = {
   id: string;
@@ -9,17 +8,16 @@ type User = {
 };
 
 export const Dashboard = () => {
-  const { data: users, isLoading, isError } = useUsers();
-  const { mutate: deleteUserMutation, isPending } = useDeleteUser();
-
-  const isAuthenticated = !!localStorage.getItem('accessToken');
-
-  if (!isAuthenticated) {
-    return <p>Please login First</p>;
-  }
+  const { data, isLoading, isError, error } = useGetUsersQuery();
+  const users = data?.data ?? [];
 
   if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error fetching users</p>;
+  if (isError) {
+    if ('status' in error && error.status === 401) {
+      return <p>Please login first</p>;
+    }
+    return <p>Error fetching users</p>;
+  }
 
   if (users.length === 0) return <p>No Users found</p>;
 
@@ -27,12 +25,12 @@ export const Dashboard = () => {
     console.log('Update');
   };
 
-  const handleDelete = (id: string) => {
-    const confirmed = confirm('Are you sure you want to delete this user');
-    if (!confirm) return;
-    deleteUserMutation(id);
-    console.log('Delete');
-  };
+  // const handleDelete = (id: string) => {
+  //   const confirmed = confirm('Are you sure you want to delete this user');
+  //   if (!confirm) return;
+  //   deleteUserMutation(id);
+  //   console.log('Delete');
+  // };
 
   return (
     <div className='dashboard-users'>
@@ -44,9 +42,7 @@ export const Dashboard = () => {
               <Button onClick={handleUpdate} className='dashboard-users__btn dashboard-users__btn--update'>
                 Update
               </Button>
-              <Button onClick={() => handleDelete(user.id)} className='dashboard-users__btn dashboard-users__btn--delete'>
-                Delete
-              </Button>
+              <Button className='dashboard-users__btn dashboard-users__btn--delete'>Delete</Button>
             </div>
           </div>
         ))}

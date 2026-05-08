@@ -1,11 +1,21 @@
-import { api } from '@/shared/lib/axios';
+import { api } from '@/services/api';
 
-export const getUsers = async () => {
-  const res = await api.get('/users');
-
-  return res.data.data;
+type User = {
+  id: string;
+  email: string;
 };
 
-export const deleteUser = async (id: string) => {
-  await api.delete(`/users/${id}`);
+type getUsersResponse = {
+  data: User[];
 };
+
+export const userApi = api.injectEndpoints({
+  endpoints: (builder) => ({
+    getUsers: builder.query<getUsersResponse, void>({
+      query: () => '/users',
+      providesTags: ['Users'],
+    }),
+  }),
+});
+
+export const { useGetUsersQuery } = userApi;

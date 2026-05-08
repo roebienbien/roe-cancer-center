@@ -1,5 +1,4 @@
 import { Router, Request, Response } from "express";
-import { prisma } from "../../lib/prisma";
 import { authenticate, AuthRequest } from "../../middleware/authenticate";
 import { authorize } from "../../middleware/authorize";
 import { validateResource } from "../../middleware/validateResource";
@@ -21,21 +20,6 @@ router.get(
     res.json({ message: ` You are ${role}` });
   },
 );
-
-// router.get("/appointments", async (_: Request, res: Response) => {
-//   try {
-//     const users = await prisma.user.findMany({
-//       include: {
-//         appointments: true,
-//       },
-//     });
-//
-//     return res.json(users);
-//   } catch (err) {
-//     console.error(err);
-//     return res.status(500).json({ message: "Server error" });
-//   }
-// });
 
 // router.get("/:id", userController.getUserHandler);
 router.delete(

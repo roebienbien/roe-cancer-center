@@ -59,14 +59,16 @@ export async function getAllUsers() {
   return users;
 }
 
-// async function getUserById(id: string) {
-//   const user = await prisma.user.findUnique({ where: { id }, include: { bookings: true } });
-//
-//   if (!user) {
-//     throw new Error("User not found");
-//   }
-//   return user;
-// }
+export async function getUserById(id: string) {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return user;
+}
 //
 // async function deleteUser(id: string) {
 //   const deletedUser = await prisma.user.delete({ where: { id } });

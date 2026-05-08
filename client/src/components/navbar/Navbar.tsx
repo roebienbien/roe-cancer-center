@@ -1,6 +1,7 @@
 import { useLogout } from '@/features/auth/useLogout';
 import { Button } from '../ui/button/Button';
 import './Navbar.scss';
+import { useLogoutMutation } from '@/features/auth/api/auth-api';
 
 const NavLinks = [
   {
@@ -22,7 +23,18 @@ const NavLinks = [
 ];
 
 const Navbar = () => {
-  const { mutate: logout } = useLogout();
+  //const { mutate: logout } = useLogout();
+  const [logout, { isLoading }] = useLogoutMutation();
+
+  const handleLogout = async () => {
+    try {
+      await logout().unwrap();
+      console.log('user logged out');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <header className='fixed z-[999] flex h-[80px] w-full justify-center bg-blue-200'>
       <nav className='flex w-[80%] items-center justify-between'>
@@ -44,7 +56,7 @@ const Navbar = () => {
           <Button to={'/register'} variant='secondary'>
             Sign up
           </Button>
-          <Button onClick={() => logout()} variant='secondary'>
+          <Button onClick={handleLogout} disabled={isLoading} variant='secondary'>
             Log out
           </Button>
         </div>

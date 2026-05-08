@@ -1,5 +1,6 @@
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
+import { sendSuccess } from "../../utils/response-handler";
 
 export async function createPatientProfile(userId: string, data: any) {
   const existing = await prisma.patient.findUnique({
@@ -21,6 +22,14 @@ export async function createPatientProfile(userId: string, data: any) {
       phone: data.phone,
       address: data.address,
       notes: data.notes,
+    },
+  });
+}
+
+export async function getAllPatients() {
+  return await prisma.patient.findMany({
+    orderBy: {
+      createdAt: "desc",
     },
   });
 }

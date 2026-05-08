@@ -10,23 +10,31 @@ export interface AuthRequest extends Request {
   user?: {
     userId: string;
     role: Role;
-  }
+  };
 }
 
 // const validRoles: Role[] = Object.values(Role).in
 const validRoles: Role[] = ["ADMIN", "DOCTOR", "NURSE", "PATIENT"];
+
 export const authenticate = (
   req: AuthRequest,
   res: Response,
   next: NextFunction,
 ) => {
-  const header = req.headers.authorization;
+  // const header = req.headers.authorization;
 
-  if (!header || !header.startsWith("Bearer ")) {
-    return sendError(res, { message: "Authentication Failed: missing token", statusCode: 401 })
+  // if (!header || !header.startsWith("Bearer ")) {
+  //   return sendError(res, { message: "Authentication Failed: missing token", statusCode: 401 })
+  // }
+  // const token = header.split(" ")[1];
+
+  const token = req.cookies?.accessToken;
+  if (!token) {
+    return sendError(res, {
+      message: "Authentication failed",
+      statusCode: 401,
+    });
   }
-
-  const token = header.split(" ")[1];
 
   try {
     const decoded = jwt.verify(token, config.key.public, {
@@ -38,8 +46,10 @@ export const authenticate = (
       typeof decoded.userId !== "string" ||
       !validRoles.includes(decoded.role as Role)
     ) {
-      return sendError(res, { message: "Authentication Failed: Invalid token payload", statusCode: 403 })
-      // return res.status(401).json({ message: "Invalid token payload" });
+      return sendError(res, {
+        message: "Authentication Failed: Invalid token payload",
+        statusCode: 403,
+      });
     }
 
     //  Safe assignment
@@ -51,7 +61,9 @@ export const authenticate = (
     next();
   } catch (err) {
     console.log("JWT ERROR:", err);
-    return sendError(res, { message: "Authentication Failed: Invalid or expired token", statusCode: 401 })
-    // return res.status(401).json({ message: "Invalid or expired token" });
+    return sendError(res, {
+      message: "Authentication Failed: Invalid or expired token",
+      statusCode: 401,
+    });
   }
 };
