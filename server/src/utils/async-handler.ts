@@ -1,30 +1,39 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 
 /**
- * Wraps an async Express route handler and forwards any errors to Express error middleware.
+ * Utility wrapper for async Express route handlers.
  *
- * Why this exists:
- * - Express does NOT automatically catch errors thrown in async functions
- * - Without this, you'd need try/catch in every controller
+ * Express does not automatically catch errors thrown inside async functions.
+ * Without this wrapper, every controller would need its own try/catch block.
  *
- * @param fn - Your async route handler (controller)
- * @returns A new handler that catches and forwards errors via next()
+ * This helper ensures that:
+ * - resolved promises continue normally
+ * - rejected promises are forwarded to Express error middleware via `next()`
+ *
+ * @example
+ * router.get(
+ *   "/users",
+ *   asyncHandler(async (req, res) => {
+ *     const users = await getUsers();
+ *     res.json(users);
+ *   }),
+ * );
  */
+
 export const asyncHandler =
   <P = any, ResBody = any, ReqBody = any, ReqQuery = any>(
-    fn: RequestHandler<P, ResBody, ReqBody, ReqQuery>
+    fn: RequestHandler<P, ResBody, ReqBody, ReqQuery>,
   ): RequestHandler<P, ResBody, ReqBody, ReqQuery> =>
-    (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response, next: NextFunction) => {
-      Promise.resolve(fn(req, res, next)).catch(next);
-    };
+  (
+    req: Request<P, ResBody, ReqBody, ReqQuery>,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
 
 // export const asyncHandler =
-//   (fn: RequestHandler): RequestHandler =>
-//     (req, res, next) =>
-//       // Ensure the handler result is treated as a Promise
-//       // (works for both async and non-async functions)
-//       Promise.resolve(fn(req, res, next))
-//         // If the promise rejects or an error is thrown,
-//         // pass it to Express error handling middleware
-//         .catch(next);
-//
+//   (fn: (req: Request, res: Response, next: NextFunction) => Promise<unknown>) =>
+//   (req: Request, res: Response, next: NextFunction) => {
+//     Promise.resolve(fn(req, res, next)).catch(next);
+//   };

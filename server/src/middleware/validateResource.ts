@@ -1,27 +1,28 @@
 import { Request, Response, NextFunction } from "express";
 import { z, ZodError } from "zod";
-import { sendError } from "../utils/response-handler";
+import { createError } from "../utils/app-error";
 
 export const validateResource =
-  (schema: z.ZodSchema) =>
-    (req: Request, res: Response, next: NextFunction) => {
-      try {
-        schema.parse({
-          body: req.body,
-          query: req.query,
-          params: req.params,
-        });
-        next();
-      } catch (error: any) {
-        if (error instanceof ZodError) {
-          const formattedErrors = error.issues.map((issue) => ({
-            path: issue.path.join("."),
-            message: issue.message,
-          }));
+  (schema: z.ZodSchema) => (req: Request, _: Response, next: NextFunction) => {
+    try {
+      schema.parse({
+        body: req.body,
+        query: req.query,
+        params: req.params,
+      });
+      next();
+    } catch (error: unknown) {
+      if (error instanceof ZodError) {
+        const formattedErrors = error.issues.map((issue) => ({
+          path: issue.path.join("."),
+          message: issue.message,
+        }));
 
-          return sendError(res, { errors: formattedErrors, message: "Varidation Errors", statusCode: 400 });
-        }
-        return sendError(res, { errors: error, message: error.message, statusCode: 400 });
-        // return sendError(res, error.message, 400, error);
+        throw createError("Validation Errors", 400, formattedErrors);
       }
-    };
+
+      if (error instanceof Error) throw createError(error.message, 400, error);
+
+      throw createError("Unknown validation error", 400);
+    }
+  };

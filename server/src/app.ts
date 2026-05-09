@@ -16,23 +16,10 @@ app.use(
 );
 app.use(cookieParser()); //add before routes
 
-app.get("/api/test-error", (req, res) => {
-  throw new Error("something broke");
-});
-
-app.get("/api/test-operational", (req, res, next) => {
-  const err = {
-    message: "Email already exists",
-    statusCode: 400,
-    isOperational: true,
-    errors: { email: "taken" },
-  };
-
-  next(err);
-});
 app.use("/api", router);
 
 app.use(httpLogger);
+
 // Error middleware SHOULD BE LAST
 app.use(errorMiddleware);
 

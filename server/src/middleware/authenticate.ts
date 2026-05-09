@@ -2,31 +2,17 @@ import { Request, Response, NextFunction } from "express";
 import config from "../config";
 import jwt from "jsonwebtoken";
 import { Role } from "@prisma/client";
-import { AuthJwtPayload } from "../types/auth";
-import { sendError } from "../utils/response-handler";
+import { AuthJwtPayload } from "../types/express";
+import { createError } from "../utils/app-error";
 
-export interface AuthRequest extends Request {
-  // user?: { userId: string; role: Role };
-  user?: {
-    userId: string;
-    role: Role;
-  };
-}
-
-// const validRoles: Role[] = Object.values(Role).in
 const validRoles: Role[] = ["ADMIN", "DOCTOR", "NURSE", "PATIENT"];
+// const validRoles: Role = Object.values(Role) as Role[];
 
-export const authenticate = (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction,
-) => {
-  const token = req.cookies?.accessToken;
+export const authenticate = (req: Request, _: Response, next: NextFunction) => {
+  const token = req.cookies.accessToken;
+
   if (!token) {
-    return sendError(res, {
-      message: "Authentication failed",
-      statusCode: 401,
-    });
+    throw createError("Authentication failed", 401);
   }
 
   try {
@@ -36,27 +22,21 @@ export const authenticate = (
 
     //  Validate payload shape
     if (
-      typeof decoded.userId !== "string" ||
-      !validRoles.includes(decoded.role as Role)
+      typeof decoded.userId !== "string"
+      // typeof decoded.userId !== "string" ||
+      // !validRoles.includes(decoded.role as Role)
     ) {
-      return sendError(res, {
-        message: "Authentication Failed: Invalid token payload",
-        statusCode: 403,
-      });
+      throw createError("Authentication Failed: Invalid payload", 403);
     }
 
-    //  Safe assignment
     req.user = {
       userId: decoded.userId,
-      role: decoded.role as Role,
+      role: decoded.role,
     };
 
     next();
   } catch (err) {
     console.log("JWT ERROR:", err);
-    return sendError(res, {
-      message: "Authentication Failed: Invalid or expired token",
-      statusCode: 401,
-    });
+    throw createError("Authentication Failed: Invalid or expired token");
   }
 };
