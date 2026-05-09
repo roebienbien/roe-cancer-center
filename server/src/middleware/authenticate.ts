@@ -21,13 +21,6 @@ export const authenticate = (
   res: Response,
   next: NextFunction,
 ) => {
-  // const header = req.headers.authorization;
-
-  // if (!header || !header.startsWith("Bearer ")) {
-  //   return sendError(res, { message: "Authentication Failed: missing token", statusCode: 401 })
-  // }
-  // const token = header.split(" ")[1];
-
   const token = req.cookies?.accessToken;
   if (!token) {
     return sendError(res, {

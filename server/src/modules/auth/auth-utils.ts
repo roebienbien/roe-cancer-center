@@ -2,21 +2,28 @@ import jwt from "jsonwebtoken";
 import config from "../../config/";
 import { AuthJwtPayload } from "../../types/auth";
 
-export const createAccessToken = (user: any) => {
+export const createAccessToken = (payload: AuthJwtPayload) => {
   // export const createAccessToken = (user: AuthJwtPayload) => {
   return jwt.sign(
     {
-      userId: user.id,
-      role: user.role,
+      userId: payload.userId,
+      role: payload.role,
     },
     config.key.private,
-    { algorithm: "RS256", expiresIn: "15m" },
+    { algorithm: "RS256", expiresIn: "10s" },
   );
 };
 
-export const createRefreshToken = (user: any) => {
-  return jwt.sign({ userId: user.id }, config.key.private, {
-    algorithm: "RS256",
-    expiresIn: "7d",
-  });
+export const createRefreshToken = (user: AuthJwtPayload) => {
+  return jwt.sign(
+    {
+      userId: user.userId,
+      role: user.role,
+    },
+    config.key.private,
+    {
+      algorithm: "RS256",
+      expiresIn: "7d",
+    },
+  );
 };
