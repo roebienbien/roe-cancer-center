@@ -11,16 +11,16 @@ import {
   clearCookieOptions,
   refreshTokenECookieOptions,
 } from "../../config/cookie-options";
-import { AuthJwtPayload } from "../../types/auth";
+import { AuthJwtPayload } from "../../types/express";
 
 export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  const user = await authService.login(email, password);
+  const { userId, role } = await authService.login(email, password);
 
   const jwtPayload: AuthJwtPayload = {
-    userId: user.id,
-    role: user.role,
+    userId: userId,
+    role: role,
   };
 
   const accessToken = createAccessToken(jwtPayload);
@@ -28,8 +28,6 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
 
   res.cookie("accessToken", accessToken, accessTokenCookieOptions);
   res.cookie("refreshToken", refreshToken, refreshTokenECookieOptions);
-
-  console.log(req.cookies);
 
   return sendSuccess(res, {
     data: null,
@@ -57,8 +55,6 @@ export const refreshToken = asyncHandler(
       userId: payload.userId,
       role: payload.role,
     });
-
-    console.log(payload);
 
     res.cookie("accessToken", accessToken, accessTokenCookieOptions);
 

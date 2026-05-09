@@ -2,6 +2,15 @@ import bcrypt from "bcrypt";
 import { CreateUserInput } from "./user-schema";
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
+import { Prisma } from "@prisma/client";
+
+// Improve into safeUser() mapper
+export const userSelect = {
+  id: true,
+  email: true,
+  role: true,
+  createdAt: true,
+};
 
 export async function createUser(data: CreateUserInput) {
   try {
@@ -12,6 +21,8 @@ export async function createUser(data: CreateUserInput) {
         password: hashedPassword,
         // role: "DOCTOR",
       },
+      // omit password
+      select: userSelect,
     });
 
     // await prisma.doctor.create({
@@ -39,8 +50,11 @@ export async function createUser(data: CreateUserInput) {
     // });
 
     return user;
-  } catch (err: any) {
-    if (err.code === "P2002" && err.meta?.target?.includes("email")) {
+  } catch (err: unknown) {
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2002"
+    ) {
       throw createError("Email already exists", 400);
     }
     throw err; //let global error handle
@@ -65,19 +79,14 @@ export async function getUserById(id: string) {
   });
 
   if (!user) {
-    throw new Error("User not found");
+    throw createError("User not found", 404);
   }
   return user;
 }
-//
-// async function deleteUser(id: string) {
-//   const deletedUser = await prisma.user.delete({ where: { id } });
-//   return deletedUser;
-// }
 
 export async function deactivateUser(id: string, actorId: string) {
   return prisma.user.update({
-    where: { id },
+    where: { id, deletedAt: null },
     data: {
       deletedAt: new Date(),
       deletedById: actorId,

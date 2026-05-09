@@ -1,9 +1,20 @@
 import { prisma } from "../../lib/prisma";
 import bcrypt from "bcrypt";
 import { createError } from "../../utils/app-error";
+import { Role } from "@prisma/client";
 
-export const login = async (email: string, password: string) => {
-  const user = await prisma.user.findUnique({ where: { email } });
+type AuthUser = {
+  userId: string;
+  role: Role;
+};
+
+export const login = async (
+  email: string,
+  password: string,
+): Promise<AuthUser> => {
+  const user = await prisma.user.findUnique({
+    where: { email, deletedAt: null },
+  });
 
   if (!user) throw createError("Invalid credentials", 401);
 
@@ -11,19 +22,7 @@ export const login = async (email: string, password: string) => {
 
   if (!valid) throw createError("Invalid credentials", 401);
 
-  // const payload: AuthJwtPayload = {
-  //   userId: String(user.id),
-  //   role: user.role,
-  // };
-
-  // const token = jwt.sign(payload, config.key.private, {
-  //   algorithm: "RS256",
-  //   expiresIn: "1d",
-  // });
-  //
-  // return token;
-
-  return user;
+  return { userId: user.id, role: user.role };
 };
 
 const authService = {
