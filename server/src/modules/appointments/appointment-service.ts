@@ -1,5 +1,20 @@
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
+import { AppointmentStatus } from "@prisma/client";
+
+// const patientPreviewSelect = {
+//   select: {
+//     firstName: true,
+//   },
+// };
+
+const appointmentInclude = {
+  patient: {
+    select: {
+      firstName: true,
+    },
+  },
+};
 
 export async function createAppointment(
   patientId: string,
@@ -15,6 +30,11 @@ export async function createAppointment(
       },
     });
 
+    if (startAt >= endAt) throw createError("Invalid appointment range", 400);
+    if (startAt >= new Date())
+      throw createError("Cannot book past appointments", 400);
+
+    // move into constants
     const MAX_CAPACITY = 5;
 
     if (overlappingCount >= MAX_CAPACITY) {
@@ -34,12 +54,9 @@ export async function createAppointment(
 export async function getAllAppointments() {
   return await prisma.appointment.findMany({
     // where: { id: appointmentId },
-    include: {
-      patient: {
-        select: {
-          firstName: true,
-        },
-      },
+    include: appointmentInclude,
+    orderBy: {
+      startAt: "asc",
     },
   });
 }
@@ -47,13 +64,7 @@ export async function getAllAppointments() {
 export async function getAppointmentById(id: string) {
   const appointment = await prisma.appointment.findUnique({
     where: { id },
-    include: {
-      patient: {
-        select: {
-          firstName: true,
-        },
-      },
-    },
+    include: appointmentInclude,
   });
 
   if (!appointment) {
@@ -83,7 +94,7 @@ export async function getAppointmentsByUserId(userId: string) {
 export async function updateAppointmentStatus(
   appointmentId: string,
   doctorUserId: string,
-  status: "APPROVED" | "REJECTED",
+  status: AppointmentStatus,
 ) {
   // get doctor profile
   const doctor = await prisma.doctor.findUnique({
@@ -98,7 +109,7 @@ export async function updateAppointmentStatus(
   const appointment = await getAppointmentById(appointmentId);
 
   if (appointment.status !== "PENDING") {
-    throw createError("Appointment alread processed", 400);
+    throw createError("Appointment already processed", 400);
   }
 
   //  assign doctor if not yet assigned

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { LoginFormData, loginSchema } from '../login-schema';
+import { LoginFormData, loginSchema } from '../schema/login-schema';
 import Input from '@/components/ui/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button/Button';

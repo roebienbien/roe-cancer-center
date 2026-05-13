@@ -3,10 +3,7 @@ import { asyncHandler } from "../../utils/async-handler";
 import { sendSuccess } from "../../utils/response-handler";
 import { logger } from "../../utils/logger";
 import * as userService from "./user-service";
-
-type Params = {
-  id: string;
-};
+import { Params } from "../../types/express";
 
 export const createUser = asyncHandler(async (req, res) => {
   const user = await userService.createUser(req.body);

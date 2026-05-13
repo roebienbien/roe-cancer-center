@@ -1,11 +1,9 @@
 import { Button } from '@/components/ui/button/Button';
 import Input from '@/components/ui/Input';
 import { useForm } from 'react-hook-form';
-import { useRegister } from '../userRegister';
-import { RegisterFormValues } from '../register-schema';
+import { RegisterFormValues } from '../schema/register-schema';
 
 const RegisterForm = () => {
-  const registerMutation = useRegister();
   const {
     register,
     handleSubmit,
@@ -18,11 +16,7 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (data: RegisterFormValues) => {
-    const { confirmPassword, ...payload } = data;
-    registerMutation.mutate(payload);
-    console.log('User registered');
-  };
+  const onSubmit = (data: RegisterFormValues) => {};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

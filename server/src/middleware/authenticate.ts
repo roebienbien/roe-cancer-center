@@ -20,12 +20,7 @@ export const authenticate = (req: Request, _: Response, next: NextFunction) => {
       algorithms: ["RS256"],
     }) as AuthJwtPayload;
 
-    //  Validate payload shape
-    if (
-      typeof decoded.userId !== "string"
-      // typeof decoded.userId !== "string" ||
-      // !validRoles.includes(decoded.role as Role)
-    ) {
+    if (typeof decoded.userId !== "string") {
       throw createError("Authentication Failed: Invalid payload", 403);
     }
 
