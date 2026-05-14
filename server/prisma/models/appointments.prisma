@@ -1,0 +1,38 @@
+model Appointment {
+  id String @id @default(uuid())
+
+  patient   Patient? @relation(fields: [patientId], references: [id])
+  patientId String?
+
+  doctor   Doctor? @relation(fields: [doctorId], references: [id])
+  doctorId String?
+
+  startAt DateTime
+  endAt   DateTime
+  status  AppointmentStatus @default(PENDING)
+
+  //optional: link to doctor later
+  //doctorId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // user   User?   @relation(fields: [userId], references: [id])
+  // userId String?
+}
+
+enum AppointmentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum AppointmentType {
+  CHEMOTHERAPHY
+  CONSULTATION
+  FOLLOW_UP
+  LAB_TEST
+  RADIATION
+  GENERAL_CHECKUP
+}

@@ -12,6 +12,9 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "prisma": {
+    "schema": "./prisma"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -1,0 +1,66 @@
+model User {
+  id          String    @id @default(uuid())
+  email       String    @unique
+  password    String
+  role        Role      @default(PATIENT)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  deletedById String?
+
+  patient Patient?
+  doctor  Doctor?
+}
+
+model Patient {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  lastName   String?
+  firstName  String?
+  middleName String?
+  birthDate  DateTime
+  sex        String?
+
+  phone   String?
+  // make this full address later
+  address String?
+
+  //medical-related 
+  notes String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  appointments Appointment[]
+  chemoCycles  ChemoCycle[]
+}
+
+model Doctor {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  firstName String
+  lastName  String
+
+  specialization String? //oncology, general, etc.
+  licenseNumber  String? @unique
+
+  phone String?
+  email String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  appointments Appointment[]
+  chemoCycles  ChemoCycle[]
+}
+
+enum Role {
+  ADMIN
+  DOCTOR
+  NURSE
+  PATIENT
+}
