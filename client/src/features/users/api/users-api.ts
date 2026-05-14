@@ -11,6 +11,14 @@ type getUsersResponse = {
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    register: builder.mutation({
+      query: (body) => ({
+        url: '/users',
+        method: 'POST',
+        body,
+      }),
+    }),
+
     getUsers: builder.query<getUsersResponse, void>({
       query: () => '/users',
       providesTags: ['Users'],
@@ -18,4 +26,4 @@ export const userApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetUsersQuery } = userApi;
+export const { useGetUsersQuery, useRegisterMutation } = userApi;

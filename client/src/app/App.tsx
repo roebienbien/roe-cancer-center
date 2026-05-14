@@ -6,7 +6,7 @@ import LoginPage from '../features/auth/pages/LoginPage';
 import Layout from '../components/layout/Layout';
 import RegisterPage from '@/features/auth/pages/RegisterPage';
 import { Dashboard } from '@/features/users/Dashboard';
-import MyAppointmentsPage from '@/features/appointment/MyAppointmentPage';
+import MyAppointmentsPage from '@/features/appointments/MyAppointmentPage';
 
 const router = createBrowserRouter([
   {

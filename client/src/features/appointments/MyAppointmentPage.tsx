@@ -1,8 +1,8 @@
+import { useGetAppointmentsQuery } from './api/appointment-api';
 import { AppointmentList } from './AppointmentList';
-import { useMyAppointments } from './useMyAppointments';
 
 export default function MyAppointmentsPage() {
-  const { data, isLoading } = useMyAppointments();
+  const { data, isLoading } = useGetAppointmentsQuery();
 
   if (isLoading) return <p>Loading...</p>;
 

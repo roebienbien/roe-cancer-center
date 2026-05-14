@@ -9,11 +9,12 @@ type Props<T extends FieldValues> = {
   className?: string;
   placeholder?: string;
   value?: string;
+  autoComplete?: 'email' | 'new-password';
   register: UseFormRegister<T>; //replace any with schema
   errors?: FieldErrors<T>;
 };
 
-const Input = <T extends FieldValues>({ type = 'text', className, label, id, placeholder, register, errors }: Props<T>) => {
+const Input = <T extends FieldValues>({ type = 'text', className, label, id, placeholder, autoComplete, register, errors }: Props<T>) => {
   return (
     <div className={twMerge('', className)}>
       <div className='flex gap-x-1'>
@@ -22,7 +23,7 @@ const Input = <T extends FieldValues>({ type = 'text', className, label, id, pla
             {label}
           </label>
         )}
-        <input {...register(id as any)} id={id} type={type} placeholder={`Enter ${label}`} className='' />
+        <input {...register(id as any)} id={id} type={type} placeholder={`Enter ${label}`} className='' autoComplete={autoComplete} />
       </div>
 
       <ErrorMessage errors={errors} name={id as any} render={({ message }) => <span className=''>{message}</span>} />

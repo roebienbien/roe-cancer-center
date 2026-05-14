@@ -1,5 +1,7 @@
+import { Appointment } from './appointment-types';
+
 type Props = {
-  appointments: any[];
+  appointments: Appointment[];
 };
 
 export function AppointmentList({ appointments }: Props) {
