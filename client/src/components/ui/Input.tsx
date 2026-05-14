@@ -26,7 +26,7 @@ const Input = <T extends FieldValues>({ type = 'text', className, label, id, pla
         <input {...register(id as any)} id={id} type={type} placeholder={`Enter ${label}`} className='' autoComplete={autoComplete} />
       </div>
 
-      <ErrorMessage errors={errors} name={id as any} render={({ message }) => <span className=''>{message}</span>} />
+      <ErrorMessage errors={errors} name={id as any} render={({ message }) => <span className='text-red-500'>{message}</span>} />
     </div>
   );
 };

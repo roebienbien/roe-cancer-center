@@ -1,3 +1,20 @@
+model AvailabilitySlot {
+  id String @id @default(uuid())
+
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
+  doctorId String
+
+  startAt DateTime
+  endAt   DateTime
+
+  isBooked Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  appointment Appointment?
+}
+
 model Appointment {
   id String @id @default(uuid())
 
@@ -7,18 +24,20 @@ model Appointment {
   doctor   Doctor? @relation(fields: [doctorId], references: [id])
   doctorId String?
 
-  startAt DateTime
-  endAt   DateTime
-  status  AppointmentStatus @default(PENDING)
+  // startAt DateTime
+  // endAt   DateTime
+
+  slot   AvailabilitySlot @relation(fields: [slotId], references: [id])
+  slotId String           @unique
+
+  status AppointmentStatus @default(PENDING)
+  type   AppointmentType   @default(CONSULTATION)
 
   //optional: link to doctor later
   //doctorId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  // user   User?   @relation(fields: [userId], references: [id])
-  // userId String?
 }
 
 enum AppointmentStatus {

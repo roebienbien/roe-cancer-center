@@ -1,5 +1,6 @@
 import { useGetAppointmentsQuery } from './api/appointment-api';
 import { AppointmentList } from './AppointmentList';
+import CreateAppointmentForm from './CreateAppointmentForm';
 
 export default function MyAppointmentsPage() {
   const { data, isLoading } = useGetAppointmentsQuery();
@@ -13,6 +14,7 @@ export default function MyAppointmentsPage() {
   return (
     <div>
       <h1 className='mb-4 text-xl font-bold'>My Appointments</h1>
+      <CreateAppointmentForm />
 
       <AppointmentList appointments={data?.data || []} />
     </div>

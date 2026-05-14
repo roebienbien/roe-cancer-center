@@ -1,17 +1,24 @@
 import express, { Response, Request } from "express";
-import { authenticate, AuthRequest } from "../../middleware/authenticate";
+import { authenticate } from "../../middleware/authenticate";
 import { requireUser } from "../../utils/requireUser";
 import { getPatientByUserId } from "./patient-service";
 import { sendSuccess } from "../../utils/response-handler";
 import * as patientController from "./patient-controller";
+import { validateResource } from "../../middleware/validateResource";
+import { CreatePatientSchema } from "./patient-schema";
 
 const router = express.Router();
 
 router.get("/", patientController.getAllPatients);
 
-router.post("/me", authenticate, patientController.createPatientProfile);
+router.post(
+  "/me",
+  validateResource(CreatePatientSchema),
+  authenticate,
+  patientController.createPatientProfile,
+);
 
-router.get("/me", authenticate, async (req: AuthRequest, res: Response) => {
+router.get("/me", authenticate, async (req: Request, res: Response) => {
   const { userId } = requireUser(req);
 
   const patient = await getPatientByUserId(userId);

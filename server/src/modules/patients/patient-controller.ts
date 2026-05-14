@@ -1,12 +1,12 @@
-import { AuthRequest } from "../../middleware/authenticate";
 import { asyncHandler } from "../../utils/async-handler";
 import { requireUser } from "../../utils/requireUser";
 import { sendSuccess } from "../../utils/response-handler";
+import { CreatePatientInput } from "./patient-schema";
 import * as patientService from "./patient-service";
 import { Request, Response } from "express";
 
 export const createPatientProfile = asyncHandler(
-  async (req: AuthRequest, res: Response) => {
+  async (req: Request<{}, {}, CreatePatientInput>, res: Response) => {
     const { userId } = requireUser(req);
     const patient = await patientService.createPatientProfile(userId, req.body);
 

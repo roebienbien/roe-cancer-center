@@ -1,8 +1,11 @@
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
-import { sendSuccess } from "../../utils/response-handler";
+import { CreatePatientInput } from "./patient-schema";
 
-export async function createPatientProfile(userId: string, data: any) {
+export async function createPatientProfile(
+  userId: string,
+  data: CreatePatientInput,
+) {
   const existing = await prisma.patient.findUnique({
     where: { userId },
   });
@@ -57,7 +60,7 @@ export async function getPatientByUserId(userId: string) {
     where: { userId },
   });
 
-  if (!patient) throw createError("Patient not fount", 404);
+  if (!patient) throw createError("Patient not found", 404);
 
   return patient;
 }

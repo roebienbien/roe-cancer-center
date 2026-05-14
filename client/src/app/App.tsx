@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFoundPage from '../pages/NotFoundPage';
 import HomePage from '../pages/home/HomePage';
-import BookingPage from '@/features/booking/pages';
 import LoginPage from '../features/auth/pages/LoginPage';
 import Layout from '../components/layout/Layout';
 import RegisterPage from '@/features/auth/pages/RegisterPage';
 import { Dashboard } from '@/features/users/Dashboard';
 import MyAppointmentsPage from '@/features/appointments/MyAppointmentPage';
+import CreatePatientPage from '@/features/patient/CreatePatientPage';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +34,11 @@ const router = createBrowserRouter([
         path: '/users',
         element: <Dashboard />,
       },
+      {
+        path: '/patient',
+        // path: '/patient/register',
+        element: <CreatePatientPage />,
+      },
       // {
       //   path: '/chemotheraphy-scheduler',
       //   element: <ChemotheraphyScheduler />,
@@ -49,6 +54,7 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
 function App() {
   return <RouterProvider router={router} />;
 }
