@@ -16,36 +16,42 @@ const appointmentInclude = {
   },
 };
 
-export async function createAppointment(
-  patientId: string,
-  startAt: Date,
-  endAt: Date,
-) {
+const MAX_CAPACITY = 5;
+export async function createAppointment(patientId: string, slotId: string) {
   return prisma.$transaction(async (tx) => {
-    // count overlapping appointments
-    const overlappingCount = await tx.appointment.count({
+    const slot = await tx.availabilitySlot.findUnique({
       where: {
-        AND: [{ startAt: { lt: endAt } }, { endAt: { gt: startAt } }],
-        status: { in: ["PENDING", "APPROVED"] },
+        id: slotId,
+        // status: { in: ["PENDING", "APPROVED"] },
       },
+      include: { appointment: true },
     });
 
-    if (startAt >= endAt) throw createError("Invalid appointment range", 400);
-    if (startAt >= new Date())
-      throw createError("Cannot book past appointments", 400);
-
-    // move into constants
-    const MAX_CAPACITY = 5;
-
-    if (overlappingCount >= MAX_CAPACITY) {
-      throw createError("Time slot full", 409);
+    if (!slot) {
+      throw createError("Slot not found", 404);
     }
+
+    if (slot.isBooked) {
+      throw createError("Slot already booked", 409);
+    }
+
+    if (slot.startAt < new Date()) {
+      throw createError("Cannot book past appointments", 400);
+    }
+
+    await tx.availabilitySlot.update({
+      where: {
+        id: slotId,
+      },
+      data: {
+        isBooked: true,
+      },
+    });
 
     return tx.appointment.create({
       data: {
         patientId,
-        startAt,
-        endAt,
+        slotId,
       },
     });
   });
@@ -56,7 +62,7 @@ export async function getAllAppointments() {
     // where: { id: appointmentId },
     include: appointmentInclude,
     orderBy: {
-      startAt: "asc",
+      createdAt: "asc",
     },
   });
 }
@@ -86,7 +92,7 @@ export async function getAppointmentsByUserId(userId: string) {
       patientId: patient.id,
     },
     orderBy: {
-      startAt: "asc",
+      createdAt: "asc",
     },
   });
 }

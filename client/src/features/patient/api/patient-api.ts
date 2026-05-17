@@ -4,6 +4,12 @@ export type Patient = {
   id: string;
   firstName: string;
   middleName: string;
+  lastName: string;
+  sex: string;
+  birthDate: string;
+  phone: string;
+  address: string;
+  notes?: string;
 };
 
 export type GetAllPatientsResponse = {

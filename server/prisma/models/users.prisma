@@ -41,8 +41,9 @@ model Doctor {
   id     String @id @default(uuid())
   userId String @unique
 
-  firstName String
   lastName  String
+  firstName String
+  middleName String
 
   specialization String? //oncology, general, etc.
   licenseNumber  String? @unique

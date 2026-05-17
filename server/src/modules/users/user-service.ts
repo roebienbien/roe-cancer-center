@@ -19,7 +19,7 @@ export async function createUser(data: CreateUserInput) {
       data: {
         email: data.email,
         password: hashedPassword,
-        // role: "DOCTOR",
+        role: "PATIENT",
       },
       // omit password
       select: userSelect,

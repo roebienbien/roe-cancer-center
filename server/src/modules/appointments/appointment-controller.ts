@@ -14,7 +14,7 @@ import { Params } from "../../types/express";
 
 export const createAppointment = asyncHandler(
   async (req: Request<{}, {}, CreateAppointmentInput>, res: Response) => {
-    const { startAt, endAt } = req.body;
+    const { slotId } = req.body;
 
     const { userId } = requireUser(req);
     const patient = await getPatientByUserId(userId);
@@ -25,8 +25,7 @@ export const createAppointment = asyncHandler(
 
     const appointment = await appointmentService.createAppointment(
       patient.id,
-      startAt,
-      endAt,
+      slotId,
     );
 
     return sendSuccess(res, {
