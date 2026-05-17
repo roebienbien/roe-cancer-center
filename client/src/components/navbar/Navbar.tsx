@@ -1,4 +1,3 @@
-import { useLogout } from '@/features/auth/useLogout';
 import { Button } from '../ui/button/Button';
 import './Navbar.scss';
 import { useLogoutMutation } from '@/features/auth/api/auth-api';
@@ -15,6 +14,10 @@ const NavLinks = [
   {
     title: 'Patient',
     to: '/patient',
+  },
+  {
+    title: 'Doctor',
+    to: '/doctor',
   },
   {
     title: 'Appointment',

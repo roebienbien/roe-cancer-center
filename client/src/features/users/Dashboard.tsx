@@ -1,11 +1,7 @@
 import { Button } from '@/components/ui/button/Button';
 import './Dashboard.scss';
 import { useGetUsersQuery } from './api/users-api';
-
-type User = {
-  id: string;
-  email: string;
-};
+import type { User } from './api/users-api';
 
 export const Dashboard = () => {
   const { data, isLoading, isError, error } = useGetUsersQuery();
@@ -33,19 +29,39 @@ export const Dashboard = () => {
   // };
 
   return (
-    <div className='dashboard-users'>
-      <div className='dashboard-users__list'>
-        {users.map((user: User) => (
-          <div key={user.id} className='dashboard-users__item'>
-            <div key={user.id}>{user.email}</div>
-            <div className='dashboard-users__actions'>
-              <Button onClick={handleUpdate} className='dashboard-users__btn dashboard-users__btn--update'>
-                Update
-              </Button>
-              <Button className='dashboard-users__btn dashboard-users__btn--delete'>Delete</Button>
-            </div>
-          </div>
-        ))}
+    <div className='rounded-2xl bg-white p-6 shadow'>
+      <h2 className='mb-4 text-2xl font-semibold'>Users Dashboard</h2>
+
+      <div className='overflow-x-auto'>
+        <table className='w-full border-collapse'>
+          <thead>
+            <tr className='border-b bg-gray-100'>
+              <th className='p-3 text-left font-semibold'>Email</th>
+
+              <th className='p-3 text-left font-semibold'>Role</th>
+
+              <th className='p-3 text-right font-semibold'>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {users.map((user: User) => (
+              <tr key={user.id} className='border-b hover:bg-gray-50'>
+                <td className='p-3'>{user.email}</td>
+
+                <td className='p-3'>{user.role}</td>
+
+                <td className='p-3'>
+                  <div className='flex justify-end gap-2'>
+                    <Button onClick={handleUpdate}>Update</Button>
+
+                    <Button>Delete</Button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

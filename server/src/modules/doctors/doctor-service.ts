@@ -3,22 +3,34 @@ import { createError } from "../../utils/app-error";
 import { CreateDoctorInput } from "./doctor-schema";
 
 export async function createDoctor(userId: string, data: CreateDoctorInput) {
-  const existing = await prisma.doctor.findUnique({
-    where: { userId },
-  });
+  return prisma.$transaction(async (tx) => {
+    const existing = await prisma.doctor.findUnique({
+      where: { userId },
+    });
 
-  if (existing) throw createError("Doctor profile already exists", 409);
+    if (existing) throw createError("Doctor profile already exists", 409);
 
-  const doctor = await prisma.doctor.create({
-    data: {
-      userId,
-      lastName: data.lastName,
-      firstName: data.firstName,
-      middleName: data.middleName,
-      // birthDate: new Date(data.birthDate),
-      // sex: data.sex,
-      phone: data.phone,
-      specialization: data.specialization,
-    },
+    const doctor = await tx.doctor.create({
+      data: {
+        userId,
+        lastName: data.lastName,
+        firstName: data.firstName,
+        middleName: data.middleName,
+        phone: data.phone,
+        specialization: data.specialization,
+        // birthDate: new Date(data.birthDate),
+        // sex: data.sex,
+      },
+    });
+
+    await tx.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        role: "DOCTOR",
+      },
+    });
+    return doctor;
   });
 }

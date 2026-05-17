@@ -8,7 +8,7 @@ export const api = createApi({
     credentials: 'include',
   }),
 
-  tagTypes: ['Users', 'Appointment', 'Patient', 'Auth'],
+  tagTypes: ['Users', 'Appointment', 'Patient', 'Doctor', 'Auth'],
 
   endpoints: () => ({}),
 });

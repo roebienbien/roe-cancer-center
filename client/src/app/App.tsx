@@ -7,6 +7,7 @@ import RegisterPage from '@/features/auth/pages/RegisterPage';
 import { Dashboard } from '@/features/users/Dashboard';
 import MyAppointmentsPage from '@/features/appointments/MyAppointmentPage';
 import CreatePatientPage from '@/features/patient/CreatePatientPage';
+import CreateDoctorPage from '@/features/doctors/CreateDoctorPage';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,11 @@ const router = createBrowserRouter([
         path: '/patient',
         // path: '/patient/register',
         element: <CreatePatientPage />,
+      },
+      {
+        path: '/doctor',
+        // path: '/patient/register',
+        element: <CreateDoctorPage />,
       },
       // {
       //   path: '/chemotheraphy-scheduler',
