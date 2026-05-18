@@ -12,7 +12,7 @@ export default function MyAppointmentsPage() {
   }
 
   return (
-    <div>
+    <div className='flex h-screen flex-col items-center justify-center'>
       <h1 className='mb-4 text-xl font-bold'>My Appointments</h1>
       <CreateAppointmentForm />
 

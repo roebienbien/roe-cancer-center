@@ -19,7 +19,7 @@ const appointmentInclude = {
 const MAX_CAPACITY = 5;
 export async function createAppointment(patientId: string, slotId: string) {
   return prisma.$transaction(async (tx) => {
-    const slot = await tx.availabilitySlot.findUnique({
+    const slot = await tx.slot.findUnique({
       where: {
         id: slotId,
         // status: { in: ["PENDING", "APPROVED"] },
@@ -39,7 +39,7 @@ export async function createAppointment(patientId: string, slotId: string) {
       throw createError("Cannot book past appointments", 400);
     }
 
-    await tx.availabilitySlot.update({
+    await tx.slot.update({
       where: {
         id: slotId,
       },

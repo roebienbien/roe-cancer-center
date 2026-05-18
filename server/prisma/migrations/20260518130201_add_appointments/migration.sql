@@ -1,13 +1,26 @@
 -- CreateTable
-CREATE TABLE `Appointment` (
+CREATE TABLE `Slot` (
     `id` VARCHAR(191) NOT NULL,
-    `patientId` VARCHAR(191) NULL,
-    `doctorId` VARCHAR(191) NULL,
+    `doctorId` VARCHAR(191) NOT NULL,
     `startAt` DATETIME(3) NOT NULL,
     `endAt` DATETIME(3) NOT NULL,
-    `status` ENUM('PENDING', 'APPROVED', 'REJECTED', 'COMPLETED') NOT NULL DEFAULT 'PENDING',
+    `capacity` INTEGER NOT NULL DEFAULT 5,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Appointment` (
+    `id` VARCHAR(191) NOT NULL,
+    `patientId` VARCHAR(191) NOT NULL,
+    `slotId` VARCHAR(191) NOT NULL,
+    `status` ENUM('PENDING', 'APPROVED', 'REJECTED', 'COMPLETED') NOT NULL DEFAULT 'PENDING',
+    `type` ENUM('CHEMOTHERAPHY', 'CONSULTATION', 'FOLLOW_UP', 'LAB_TEST', 'RADIATION', 'GENERAL_CHECKUP') NOT NULL DEFAULT 'CONSULTATION',
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `doctorId` VARCHAR(191) NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -100,6 +113,7 @@ CREATE TABLE `Patient` (
     `phone` VARCHAR(191) NULL,
     `address` VARCHAR(191) NULL,
     `notes` VARCHAR(191) NULL,
+    `status` ENUM('ACTIVE', 'INACTIVE', 'ARCHIVED') NOT NULL DEFAULT 'ACTIVE',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -111,12 +125,14 @@ CREATE TABLE `Patient` (
 CREATE TABLE `Doctor` (
     `id` VARCHAR(191) NOT NULL,
     `userId` VARCHAR(191) NOT NULL,
-    `firstName` VARCHAR(191) NOT NULL,
     `lastName` VARCHAR(191) NOT NULL,
+    `firstName` VARCHAR(191) NOT NULL,
+    `middleName` VARCHAR(191) NOT NULL,
     `specialization` VARCHAR(191) NULL,
     `licenseNumber` VARCHAR(191) NULL,
     `phone` VARCHAR(191) NULL,
     `email` VARCHAR(191) NULL,
+    `status` ENUM('ACTIVE', 'INACTIVE', 'ARCHIVED') NOT NULL DEFAULT 'ACTIVE',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -126,7 +142,13 @@ CREATE TABLE `Doctor` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_patientId_fkey` FOREIGN KEY (`patientId`) REFERENCES `Patient`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Slot` ADD CONSTRAINT `Slot_doctorId_fkey` FOREIGN KEY (`doctorId`) REFERENCES `Doctor`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_patientId_fkey` FOREIGN KEY (`patientId`) REFERENCES `Patient`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_slotId_fkey` FOREIGN KEY (`slotId`) REFERENCES `Slot`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_doctorId_fkey` FOREIGN KEY (`doctorId`) REFERENCES `Doctor`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
