@@ -25,5 +25,6 @@ router.get("/me", authenticate, async (req: Request, res: Response) => {
 
   return sendSuccess(res, { data: patient });
 });
+router.get("/:id", patientController.getPatientByUserId);
 
 export default router;

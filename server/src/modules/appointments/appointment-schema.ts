@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 export const createAppointmentSchema = z.object({
-  slotId: z.uuid("Invalid slotId"),
+  body: z.object({
+    patientId: z.uuid(),
+    doctorSlotId: z.uuid(),
+  }),
 });
 
 export const updateAppointmentStatusSchema = z.object({
@@ -13,7 +16,9 @@ export const updateAppointmentStatusSchema = z.object({
   }),
 });
 
-export type CreateAppointmentInput = z.infer<typeof createAppointmentSchema>;
+export type CreateAppointmentInput = z.infer<
+  typeof createAppointmentSchema
+>["body"];
 export type UpdateAppointmentStatusInputBody = z.infer<
   typeof updateAppointmentStatusSchema
 >["body"];

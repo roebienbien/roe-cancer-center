@@ -1,3 +1,4 @@
+import { create } from "node:domain";
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
 import { AppointmentStatus } from "@prisma/client";
@@ -17,28 +18,41 @@ const appointmentInclude = {
 };
 
 const MAX_CAPACITY = 5;
-export async function createAppointment(patientId: string, slotId: string) {
+export async function createAppointment(
+  patientId: string,
+  doctorSlotId: string,
+) {
   return prisma.$transaction(async (tx) => {
-    const slot = await tx.slot.findUnique({
+    const doctorSlot = await tx.doctorSlot.findUnique({
       where: {
-        id: slotId,
-        // status: { in: ["PENDING", "APPROVED"] },
+        id: doctorSlotId,
       },
-      include: { appointments: true },
+      include: { slot: true, appointments: true },
     });
 
-    if (!slot) {
-      throw createError("Slot not found", 404);
+    if (!doctorSlot) throw createError("Doctor slot not found", 404);
+
+    if (doctorSlot.slot.startAt < new Date()) {
+      throw createError("Cannot book pas slots", 400);
     }
 
-    if (slot.startAt < new Date()) {
-      throw createError("Cannot book past appointments", 400);
+    if (doctorSlot.appointments.length >= doctorSlot.slot.capacity) {
+      throw createError("Slot is fully booked", 400);
     }
+
+    // optional: prevent duplicate booking by same patient
+    const existing = await tx.appointment.findFirst({
+      where: {
+        patientId,
+        doctorSlotId,
+      },
+    });
+    if (existing) throw createError("Already booked this slot", 409);
 
     return tx.appointment.create({
       data: {
         patientId,
-        slotId,
+        doctorSlotId,
       },
     });
   });

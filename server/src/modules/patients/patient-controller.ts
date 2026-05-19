@@ -1,3 +1,4 @@
+import { Params } from "../../types/express";
 import { asyncHandler } from "../../utils/async-handler";
 import { requireUser } from "../../utils/requireUser";
 import { sendSuccess } from "../../utils/response-handler";
@@ -23,5 +24,15 @@ export const getAllPatients = asyncHandler(
     const patients = await patientService.getAllPatients();
 
     return sendSuccess(res, { data: patients });
+  },
+);
+
+export const getPatientByUserId = asyncHandler(
+  async (req: Request, res: Response) => {
+    const patient = await patientService.getPatientByUserId(
+      req.params.id as string,
+    );
+
+    return sendSuccess(res, { data: patient });
   },
 );

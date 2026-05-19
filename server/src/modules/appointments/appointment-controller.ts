@@ -11,13 +11,19 @@ import { requireUser } from "../../utils/requireUser";
 import { createError } from "../../utils/app-error";
 import { getPatientByUserId } from "../patients/patient-service";
 import { Params } from "../../types/express";
+import { prisma } from "../../lib/prisma";
 
 export const createAppointment = asyncHandler(
   async (req: Request<{}, {}, CreateAppointmentInput>, res: Response) => {
-    const { slotId } = req.body;
+    const { doctorSlotId } = req.body;
 
     const { userId } = requireUser(req);
-    const patient = await getPatientByUserId(userId);
+    // const patient = await getPatientByUserId(userId);
+    const patient = await prisma.patient.findUnique({
+      where: {
+        userId: userId,
+      },
+    });
 
     if (!patient) {
       throw createError("Patient profile required before booking", 400);
@@ -25,7 +31,7 @@ export const createAppointment = asyncHandler(
 
     const appointment = await appointmentService.createAppointment(
       patient.id,
-      slotId,
+      doctorSlotId,
     );
 
     return sendSuccess(res, {

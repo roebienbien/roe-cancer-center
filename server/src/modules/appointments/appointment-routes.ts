@@ -7,16 +7,19 @@ import { requireUser } from "../../utils/requireUser";
 import { getAppointmentsByUserId } from "./appointment-service";
 import { sendSuccess } from "../../utils/response-handler";
 import { validateResource } from "../../middleware/validateResource";
-import { updateAppointmentStatusSchema } from "./appointment-schema";
+import {
+  createAppointmentSchema,
+  updateAppointmentStatusSchema,
+} from "./appointment-schema";
 
 const router = express.Router();
 
 router.post(
   "/",
   // FIX
-  // validateResource(createAppointmentSchema),
   authenticate,
   authorize(Role.ADMIN, Role.PATIENT),
+  validateResource(createAppointmentSchema),
   appointmentController.createAppointment,
 );
 router.get("/", appointmentController.getAllAppointments);
