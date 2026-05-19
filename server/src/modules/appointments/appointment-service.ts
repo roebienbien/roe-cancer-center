@@ -24,29 +24,16 @@ export async function createAppointment(patientId: string, slotId: string) {
         id: slotId,
         // status: { in: ["PENDING", "APPROVED"] },
       },
-      include: { appointment: true },
+      include: { appointments: true },
     });
 
     if (!slot) {
       throw createError("Slot not found", 404);
     }
 
-    if (slot.isBooked) {
-      throw createError("Slot already booked", 409);
-    }
-
     if (slot.startAt < new Date()) {
       throw createError("Cannot book past appointments", 400);
     }
-
-    await tx.slot.update({
-      where: {
-        id: slotId,
-      },
-      data: {
-        isBooked: true,
-      },
-    });
 
     return tx.appointment.create({
       data: {

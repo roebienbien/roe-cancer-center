@@ -1,12 +1,55 @@
 import { NextFunction, Request, Response } from "express";
 import { sendError } from "../utils/response-handler";
 import { logger } from "../utils/logger";
+import { Prisma } from "@prisma/client";
 
 type AppError = Error & {
   statusCode?: number;
-  isOperational: boolean;
-  errors: any;
+  isOperational?: boolean;
+  errors?: any;
 };
+
+const prismaErrorMap: Record<string, string> = {
+  P2002: "Unique constraint failed",
+  P2003: "Foreign key constraint failed",
+  P2025: "Record not found",
+};
+
+function normalizeError(err: any) {
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    return {
+      type: "Prisma",
+      code: err.code,
+      message: prismaErrorMap[err.code] || err.message,
+      meta: err.meta,
+    };
+  }
+
+  if (err instanceof Prisma.PrismaClientValidationError) {
+    return {
+      type: "PrismaClientValidationError",
+      message: err.message,
+      stack: err.stack,
+    };
+  }
+
+  // normal errors
+  if (err instanceof Error) {
+    return {
+      type: err.name,
+      message: err.message,
+      stack: err.stack,
+    };
+  }
+
+  return {
+    type: "Unknown",
+    err,
+  };
+}
+
+//todo: add prisma error map
+//todo: strip stack in PRODUCTION
 
 export const errorMiddleware = (
   err: AppError,
@@ -17,19 +60,16 @@ export const errorMiddleware = (
   const statusCode = err.statusCode || 500;
   const isOperational = err.isOperational || false;
 
-  logger.error(
-    {
-      statusCode,
-      isOperational,
-      errors: err.errors,
-      method: req.method,
-      url: req.originalUrl,
-      message: err.message,
-      stack: err.stack,
-      // user: req.user?.userId || null,
-    },
-    "Request failed",
-  );
+  logger.error({
+    message: "API Request failed",
+    method: req.method,
+    url: req.originalUrl,
+    statusCode,
+    isOperational,
+    error: normalizeError(err),
+    // stack: err.stack,
+    // user: req.user?.userId || null,
+  });
 
   return sendError(res, {
     message: isOperational ? err.message : "Internal Server Error",

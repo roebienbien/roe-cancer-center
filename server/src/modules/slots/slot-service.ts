@@ -43,7 +43,7 @@ export async function getDoctorSlots(doctorId: string) {
   return prisma.slot.findMany({
     where: { doctorId },
     orderBy: { startAt: "asc" },
-    include: { appointment: true },
+    include: { appointments: true },
   });
 }
 
