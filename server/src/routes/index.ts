@@ -5,6 +5,7 @@ import bookRoutes from "../modules/appointments/appointment-routes";
 import patientRoutes from "../modules/patients/patient-routes";
 import doctorRoutes from "../modules/doctors/doctor-routes";
 import slotRoutes from "../modules/slots/slot-routes";
+import doctorSlotRoutes from "../modules/doctor-slots/doctor-slot-routes";
 import { NextFunction } from "express";
 
 const router = Router();
@@ -15,6 +16,7 @@ router.use("/patients", patientRoutes);
 router.use("/doctors", doctorRoutes);
 router.use("/appointments", bookRoutes);
 router.use("/slots", slotRoutes);
+router.use("/doctor-slots", doctorSlotRoutes);
 
 router.get("/test-error", () => {
   throw new Error("something broke");

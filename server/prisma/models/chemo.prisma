@@ -1,77 +1,77 @@
-model ChemoCycle {
-  id        String  @id @default(uuid())
-  patientId String
-  patient   Patient @relation(fields: [patientId], references: [id])
-
-  doctorId String
-  doctor   Doctor @relation(fields: [doctorId], references: [id])
-
-  status CycleStatus @default(PLANNED)
-
-  cycleNumber Int
-
-  startDate     DateTime
-  endDate       DateTime
-  chemoSessions ChemoSession[]
-}
-
-model ChemoSession {
-  id String @id @default(uuid())
-
-  cycleId String
-  cycle   ChemoCycle @relation(fields: [cycleId], references: [id])
-
-  scheduledAt DateTime
-
-  status          SessionStatus
-  administrations ChemoAdministration[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Medication {
-  id String @id @default(uuid())
-
-  name   String?
-  dosage String
-
-  route MedicationRoute
-
-  administrations ChemoAdministration[]
-}
-
-model ChemoAdministration {
-  id String @id @default(uuid())
-
-  sessionId String
-  session   ChemoSession @relation(fields: [sessionId], references: [id])
-
-  medication   Medication? @relation(fields: [medicationId], references: [id])
-  medicationId String
-
-  startAt DateTime
-  endAt   DateTime?
-
-  createdAt DateTime @default(now())
-}
-
-enum MedicationRoute {
-  INTRAVENOUS
-  ORAL
-  INJECTION
-}
-
-enum CycleStatus {
-  PLANNED
-  IN_PROGRESS
-  COMPLETED
-  CANCELLED
-}
-
-enum SessionStatus {
-  SCHEDULED
-  CHECKED_IN
-  ADMINISTERED
-  COMPLETED
-}
+// model ChemoCycle {
+//   id        String  @id @default(uuid())
+//   patientId String
+//   patient   Patient @relation(fields: [patientId], references: [id])
+//
+//   doctorId String
+//   doctor   Doctor @relation(fields: [doctorId], references: [id])
+//
+//   status CycleStatus @default(PLANNED)
+//
+//   cycleNumber Int
+//
+//   startDate     DateTime
+//   endDate       DateTime
+//   chemoSessions ChemoSession[]
+// }
+//
+// model ChemoSession {
+//   id String @id @default(uuid())
+//
+//   cycleId String
+//   cycle   ChemoCycle @relation(fields: [cycleId], references: [id])
+//
+//   scheduledAt DateTime
+//
+//   status          SessionStatus
+//   administrations ChemoAdministration[]
+//
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+//
+// model Medication {
+//   id String @id @default(uuid())
+//
+//   name   String?
+//   dosage String
+//
+//   route MedicationRoute
+//
+//   administrations ChemoAdministration[]
+// }
+//
+// model ChemoAdministration {
+//   id String @id @default(uuid())
+//
+//   sessionId String
+//   session   ChemoSession @relation(fields: [sessionId], references: [id])
+//
+//   medication   Medication? @relation(fields: [medicationId], references: [id])
+//   medicationId String
+//
+//   startAt DateTime
+//   endAt   DateTime?
+//
+//   createdAt DateTime @default(now())
+// }
+//
+// enum MedicationRoute {
+//   INTRAVENOUS
+//   ORAL
+//   INJECTION
+// }
+//
+// enum CycleStatus {
+//   PLANNED
+//   IN_PROGRESS
+//   COMPLETED
+//   CANCELLED
+// }
+//
+// enum SessionStatus {
+//   SCHEDULED
+//   CHECKED_IN
+//   ADMINISTERED
+//   COMPLETED
+// }

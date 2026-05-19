@@ -34,3 +34,23 @@ export async function createDoctor(userId: string, data: CreateDoctorInput) {
     return doctor;
   });
 }
+
+export async function getAllDoctors() {
+  return await prisma.doctor.findMany();
+}
+
+export async function getDoctorById(id: string) {
+  return await prisma.doctor.findUnique({
+    where: {
+      id: id,
+    },
+  });
+}
+
+export async function getDoctorByUserId(id: string) {
+  return await prisma.doctor.findUnique({
+    where: {
+      userId: id,
+    },
+  });
+}

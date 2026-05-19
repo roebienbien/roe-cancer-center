@@ -1,50 +1,50 @@
-model Slot {
-  id String @id @default(uuid())
-
-  doctor   Doctor @relation(fields: [doctorId], references: [id])
-  doctorId String
-
-  startAt DateTime
-  endAt   DateTime
-
-  capacity Int @default(5)
-
-  appointments Appointment[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Appointment {
-  id String @id @default(uuid())
-
-  patient   Patient @relation(fields: [patientId], references: [id])
-  patientId String
-
-  slot   Slot   @relation(fields: [slotId], references: [id])
-  slotId String
-
-  status AppointmentStatus @default(PENDING)
-  type   AppointmentType   @default(CONSULTATION)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  doctor    Doctor?  @relation(fields: [doctorId], references: [id])
-  doctorId  String?
-}
-
-enum AppointmentStatus {
-  PENDING
-  APPROVED
-  REJECTED
-  COMPLETED
-}
-
-enum AppointmentType {
-  CHEMOTHERAPHY
-  CONSULTATION
-  FOLLOW_UP
-  LAB_TEST
-  RADIATION
-  GENERAL_CHECKUP
-}
+// model Slot {
+//   id String @id @default(uuid())
+//
+//   doctor   Doctor @relation(fields: [doctorId], references: [id])
+//   doctorId String
+//
+//   startAt DateTime
+//   endAt   DateTime
+//
+//   capacity Int @default(5)
+//
+//   appointments Appointment[]
+//
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+//
+// model Appointment {
+//   id String @id @default(uuid())
+//
+//   patient   Patient @relation(fields: [patientId], references: [id])
+//   patientId String
+//
+//   slot   Slot   @relation(fields: [slotId], references: [id])
+//   slotId String
+//
+//   status AppointmentStatus @default(PENDING)
+//   type   AppointmentType   @default(CONSULTATION)
+//   //
+//   // createdAt DateTime @default(now())
+//   // updatedAt DateTime @updatedAt
+//   // doctor    Doctor?  @relation(fields: [doctorId], references: [id])
+//   // doctorId  String?
+// }
+//
+// enum AppointmentStatus {
+//   PENDING
+//   APPROVED
+//   REJECTED
+//   COMPLETED
+// }
+//
+// enum AppointmentType {
+//   CHEMOTHERAPHY
+//   CONSULTATION
+//   FOLLOW_UP
+//   LAB_TEST
+//   RADIATION
+//   GENERAL_CHECKUP
+// }

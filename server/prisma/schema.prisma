@@ -7,3 +7,253 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+// ====================
+// TREATMENT
+// ====================
+
+model ChemoCycle {
+  id        String  @id @default(uuid())
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id])
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
+
+  status CycleStatus @default(PLANNED)
+
+  cycleNumber Int
+
+  startDate     DateTime
+  endDate       DateTime
+  chemoSessions ChemoSession[]
+}
+
+model ChemoSession {
+  id String @id @default(uuid())
+
+  cycleId String
+  cycle   ChemoCycle @relation(fields: [cycleId], references: [id])
+
+  scheduledAt DateTime
+
+  status          SessionStatus
+  administrations ChemoAdministration[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Medication {
+  id String @id @default(uuid())
+
+  name   String?
+  dosage String
+
+  route MedicationRoute
+
+  administrations ChemoAdministration[]
+}
+
+model ChemoAdministration {
+  id String @id @default(uuid())
+
+  sessionId String
+  session   ChemoSession @relation(fields: [sessionId], references: [id])
+
+  medication   Medication? @relation(fields: [medicationId], references: [id])
+  medicationId String
+
+  startAt DateTime
+  endAt   DateTime?
+
+  createdAt DateTime @default(now())
+}
+
+// ====================
+// SCHEDULING
+// ====================
+
+model Appointment {
+  id String @id @default(uuid())
+
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId String
+
+  doctorSlot   DoctorSlot? @relation(fields: [doctorSlotId], references: [id])
+  doctorSlotId String?
+
+  status AppointmentStatus @default(PENDING)
+  type   AppointmentType   @default(CONSULTATION)
+}
+
+model DoctorSlot {
+  id String @id @default(uuid())
+
+  doctorId String
+  slotId   String
+
+  doctor Doctor @relation(fields: [doctorId], references: [id])
+  slot   Slot   @relation(fields: [slotId], references: [id])
+
+  appointments Appointment[]
+
+  @@unique([doctorId, slotId])
+}
+
+model Slot {
+  id String @id @default(uuid())
+
+  startAt DateTime
+  endAt   DateTime
+
+  capacity Int @default(5)
+
+  assignments DoctorSlot[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // doctor    Doctor?  @relation(fields: [doctorId], references: [id])
+  // doctorId  String?
+}
+
+// ====================
+// AUTH
+// ====================
+
+model User {
+  id          String    @id @default(uuid())
+  email       String    @unique
+  password    String
+  role        Role      @default(PATIENT)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  deletedById String?
+
+  patient Patient?
+  doctor  Doctor?
+}
+
+// ====================
+// PROFILES
+// ====================
+model Doctor {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  lastName   String
+  firstName  String
+  middleName String
+
+  specialization String? //oncology, general, etc.
+  licenseNumber  String? @unique
+
+  phone  String?
+  email  String?
+  status ProfileStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id])
+  //  appointments Appointment[]
+  chemoCycles ChemoCycle[]
+  doctorSlots DoctorSlot[]
+}
+
+model Patient {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  lastName   String?
+  firstName  String?
+  middleName String?
+  birthDate  DateTime
+  sex        String?
+
+  phone   String?
+  // make this full address later
+  address String?
+
+  //medical-related 
+  notes  String?
+  status ProfileStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  chemoCycles  ChemoCycle[]
+  appointments Appointment[]
+}
+
+// ====================
+// SYSTEM
+// ====================
+
+model AuditLog {
+  id       String  @id @default(uuid())
+  action   String
+  entity   String
+  entityId String
+  actorId  String?
+
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+}
+
+// ====================
+// ENUMS
+// ====================
+
+enum Role {
+  ADMIN
+  DOCTOR
+  NURSE
+  PATIENT
+}
+
+enum ProfileStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+enum AppointmentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum AppointmentType {
+  CHEMOTHERAPHY
+  CONSULTATION
+  FOLLOW_UP
+  LAB_TEST
+  RADIATION
+  GENERAL_CHECKUP
+}
+
+enum MedicationRoute {
+  INTRAVENOUS
+  ORAL
+  INJECTION
+}
+
+enum CycleStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum SessionStatus {
+  SCHEDULED
+  CHECKED_IN
+  ADMINISTERED
+  COMPLETED
+}

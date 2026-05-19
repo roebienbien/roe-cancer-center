@@ -8,6 +8,7 @@ import { Request, Response } from "express";
 export const createDoctor = asyncHandler(
   async (req: Request<{}, {}, CreateDoctorInput>, res: Response) => {
     const { userId } = requireUser(req);
+
     const doctor = await doctorService.createDoctor(userId, req.body);
 
     return sendSuccess(res, {
@@ -15,5 +16,13 @@ export const createDoctor = asyncHandler(
       message: "Doctor profile created",
       statusCode: 201,
     });
+  },
+);
+
+export const getAllDoctors = asyncHandler(
+  async (req: Request, res: Response) => {
+    const doctors = await doctorService.getAllDoctors();
+
+    return sendSuccess(res, { data: doctors, message: "Doctors fetched" });
   },
 );

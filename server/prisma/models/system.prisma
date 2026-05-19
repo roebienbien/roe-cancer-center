@@ -1,12 +1,12 @@
-model AuditLog {
-  id       String  @id @default(uuid())
-  action   String
-  entity   String
-  entityId String
-  actorId  String?
-
-  metadata  Json?
-  createdAt DateTime @default(now())
-
-  @@index([entity, entityId])
-}
+// model AuditLog {
+//   id       String  @id @default(uuid())
+//   action   String
+//   entity   String
+//   entityId String
+//   actorId  String?
+//
+//   metadata  Json?
+//   createdAt DateTime @default(now())
+//
+//   @@index([entity, entityId])
+// }
