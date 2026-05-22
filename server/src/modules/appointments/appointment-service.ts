@@ -3,12 +3,6 @@ import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
 import { AppointmentStatus } from "@prisma/client";
 
-// const patientPreviewSelect = {
-//   select: {
-//     firstName: true,
-//   },
-// };
-
 const appointmentInclude = {
   patient: {
     select: {
@@ -17,7 +11,45 @@ const appointmentInclude = {
   },
 };
 
-const MAX_CAPACITY = 5;
+export async function getMyAppointments(userId: string) {
+  const patient = await prisma.patient.findUnique({
+    where: { userId },
+  });
+
+  if (!patient) throw createError("Patient not found", 404);
+
+  const appointments = await prisma.appointment.findMany({
+    where: {
+      patientId: patient.id,
+    },
+    include: {
+      doctorSlot: {
+        include: {
+          doctor: true,
+          slot: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return appointments.map((appointment) => ({
+    appointmentId: appointment.id,
+
+    status: appointment.status,
+    type: appointment.type,
+
+    doctorName: `Dr. ${appointment.doctorSlot.doctor.firstName} ${appointment.doctorSlot.doctor.lastName}`,
+
+    specialization: appointment.doctorSlot.doctor.specialization,
+
+    startAt: appointment.doctorSlot.slot.startAt,
+    endAt: appointment.doctorSlot.slot.endAt,
+  }));
+}
+
 export async function createAppointment(
   patientId: string,
   doctorSlotId: string,
@@ -98,45 +130,45 @@ export async function getAppointmentsByUserId(userId: string) {
   });
 }
 
-export async function updateAppointmentStatus(
-  appointmentId: string,
-  doctorUserId: string,
-  status: AppointmentStatus,
-) {
-  // get doctor profile
-  const doctor = await prisma.doctor.findUnique({
-    where: { userId: doctorUserId },
-  });
-
-  if (!doctor) {
-    throw createError("Doctor not found", 404);
-  }
-
-  // get appointmnet
-  const appointment = await getAppointmentById(appointmentId);
-
-  if (appointment.status !== "PENDING") {
-    throw createError("Appointment already processed", 400);
-  }
-
-  //  assign doctor if not yet assigned
-  if (!appointment.doctorId) {
-    return prisma.appointment.update({
-      where: { id: appointmentId },
-      data: {
-        doctorId: doctor.id,
-        status,
-      },
-    });
-  }
-
-  // ensure doctor owns the appointment
-  if (appointment.doctorId !== doctor.id)
-    throw createError("Not authorized for this appointment", 403);
-
-  // update status
-  return prisma.appointment.update({
-    where: { id: appointmentId },
-    data: { status },
-  });
-}
+// export async function updateAppointmentStatus(
+//   appointmentId: string,
+//   doctorUserId: string,
+//   status: AppointmentStatus,
+// ) {
+//   // get doctor profile
+//   const doctor = await prisma.doctor.findUnique({
+//     where: { userId: doctorUserId },
+//   });
+//
+//   if (!doctor) {
+//     throw createError("Doctor not found", 404);
+//   }
+//
+//   // get appointmnet
+//   const appointment = await getAppointmentById(appointmentId);
+//
+//   if (appointment.status !== "PENDING") {
+//     throw createError("Appointment already processed", 400);
+//   }
+//
+//   //  assign doctor if not yet assigned
+//   if (!appointment.doctorId) {
+//     return prisma.appointment.update({
+//       where: { id: appointmentId },
+//       data: {
+//         doctorId: doctor.id,
+//         status,
+//       },
+//     });
+//   }
+//
+//   // ensure doctor owns the appointment
+//   if (appointment.doctorId !== doctor.id)
+//     throw createError("Not authorized for this appointment", 403);
+//
+//   // update status
+//   return prisma.appointment.update({
+//     where: { id: appointmentId },
+//     data: { status },
+//   });
+// }

@@ -1,4 +1,3 @@
-import { Params } from "../../types/express";
 import { asyncHandler } from "../../utils/async-handler";
 import { requireUser } from "../../utils/requireUser";
 import { sendSuccess } from "../../utils/response-handler";

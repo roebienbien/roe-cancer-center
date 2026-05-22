@@ -10,8 +10,22 @@ import { sendSuccess } from "../../utils/response-handler";
 import { requireUser } from "../../utils/requireUser";
 import { createError } from "../../utils/app-error";
 import { getPatientByUserId } from "../patients/patient-service";
-import { Params } from "../../types/express";
+import { UserParams } from "../../types/express";
 import { prisma } from "../../lib/prisma";
+import { send } from "node:process";
+
+export const getMyAppointments = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { userId } = requireUser(req);
+
+    const appointments = await appointmentService.getMyAppointments(userId);
+
+    return sendSuccess(res, {
+      data: appointments,
+      message: "appointments fetched",
+    });
+  },
+);
 
 export const createAppointment = asyncHandler(
   async (req: Request<{}, {}, CreateAppointmentInput>, res: Response) => {
@@ -51,7 +65,7 @@ export const getAllAppointments = asyncHandler(
 );
 
 export const getAppointmentById = asyncHandler(
-  async (req: Request<Params>, res: Response) => {
+  async (req: Request<UserParams>, res: Response) => {
     const { id } = req.params;
     const appointment = await appointmentService.getAppointmentById(id);
 
@@ -59,28 +73,28 @@ export const getAppointmentById = asyncHandler(
   },
 );
 
-export const updateAppointmentStatus = asyncHandler(
-  async (
-    req: Request<
-      UpdateAppointmentStatusInputParams,
-      {},
-      UpdateAppointmentStatusInputBody
-    >,
-    res: Response,
-  ) => {
-    const { userId } = requireUser(req);
-    const { id } = req.params;
-    const { status } = req.body;
-
-    const appointment = await appointmentService.updateAppointmentStatus(
-      id,
-      userId,
-      status,
-    );
-
-    return sendSuccess(res, {
-      data: appointment,
-      message: `Appointment: ${status}`,
-    });
-  },
-);
+// export const updateAppointmentStatus = asyncHandler(
+//   async (
+//     req: Request<
+//       UpdateAppointmentStatusInputParams,
+//       {},
+//       UpdateAppointmentStatusInputBody
+//     >,
+//     res: Response,
+//   ) => {
+//     const { userId } = requireUser(req);
+//     const { id } = req.params;
+//     const { status } = req.body;
+//
+//     const appointment = await appointmentService.updateAppointmentStatus(
+//       id,
+//       userId,
+//       status,
+//     );
+//
+//     return sendSuccess(res, {
+//       data: appointment,
+//       message: `Appointment: ${status}`,
+//     });
+//   },
+// );

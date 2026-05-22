@@ -31,7 +31,6 @@ export const authenticate = (req: Request, _: Response, next: NextFunction) => {
 
     next();
   } catch (err) {
-    console.log("JWT ERROR:", err);
     throw createError("Authentication Failed: Invalid or expired token");
   }
 };

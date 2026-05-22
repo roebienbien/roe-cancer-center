@@ -1,7 +1,6 @@
 import app from "./app";
-import config from './config/'
+import config from "./config/";
 
 app.listen(config.port, () => {
   console.log(`Server running at ${config.port}`);
 });
-

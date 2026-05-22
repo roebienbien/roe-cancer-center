@@ -13,7 +13,44 @@ import { prisma } from "../../lib/prisma";
 // - slot generation
 // - appointment booking
 // - doctor profile creation
+//
 
+export async function getAvailableDoctorSlots() {
+  const doctorSlots = await prisma.doctorSlot.findMany({
+    where: {
+      slot: {
+        startAt: {
+          gt: new Date(),
+        },
+      },
+    },
+    include: {
+      doctor: true,
+      slot: true,
+      appointments: true,
+    },
+  });
+
+  return doctorSlots.map((doctorSlot) => {
+    const booked = doctorSlot.appointments.length;
+    const capacity = doctorSlot.slot.capacity;
+
+    return {
+      id: doctorSlot.id,
+
+      doctorName: `Dr. ${doctorSlot.doctor.firstName}`,
+      doctorfname: "hello",
+
+      startAt: doctorSlot.slot.startAt,
+      endAt: doctorSlot.slot.endAt,
+
+      booked,
+      capacity,
+
+      available: booked < capacity,
+    };
+  });
+}
 export async function assignDoctorToSlot(doctorId: string, slotId: string) {
   // const doctor = await getDoctorByUserId(doctorId);
   const doctor = await prisma.doctor.findUnique({

@@ -5,7 +5,7 @@ export interface AuthJwtPayload {
   role: Role;
 }
 
-export interface Params {
+export interface UserParams {
   id: string;
 }
 

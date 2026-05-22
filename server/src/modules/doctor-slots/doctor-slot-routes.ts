@@ -12,6 +12,11 @@ router.post(
   validateResource(assignDoctorSchema),
   doctorSlotController.assignDoctorToSlot,
 );
+router.get(
+  "/available",
+  authenticate,
+  doctorSlotController.getAvailableDoctorSlots,
+);
 router.get("/", (req, res) => res.send("Hello"));
 
 export default router;

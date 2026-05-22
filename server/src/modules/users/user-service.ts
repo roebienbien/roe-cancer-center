@@ -25,29 +25,7 @@ export async function createUser(data: CreateUserInput) {
       select: userSelect,
     });
 
-    // await prisma.doctor.create({
-    //   data: {
-    //     userId: user.id,
-    //     firstName: "Test",
-    //     lastName: "Doctor",
-    //     specialization: "Oncology",
-    //   },
-    // });
-
-    // await prisma.patient.create({
-    //   data: {
-    //     // userId: "replace-with-user-id",
-    //     userId: user.id,
-    //     firstName: "Juan",
-    //     lastName: "Dela Cruz",
-    //     middleName: "Santos",
-    //     birthDate: new Date("1995-06-15"),
-    //     sex: "MALE",
-    //     phone: "+639171234567",
-    //     address: "Santa Ana, Taguig City, Philippines",
-    //     notes: "No known allergies. First-time chemo patient.",
-    //   },
-    // });
+    console.log("CREATING:", data.email);
 
     return user;
   } catch (err: unknown) {

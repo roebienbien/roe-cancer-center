@@ -23,21 +23,15 @@ router.post(
   appointmentController.createAppointment,
 );
 router.get("/", appointmentController.getAllAppointments);
+router.get("/me", appointmentController.getMyAppointments);
 
-router.get("/me", authenticate, async (req: Request, res: Response) => {
-  const { userId } = requireUser(req);
-
-  const appointments = await getAppointmentsByUserId(userId);
-
-  return sendSuccess(res, { data: appointments });
-});
 router.get("/:id", appointmentController.getAppointmentById);
-router.patch(
-  "/:id/status",
-  validateResource(updateAppointmentStatusSchema),
-  authenticate,
-  authorize("DOCTOR"),
-  appointmentController.updateAppointmentStatus,
-);
+// router.patch(
+//   "/:id/status",
+//   validateResource(updateAppointmentStatusSchema),
+//   authenticate,
+//   authorize("DOCTOR"),
+//   appointmentController.updateAppointmentStatus,
+// );
 
 export default router;

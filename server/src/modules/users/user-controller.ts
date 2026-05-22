@@ -3,7 +3,7 @@ import { asyncHandler } from "../../utils/async-handler";
 import { sendSuccess } from "../../utils/response-handler";
 import { logger } from "../../utils/logger";
 import * as userService from "./user-service";
-import { Params } from "../../types/express";
+import { UserParams } from "../../types/express";
 
 export const createUser = asyncHandler(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -16,13 +16,14 @@ export const createUser = asyncHandler(async (req, res) => {
   });
 });
 
-export const getUser = asyncHandler<Params>(async (req, res) => {
+// export const getUser = asyncHandler<UserParams>(async (req, res) => {
+export const getUser = asyncHandler<{ id: string }>(async (req, res) => {
   const user = await userService.getUserById(req.params.id);
 
   return sendSuccess(res, { data: user });
 });
 
-export const deleteUser = asyncHandler<Params>(async (req, res) => {
+export const deleteUser = asyncHandler<{ id: string }>(async (req, res) => {
   const targetId = req.params.id;
   const actorId = req.user!.userId; //non-null assertion
 
