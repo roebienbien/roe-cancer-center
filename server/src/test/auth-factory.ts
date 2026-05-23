@@ -5,10 +5,6 @@ import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
 
-// const privateKey = fs.readFileSync(
-//   path.join(process.cwd(), process.env.JWT_PRIVATE_KEY_PATH!),
-//   "utf8",
-// );
 function getPrivateKey() {
   return fs.readFileSync(
     path.join(process.cwd(), process.env.JWT_PRIVATE_KEY_PATH!),

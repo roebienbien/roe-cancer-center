@@ -1,4 +1,3 @@
-import config from "./config";
 import express from "express";
 import cors from "cors";
 import router from "./routes/";
@@ -6,6 +5,15 @@ import { errorMiddleware } from "./middleware/errror-middlware";
 import { httpLogger } from "./middleware/logger-middleware";
 import cookieParser from "cookie-parser";
 const app = express();
+
+// import dotenv from "dotenv";
+// import path from "path";
+
+// const env = process.env.NODE_ENV ?? "development";
+
+// dotenv.config({
+//   path: path.resolve(process.cwd(), `.env`),
+// });
 
 app.use(express.json());
 app.use(
@@ -20,8 +28,10 @@ app.use("/api", router);
 
 app.use(httpLogger);
 
-const dbUrl = process.env.DATABASE_URL || "";
+// console.log(process.env.NODE_ENV);
+// console.log(process.env.DATABASE_URL);
 
+const dbUrl = process.env.DATABASE_URL || "";
 if (process.env.NODE_ENV === "test" && dbUrl.includes("/rcc_db?")) {
   throw new Error("❌ Test environment is using dev DB!");
 }

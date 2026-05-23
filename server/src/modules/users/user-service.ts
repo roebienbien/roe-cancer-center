@@ -25,8 +25,6 @@ export async function createUser(data: CreateUserInput) {
       select: userSelect,
     });
 
-    console.log("CREATING:", data.email);
-
     return user;
   } catch (err: unknown) {
     if (
