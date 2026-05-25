@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { createError } from "./app-error";
+import { createError } from "../utils/app-error";
 
 export const requireUser = (req: Request) => {
   if (!req.user) {

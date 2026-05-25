@@ -1,10 +1,10 @@
 import express, { Response, Request } from "express";
 import { authenticate } from "../../middleware/authenticate";
-import { requireUser } from "../../utils/requireUser";
+import { requireUser } from "../../middleware/require-user";
 import { getPatientByUserId } from "./patient-service";
 import { sendSuccess } from "../../utils/response-handler";
 import * as patientController from "./patient-controller";
-import { validateResource } from "../../middleware/validateResource";
+import { validateResource } from "../../middleware/validate";
 import { CreatePatientSchema } from "./patient-schema";
 
 const router = express.Router();

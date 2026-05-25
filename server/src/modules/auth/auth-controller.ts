@@ -1,6 +1,6 @@
 import { asyncHandler } from "../../utils/async-handler";
 import { sendSuccess } from "../../utils/response-handler";
-import authService from "./auth-service";
+import * as authService from "./auth-service";
 import { Request, Response } from "express";
 import { createAccessToken, createRefreshToken } from "./auth-utils";
 import { createError } from "../../utils/app-error";
@@ -12,6 +12,21 @@ import {
   refreshTokenECookieOptions,
 } from "../../config/cookie-options";
 import { AuthJwtPayload } from "../../types/express";
+import { logger } from "../../utils/logger";
+import { RegisterUserInput } from "./auth-schema";
+
+export const registerUser = asyncHandler(
+  async (req: Request<{}, {}, RegisterUserInput>, res: Response) => {
+    const user = await authService.registerUser(req.body);
+    logger.info({ userId: user.id, email: user.email }, "User created");
+
+    return sendSuccess(res, {
+      data: user,
+      message: "User created successfully",
+      statusCode: 201,
+    });
+  },
+);
 
 export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;

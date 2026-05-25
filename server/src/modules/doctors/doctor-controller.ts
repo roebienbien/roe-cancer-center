@@ -1,5 +1,5 @@
 import { asyncHandler } from "../../utils/async-handler";
-import { requireUser } from "../../utils/requireUser";
+import { requireUser } from "../../middleware/require-user";
 import { sendSuccess } from "../../utils/response-handler";
 import { CreateDoctorInput } from "./doctor-schema";
 import * as doctorService from "./doctor-service";

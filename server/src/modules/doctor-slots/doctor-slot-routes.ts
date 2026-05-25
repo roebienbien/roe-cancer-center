@@ -1,6 +1,6 @@
 import express from "express";
 import { authenticate } from "../../middleware/authenticate";
-import { validateResource } from "../../middleware/validateResource";
+import { validateResource } from "../../middleware/validate";
 import * as doctorSlotController from "./doctor-slot-controller";
 import { assignDoctorSchema } from "./doctor-slot-schema";
 

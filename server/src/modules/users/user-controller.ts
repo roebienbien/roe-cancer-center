@@ -5,16 +5,16 @@ import { logger } from "../../utils/logger";
 import * as userService from "./user-service";
 import { UserParams } from "../../types/express";
 
-export const createUser = asyncHandler(async (req, res) => {
-  const user = await userService.createUser(req.body);
-  logger.info({ userId: user.id, email: user.email }, "User created");
-
-  return sendSuccess(res, {
-    data: user,
-    message: "User created successfully",
-    statusCode: 201,
-  });
-});
+// export const createUser = asyncHandler(async (req, res) => {
+//   const user = await userService.createUser(req.body);
+//   logger.info({ userId: user.id, email: user.email }, "User created");
+//
+//   return sendSuccess(res, {
+//     data: user,
+//     message: "User created successfully",
+//     statusCode: 201,
+//   });
+// });
 
 // export const getUser = asyncHandler<UserParams>(async (req, res) => {
 export const getUser = asyncHandler<{ id: string }>(async (req, res) => {

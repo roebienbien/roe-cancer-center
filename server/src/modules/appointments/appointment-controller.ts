@@ -7,7 +7,7 @@ import {
 } from "./appointment-schema";
 import { asyncHandler } from "../../utils/async-handler";
 import { sendSuccess } from "../../utils/response-handler";
-import { requireUser } from "../../utils/requireUser";
+import { requireUser } from "../../middleware/require-user";
 import { createError } from "../../utils/app-error";
 import { getPatientByUserId } from "../patients/patient-service";
 import { UserParams } from "../../types/express";

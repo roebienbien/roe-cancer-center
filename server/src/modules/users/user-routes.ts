@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { authenticate } from "../../middleware/authenticate";
 import { authorize } from "../../middleware/authorize";
-import { validateResource } from "../../middleware/validateResource";
+import { validateResource } from "../../middleware/validate";
 import { createUserSchema } from "./user-schema";
 import * as userController from "./user-controller";
 
 const router = Router();
 
-router.post("/", validateResource(createUserSchema), userController.createUser);
+//router.post("/", validateResource(createUserSchema), userController.createUser);
 router.get("/", authenticate, userController.getAllUsers);
 // router.get("/", userController.getAllUsersHandler);
 

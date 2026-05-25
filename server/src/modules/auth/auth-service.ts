@@ -2,16 +2,49 @@ import { prisma } from "../../lib/prisma";
 import bcrypt from "bcrypt";
 import { createError } from "../../utils/app-error";
 import { Role } from "@prisma/client";
+import { RegisterUserInput } from "./auth-schema";
+import { create } from "node:domain";
 
 type AuthUser = {
   userId: string;
   role: Role;
 };
 
-export const login = async (
+export const userSelect = {
+  id: true,
+  email: true,
+  role: true,
+  createdAt: true,
+};
+
+export async function registerUser(data: RegisterUserInput) {
+  // To Do: Move in user-layer
+  const existing = await prisma.user.findUnique({
+    where: { email: data.email },
+  });
+
+  if (existing) {
+    throw createError("Email already exists", 409);
+  }
+
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+  const user = await prisma.user.create({
+    data: {
+      email: data.email,
+      password: hashedPassword,
+      role: "PATIENT",
+    },
+    // omit password
+    select: userSelect,
+  });
+
+  return user;
+}
+
+export async function login(
   email: string,
   password: string,
-): Promise<AuthUser> => {
+): Promise<AuthUser> {
   const user = await prisma.user.findUnique({
     where: { email, deletedAt: null },
   });
@@ -23,10 +56,4 @@ export const login = async (
   if (!valid) throw createError("Invalid credentials", 401);
 
   return { userId: user.id, role: user.role };
-};
-
-const authService = {
-  login,
-};
-
-export default authService;
+}
