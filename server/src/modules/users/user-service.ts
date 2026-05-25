@@ -12,31 +12,6 @@ export const userSelect = {
   createdAt: true,
 };
 
-// export async function createUser(data: CreateUserInput) {
-//   try {
-//     const hashedPassword = await bcrypt.hash(data.password, 10);
-//     const user = await prisma.user.create({
-//       data: {
-//         email: data.email,
-//         password: hashedPassword,
-//         role: "PATIENT",
-//       },
-//       // omit password
-//       select: userSelect,
-//     });
-//
-//     return user;
-//   } catch (err: unknown) {
-//     if (
-//       err instanceof Prisma.PrismaClientKnownRequestError &&
-//       err.code === "P2002"
-//     ) {
-//       throw createError("Email already exists", 400);
-//     }
-//     throw err; //let global error handle
-//   }
-// }
-
 export async function getAllUsers() {
   const users = await prisma.user.findMany({
     where: {

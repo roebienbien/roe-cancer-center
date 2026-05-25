@@ -9,23 +9,13 @@ const router = Router();
 
 //router.post("/", validateResource(createUserSchema), userController.createUser);
 router.get("/", authenticate, userController.getAllUsers);
-// router.get("/", userController.getAllUsersHandler);
-
-// router.get(
-//   "/test-admin",
-//   authenticate,
-//   authorize("PATIENT", "ADMIN"),
-//   (req: AuthRequest, res: Response) => {
-//     const role = req.user?.role;
-//     res.json({ message: ` You are ${role}` });
-//   },
-// );
+router.get("/:id", authenticate, userController.getUserById);
 
 router.delete(
   "/:id",
   authenticate,
   authorize("ADMIN"),
-  userController.deleteUser,
+  userController.deactivateUser,
 );
 
 export default router;

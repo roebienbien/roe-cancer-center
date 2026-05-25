@@ -4,18 +4,20 @@ import jwt from "jsonwebtoken";
 import { Role } from "@prisma/client";
 import { AuthJwtPayload } from "../types/express";
 import { createError } from "../utils/app-error";
+import { asyncHandler } from "../utils/async-handler";
 
 const validRoles: Role[] = ["ADMIN", "DOCTOR", "NURSE", "PATIENT"];
 // const validRoles: Role = Object.values(Role) as Role[];
 
-export const authenticate = (req: Request, _: Response, next: NextFunction) => {
-  const token = req.cookies.accessToken;
+export const authenticate = asyncHandler(
+  // async (req: Request, _: Response, next: NextFunction) => {
+  async (req, _, next) => {
+    const token = req.cookies.accessToken;
 
-  if (!token) {
-    throw createError("Authentication failed", 401);
-  }
+    if (!token) {
+      throw createError("Authentication failed", 401);
+    }
 
-  try {
     const decoded = jwt.verify(token, config.key.public, {
       algorithms: ["RS256"],
     }) as AuthJwtPayload;
@@ -30,7 +32,5 @@ export const authenticate = (req: Request, _: Response, next: NextFunction) => {
     };
 
     next();
-  } catch (err) {
-    throw createError("Authentication Failed: Invalid or expired token");
-  }
-};
+  },
+);
