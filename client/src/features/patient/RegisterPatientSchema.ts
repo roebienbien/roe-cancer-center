@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const CreatePatientSchema = z.object({
+export const registerPatientSchema = z.object({
   lastName: z.string().min(1, 'Last name is required'),
   firstName: z.string().min(1, 'First name is required'),
   middleName: z.string().min(1, 'Middle name is required'),
@@ -11,4 +11,4 @@ export const CreatePatientSchema = z.object({
   notes: z.string().optional(),
 });
 
-export type CreatePatientFormData = z.infer<typeof CreatePatientSchema>;
+export type RegisterPatientInput = z.infer<typeof registerPatientSchema>;

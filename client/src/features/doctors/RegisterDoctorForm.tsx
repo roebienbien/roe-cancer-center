@@ -3,10 +3,10 @@ import { useCreateDoctorMutation } from './doctor-api';
 import { CreateDoctorFormData, createDoctorSchema } from './doctor-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Typography from '@/components/ui/Typography';
-import Input from '@/components/ui/Input';
 import { Button } from '@/components/ui/button/Button';
+import Input from '@/components/ui/input/Input';
 
-const CreateDoctorForm = () => {
+const RegisterDoctorForm = () => {
   const [createDoctor] = useCreateDoctorMutation();
   const {
     register,
@@ -53,4 +53,4 @@ const CreateDoctorForm = () => {
   );
 };
 
-export default CreateDoctorForm;
+export default RegisterDoctorForm;

@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { LoginFormData, loginSchema } from '../schema/login-schema';
-import Input from '@/components/ui/Input';
+import Input from '@/components/ui/input/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button/Button';
 import './LoginForm.scss';

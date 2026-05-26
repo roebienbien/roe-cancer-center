@@ -1,13 +1,13 @@
 import Typography from '@/components/ui/Typography';
-import CreateDoctorForm from './CreateDoctorForm';
+import RegisterDoctorForm from './RegisterDoctorForm';
 
-const CreateDoctorPage = () => {
+const RegisterDoctorPage = () => {
   return (
     <div className='flex h-screen flex-col items-center justify-center'>
       <Typography>Doctor Page</Typography>
-      <CreateDoctorForm />
+      <RegisterDoctorForm />
     </div>
   );
 };
 
-export default CreateDoctorPage;
+export default RegisterDoctorPage;

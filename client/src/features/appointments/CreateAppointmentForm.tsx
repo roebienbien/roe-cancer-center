@@ -2,8 +2,8 @@ import { useForm } from 'react-hook-form';
 import { useCreateAppointmentMutation } from './api/appointment-api';
 import { CreateAppointmentFormData, createAppointmentSchema } from './appointment-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Input from '@/components/ui/Input';
 import { Button } from '@/components/ui/button/Button';
+import Input from '@/components/ui/input/Input';
 
 const CreateAppointmentForm = () => {
   const [createAppointment, { isLoading, isError }] = useCreateAppointmentMutation();

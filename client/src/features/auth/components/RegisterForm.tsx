@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button/Button';
-import Input from '@/components/ui/Input';
 import { useForm } from 'react-hook-form';
 import { RegisterFormValues } from '../schema/register-schema';
 import { useRegisterMutation } from '../api/auth-api';
-// import { useRegisterMutation } from '@/features/users/api/users-api';
+import Typography from '@/components/ui/Typography';
+import Input from '@/components/ui/input/Input';
 
 const RegisterForm = () => {
   const [userRegister, { isLoading, isError }] = useRegisterMutation();
@@ -25,14 +25,19 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='grid grid-cols-3 gap-2'>
-        <Input id='email' label={'Email'} register={register} errors={errors} autoComplete='email' />
-        <Input id='password' type='password' label={'Password'} register={register} errors={errors} />
-        <Input id='confirmPassword' type='password' label={'Confirm password'} register={register} errors={errors} />
-      </div>
-      <Button type='submit'>{isLoading ? 'Submitting' : 'Submit'} </Button>
-    </form>
+    <div className='flex flex-col justify-center gap-y-4 rounded-xl bg-surface p-10 shadow-md'>
+      <Typography as='h1' variant='h1' className='text-center'>
+        Register Form
+      </Typography>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-y-4'>
+        <Input id='email' register={register} errors={errors} autoComplete='email' />
+        <Input id='password' type='password' register={register} errors={errors} />
+        <Input id='confirmPassword' type='password' register={register} errors={errors} />
+        <Button type='submit' className='self-center'>
+          {isLoading ? 'Submitting' : 'Submit'}{' '}
+        </Button>
+      </form>
+    </div>
   );
 };
 
