@@ -1,7 +1,6 @@
 import { asyncHandler } from "../../utils/async-handler";
 import { sendSuccess } from "../../utils/response-handler";
 import * as authService from "./auth-service";
-import { Request, Response } from "express";
 import { createAccessToken, createRefreshToken } from "./auth-utils";
 import { createError } from "../../utils/app-error";
 import config from "../../config/";
@@ -15,8 +14,8 @@ import { AuthJwtPayload } from "../../types/express";
 import { logger } from "../../utils/logger";
 import { RegisterUserInput } from "./auth-schema";
 
-export const registerUser = asyncHandler(
-  async (req: Request<{}, {}, RegisterUserInput>, res: Response) => {
+export const registerUser = asyncHandler<{}, {}, RegisterUserInput>(
+  async (req, res) => {
     const user = await authService.registerUser(req.body);
     logger.info({ userId: user.id, email: user.email }, "User created");
 
@@ -28,7 +27,7 @@ export const registerUser = asyncHandler(
   },
 );
 
-export const loginUser = asyncHandler(async (req: Request, res: Response) => {
+export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const { userId, role } = await authService.login(email, password);
@@ -50,34 +49,32 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-export const refreshToken = asyncHandler(
-  async (req: Request, res: Response) => {
-    const token = req.cookies.refreshToken;
+export const refreshAccessToken = asyncHandler((req, res) => {
+  const token = req.cookies.refreshToken;
 
-    if (!token) {
-      throw createError("No refresh token", 401);
-    }
+  if (!token) {
+    throw createError("No refresh token", 401);
+  }
 
-    let payload: AuthJwtPayload;
+  let payload: AuthJwtPayload;
 
-    try {
-      payload = jwt.verify(token, config.key.public) as AuthJwtPayload;
-    } catch {
-      throw createError("Invalid refresh token", 403);
-    }
+  try {
+    payload = jwt.verify(token, config.key.public) as AuthJwtPayload;
+  } catch {
+    throw createError("Invalid refresh token", 403);
+  }
 
-    const accessToken = createAccessToken({
-      userId: payload.userId,
-      role: payload.role,
-    });
+  const accessToken = createAccessToken({
+    userId: payload.userId,
+    role: payload.role,
+  });
 
-    res.cookie("accessToken", accessToken, accessTokenCookieOptions);
+  res.cookie("accessToken", accessToken, accessTokenCookieOptions);
 
-    return sendSuccess(res, { data: null, message: "Token refreshed" });
-  },
-);
+  return sendSuccess(res, { data: null, message: "Token refreshed" });
+});
 
-export const logoutUser = asyncHandler((_: Request, res: Response) => {
+export const logoutUser = asyncHandler((_, res) => {
   res.clearCookie("accessToken", clearCookieOptions);
 
   res.clearCookie("refreshToken", clearCookieOptions);

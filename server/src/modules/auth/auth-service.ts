@@ -1,9 +1,8 @@
 import { prisma } from "../../lib/prisma";
 import bcrypt from "bcrypt";
 import { createError } from "../../utils/app-error";
-import { Role } from "@prisma/client";
 import { RegisterUserInput } from "./auth-schema";
-import { create } from "node:domain";
+import { Role } from "@prisma/client";
 
 type AuthUser = {
   userId: string;
@@ -18,7 +17,7 @@ export const userSelect = {
 };
 
 export async function registerUser(data: RegisterUserInput) {
-  // To Do: Move in user-layer
+  // Todo: maybe make this as helper(findUserByEmail);
   const existing = await prisma.user.findUnique({
     where: { email: data.email },
   });
@@ -45,6 +44,7 @@ export async function login(
   email: string,
   password: string,
 ): Promise<AuthUser> {
+  // export async function login(email: string, password: string) {
   const user = await prisma.user.findUnique({
     where: { email, deletedAt: null },
   });

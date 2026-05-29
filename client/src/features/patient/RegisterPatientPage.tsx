@@ -1,10 +1,10 @@
 import PatientDashBoard from './PatientDashBoard';
-import RegisterPatientForm from './RegisterPatientForm';
+import PatientForm from './PatientForm';
 
 const RegisterPatientPage = () => {
   return (
-    <div className='flex h-screen flex-col items-center justify-center bg-background'>
-      <RegisterPatientForm />
+    <div className='flex min-h-screen flex-col items-center justify-center bg-background'>
+      <PatientForm />
       <PatientDashBoard />
     </div>
   );

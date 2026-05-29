@@ -6,10 +6,13 @@ import * as userService from "./user-service";
 import { UserParams } from "../../types/express";
 
 // export const getUser = asyncHandler<{ id: string }>(async (req, res) => {
-export const getUserById = asyncHandler<UserParams>(async (req, res) => {
-  const user = await userService.getUserById(req.params.id);
-  return sendSuccess(res, { data: user });
-});
+// export const getUserById = asyncHandler<UserParams>(async (req, res) => {
+export const getUserById = asyncHandler(
+  async (req: Request<UserParams>, res) => {
+    const user = await userService.getUserById(req.params.id);
+    return sendSuccess(res, { data: user });
+  },
+);
 
 // export const deleteUser = asyncHandler<UserParams>(async (req, res) => {
 export const deactivateUser = asyncHandler<UserParams>(async (req, res) => {

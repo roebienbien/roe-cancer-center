@@ -8,6 +8,8 @@ import { Dashboard } from '@/features/users/Dashboard';
 import MyAppointmentsPage from '@/features/appointments/MyAppointmentPage';
 import RegisterDoctorPage from '@/features/doctors/RegisterDoctorPage';
 import RegisterPatientPage from '@/features/patient/RegisterPatientPage';
+import EditPatientPage from '@/features/patient/EditPatientPage';
+import PatientPage from '@/features/patient/PatientPage';
 
 const router = createBrowserRouter([
   {
@@ -41,22 +43,28 @@ const router = createBrowserRouter([
         element: <RegisterPatientPage />,
       },
       {
+        path: '/patients',
+        // element: <RegisterPatientPage />,
+        children: [
+          {
+            path: 'new',
+            element: <RegisterPatientPage />,
+          },
+          {
+            path: ':patientId',
+            element: <PatientPage />,
+          },
+          {
+            path: ':patientId/edit',
+            element: <EditPatientPage />,
+          },
+        ],
+      },
+      {
         path: '/doctor',
         // path: '/patient/register',
         element: <RegisterDoctorPage />,
       },
-      // {
-      //   path: '/chemotheraphy-scheduler',
-      //   element: <ChemotheraphyScheduler />,
-      // },
-      // {
-      //   path: '/appointment-scheduler',
-      //   element: <AppointmentScheduler />,
-      // },
-      // {
-      //   path: '/users/:id',
-      //   element: <UserPage />,
-      // },
     ],
   },
 ]);

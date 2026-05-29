@@ -1,3 +1,4 @@
+import { useParams } from 'react-router';
 import { Button } from '../ui/button/Button';
 import './Navbar.scss';
 import { useLogoutMutation } from '@/features/auth/api/auth-api';
@@ -12,8 +13,12 @@ const NavLinks = [
     to: '/users',
   },
   {
+    title: 'DPatient ',
+    to: '/patients/new',
+  },
+  {
     title: 'Patient',
-    to: '/patient',
+    to: `/patients/`,
   },
   {
     title: 'Doctor',
@@ -24,9 +29,7 @@ const NavLinks = [
     to: '/appointments',
   },
 ];
-
 const Navbar = () => {
-  //const { mutate: logout } = useLogout();
   const [logout, { isLoading }] = useLogoutMutation();
 
   const handleLogout = async () => {

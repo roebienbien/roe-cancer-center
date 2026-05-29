@@ -1,10 +1,31 @@
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
-import { CreatePatientInput } from "./patient-schema";
+import { RegisterPatientInput, UpdatePatientInput } from "./patient-schema";
 
-export async function createPatientProfile(
+const patientSelect = {
+  id: true,
+  firstName: true,
+  lastName: true,
+  middleName: true,
+  sex: true,
+  birthDate: true,
+  phone: true,
+  address: true,
+  notes: true,
+};
+
+export async function updatePatient(userId: string, data: UpdatePatientInput) {
+  return prisma.patient.update({
+    where: {
+      userId,
+    },
+    data,
+  });
+}
+
+export async function registerPatient(
   userId: string,
-  data: CreatePatientInput,
+  data: RegisterPatientInput,
 ) {
   const existing = await prisma.patient.findUnique({
     where: { userId },
@@ -37,16 +58,18 @@ export async function getAllPatients() {
   });
 }
 
-export async function getPatientById(userId: string) {
+export async function getPatientById(patientId: string) {
   const patient = await prisma.patient.findUnique({
     where: {
-      userId,
+      id: patientId,
     },
-    select: {
-      id: true,
-      user: true,
-      appointments: true,
-    },
+    select: patientSelect,
+    // select: {
+    //   patient
+    //   id: true,
+    //   user: true,
+    //   appointments: true,
+    // },
   });
 
   if (!patient) {

@@ -5,10 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button/Button';
 import './LoginForm.scss';
 import { useLoginMutation } from '../api/auth-api';
+import { useNavigate } from 'react-router';
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const [login, { isLoading, isError }] = useLoginMutation();
-
   const {
     register,
     handleSubmit,
@@ -24,6 +25,7 @@ export default function LoginForm() {
   const onSubmit = (data: LoginFormData) => {
     console.log(JSON.stringify(data));
     login(data);
+    navigate('/patients/new');
   };
 
   return (

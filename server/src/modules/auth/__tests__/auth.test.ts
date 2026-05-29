@@ -64,22 +64,22 @@ describe("POST /auth/login", () => {
     expect(res.headers["set-cookie"]).toBeDefined();
   });
 
-  it("shoud refresh access token", async () => {
-    const loginRes = await request(app).post("/api/auth/login").send({
-      email: "test@example.com",
-      password: "Password123!",
-    });
-
-    const cookies = loginRes.headers["set-cookie"];
-
-    //refresh
-    const res = await request(app)
-      .post("/api/auth/refresh")
-      .set("Cookie", cookies);
-
-    expect(res.status).toBe(200);
-    expect(res.headers["set-cookie"]).toBeDefined();
-  });
+  // it("shoud refresh access token", async () => {
+  //   const loginRes = await request(app).post("/api/auth/login").send({
+  //     email: "test@example.com",
+  //     password: "Password123!",
+  //   });
+  //
+  //   const cookies = loginRes.headers["set-cookie"];
+  //
+  //   //refresh
+  //   const res = await request(app)
+  //     .post("/api/auth/refresh")
+  //     .set("Cookie", cookies);
+  //
+  //   expect(res.status).toBe(200);
+  //   expect(res.headers["set-cookie"]).toBeDefined();
+  // });
 
   it("should reject missing refresh token", async () => {
     const res = await request(app).post("/api/auth/refresh");

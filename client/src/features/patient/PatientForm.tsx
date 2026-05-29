@@ -1,36 +1,63 @@
 import { useForm } from 'react-hook-form';
-import { RegisterPatientInput, registerPatientSchema } from './RegisterPatientSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button/Button';
 import Input from '@/components/ui/input/Input';
-import { useCreatePatientMutation } from './api/patient-api';
+import { useUpdatePatientMutation, useGetPatientByIdQuery, useRegisterPatientMutation } from './patient-api';
 import Typography from '@/components/ui/Typography';
 import { useNavigate } from 'react-router';
+import { useParams } from 'react-router-dom';
+import { PatientFormInput, registerPatientSchema, updatePatientSchema } from './patient-schema';
+import { useEffect } from 'react';
 
-const RegisterPatientForm = () => {
+type Props = {
+  mode?: 'create' | 'edit';
+};
+
+const PatientForm = ({ mode = 'create' }: Props) => {
+  const schema = mode === 'create' ? registerPatientSchema : updatePatientSchema;
+
   const navigate = useNavigate();
-  const [create, { isLoading }] = useCreatePatientMutation();
+  const [registerPatient, { isLoading }] = useRegisterPatientMutation();
+  const [updatePatient] = useUpdatePatientMutation();
+
+  const { patientId } = useParams();
+  const { data: patientResponse } = useGetPatientByIdQuery(patientId!, {
+    skip: mode !== 'edit' || !patientId,
+  });
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<RegisterPatientInput>({
-    resolver: zodResolver(registerPatientSchema),
+  } = useForm<PatientFormInput>({
+    resolver: zodResolver(schema),
     defaultValues: {
-      // lastName: 'Arnaiz',
-      // firstName: 'John',
-      // middleName: 'A',
-      // sex: 'Male',
-      // birthDate: '1990-01-01',
-      // phone: '09123456789',
-      // address: 'Taguig',
+      lastName: 'Arnaiz',
+      firstName: 'John',
+      middleName: 'A',
+      sex: 'Male',
+      birthDate: '1990-01-01',
+      phone: '09123456789',
+      address: 'Taguig',
     },
   });
 
-  const onSubmit = (data: RegisterPatientInput) => {
-    create(data);
+  useEffect(() => {
+    if (mode === 'edit' && patientResponse?.data) {
+      reset(patientResponse.data);
+    }
+  }, [patientResponse, reset]);
+
+  const onSubmit = async (data: PatientFormInput) => {
+    if (mode === 'create') {
+      await registerPatient(data);
+    } else {
+      await updatePatient(data);
+    }
   };
+
+  console.log('API RESPONSE:', patientResponse);
 
   const onCancel = () => {
     // reset();
@@ -42,7 +69,7 @@ const RegisterPatientForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col gap-y-4'>
           <Typography as='h1' variant='h1' className='text-center'>
-            Patient Registration Form
+            {mode === 'create' ? 'Patient Registration Form' : 'Update Patient Profile'}
           </Typography>
           <div className='grid grid-cols-3 gap-4'>
             <div className='col-span-full'>
@@ -68,9 +95,15 @@ const RegisterPatientForm = () => {
             <Button onClick={onCancel} variant='secondary' className='w-40'>
               Cancel
             </Button>
-            <Button type='submit' className='w-40'>
-              {isLoading ? 'Submitting' : 'Submit'}
-            </Button>
+            {mode === 'create' ? (
+              <Button type='submit' className='w-40'>
+                {isLoading ? 'Submitting' : 'Submit'}
+              </Button>
+            ) : (
+              <Button type='submit' className='w-40'>
+                {isLoading ? 'Saving' : 'Save Changes'}
+              </Button>
+            )}
           </div>
         </div>
       </form>
@@ -78,4 +111,4 @@ const RegisterPatientForm = () => {
   );
 };
 
-export default RegisterPatientForm;
+export default PatientForm;

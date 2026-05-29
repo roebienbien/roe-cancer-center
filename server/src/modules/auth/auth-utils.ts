@@ -10,7 +10,7 @@ const buildJwtPayload = (user: AuthJwtPayload) => ({
 export const createAccessToken = (user: AuthJwtPayload) => {
   return jwt.sign(buildJwtPayload(user), config.key.private, {
     algorithm: "RS256",
-    expiresIn: "15m",
+    expiresIn: "1h",
   });
 };
 
