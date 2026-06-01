@@ -2,6 +2,7 @@ import { getDoctorById, getDoctorByUserId } from "../doctors/doctor-service";
 import { createError } from "../../utils/app-error";
 import { getSlotById } from "../slots/slot-service";
 import { prisma } from "../../lib/prisma";
+import { logger } from "../../utils/logger";
 
 // Doctor-slot should:
 // - assigning doctors
@@ -27,42 +28,48 @@ export async function getAvailableDoctorSlots() {
     include: {
       doctor: true,
       slot: true,
-      appointments: true,
+      _count: {
+        select: {
+          appointments: true,
+        },
+      },
     },
   });
 
-  return doctorSlots.map((doctorSlot) => {
-    const booked = doctorSlot.appointments.length;
-    const capacity = doctorSlot.slot.capacity;
-
-    return {
-      id: doctorSlot.id,
-
-      doctorName: `Dr. ${doctorSlot.doctor.firstName}`,
-      doctorfname: "hello",
-
-      startAt: doctorSlot.slot.startAt,
-      endAt: doctorSlot.slot.endAt,
-
-      booked,
-      capacity,
-
-      available: booked < capacity,
-    };
+  doctorSlots.forEach((ds) => {
+    console.log("Slot start:", ds.slot.startAt);
   });
+
+  return doctorSlots
+    .filter((ds) => ds._count.appointments < ds.slot.capacity)
+    .map((ds) => ({
+      id: ds.id,
+      doctor: {
+        id: ds.doctor.id,
+        name: `Dr. ${ds.doctor.firstName} ${ds.doctor.lastName}`,
+        specialization: ds.doctor.specialization,
+      },
+      startAt: ds.slot.startAt,
+      endAt: ds.slot.endAt,
+      booked: ds._count.appointments,
+      capacity: ds.slot.capacity,
+    }));
 }
 export async function assignDoctorToSlot(doctorId: string, slotId: string) {
-  // const doctor = await getDoctorByUserId(doctorId);
-  const doctor = await prisma.doctor.findUnique({
-    where: { id: doctorId },
-  });
-  if (!doctor) throw createError("Doctor not found", 404);
+  // Parallel DB calls with promise.all instead of sequential
+  const [doctor, slot] = await Promise.all([
+    prisma.doctor.findUnique({ where: { id: doctorId } }),
+    prisma.slot.findUnique({ where: { id: slotId } }),
+  ]);
 
-  // const slot = await getSlotById(slotId);
-  const slot = await prisma.slot.findUnique({
-    where: { id: slotId },
-  });
+  if (!doctor) throw createError("Doctor not found", 404);
   if (!slot) throw createError("Slot not found", 404);
+
+  const existing = await prisma.doctorSlot.findUnique({
+    where: { doctorId_slotId: { doctorId, slotId } },
+  });
+
+  if (existing) throw createError("Doctor alread assigned to this slot", 409);
 
   return prisma.doctorSlot.create({
     data: {

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authenticate } from "../../middleware/authenticate";
 import { authorize } from "../../middleware/authorize";
-import { validateResource } from "../../middleware/validate";
+import { validateResource } from "../../middleware/validate-resource";
 import { createUserSchema } from "./user-schema";
 import * as userController from "./user-controller";
 

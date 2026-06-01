@@ -1,7 +1,11 @@
 import { z } from "zod";
-export const assignDoctorSchema = z.object({
-  body: z.object({
+export const assignDoctorToSlotSchema = z.object({
+  params: z.object({
     doctorId: z.uuid(),
     slotId: z.uuid(),
   }),
 });
+
+export type assignDoctorToSlotInput = z.infer<
+  typeof assignDoctorToSlotSchema
+>["params"];

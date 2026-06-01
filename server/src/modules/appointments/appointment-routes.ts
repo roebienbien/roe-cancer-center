@@ -6,7 +6,7 @@ import { Role } from "@prisma/client";
 import { requireUser } from "../../middleware/require-user";
 import { getAppointmentsByUserId } from "./appointment-service";
 import { sendSuccess } from "../../utils/response-handler";
-import { validateResource } from "../../middleware/validate";
+import { validateResource } from "../../middleware/validate-resource";
 import {
   createAppointmentSchema,
   updateAppointmentStatusSchema,
