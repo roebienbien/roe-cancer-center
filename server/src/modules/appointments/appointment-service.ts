@@ -11,6 +11,46 @@ const appointmentInclude = {
   },
 };
 
+export async function createAppointment(
+  patientId: string,
+  doctorSlotId: string,
+) {
+  return prisma.$transaction(async (tx) => {
+    const doctorSlot = await tx.doctorSlot.findUnique({
+      where: {
+        id: doctorSlotId,
+      },
+      include: { slot: true, appointments: true },
+    });
+
+    if (!doctorSlot) throw createError("Doctor slot not found", 404);
+
+    // if (doctorSlot.slot.startAt < new Date()) {
+    //   throw createError("Cannot book pas slots", 400);
+    // }
+
+    if (doctorSlot.appointments.length >= doctorSlot.slot.capacity) {
+      throw createError("Slot is fully booked", 400);
+    }
+
+    // optional: prevent duplicate booking by same patient
+    const existing = await tx.appointment.findFirst({
+      where: {
+        patientId,
+        doctorSlotId,
+      },
+    });
+    if (existing) throw createError("Already booked this slot", 409);
+
+    return tx.appointment.create({
+      data: {
+        patientId,
+        doctorSlotId,
+      },
+    });
+  });
+}
+
 export async function getMyAppointments(userId: string) {
   const patient = await prisma.patient.findUnique({
     where: { userId },
@@ -36,7 +76,7 @@ export async function getMyAppointments(userId: string) {
   });
 
   return appointments.map((appointment) => ({
-    appointmentId: appointment.id,
+    id: appointment.id,
 
     status: appointment.status,
     type: appointment.type,
@@ -48,46 +88,6 @@ export async function getMyAppointments(userId: string) {
     startAt: appointment.doctorSlot.slot.startAt,
     endAt: appointment.doctorSlot.slot.endAt,
   }));
-}
-
-export async function createAppointment(
-  patientId: string,
-  doctorSlotId: string,
-) {
-  return prisma.$transaction(async (tx) => {
-    const doctorSlot = await tx.doctorSlot.findUnique({
-      where: {
-        id: doctorSlotId,
-      },
-      include: { slot: true, appointments: true },
-    });
-
-    if (!doctorSlot) throw createError("Doctor slot not found", 404);
-
-    if (doctorSlot.slot.startAt < new Date()) {
-      throw createError("Cannot book pas slots", 400);
-    }
-
-    if (doctorSlot.appointments.length >= doctorSlot.slot.capacity) {
-      throw createError("Slot is fully booked", 400);
-    }
-
-    // optional: prevent duplicate booking by same patient
-    const existing = await tx.appointment.findFirst({
-      where: {
-        patientId,
-        doctorSlotId,
-      },
-    });
-    if (existing) throw createError("Already booked this slot", 409);
-
-    return tx.appointment.create({
-      data: {
-        patientId,
-        doctorSlotId,
-      },
-    });
-  });
 }
 
 export async function getAllAppointments() {

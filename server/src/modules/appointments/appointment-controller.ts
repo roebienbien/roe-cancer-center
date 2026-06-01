@@ -1,18 +1,12 @@
 import * as appointmentService from "./appointment-service";
 import { Request, Response } from "express";
-import {
-  CreateAppointmentInput,
-  UpdateAppointmentStatusInputBody,
-  UpdateAppointmentStatusInputParams,
-} from "./appointment-schema";
+import { CreateAppointmentInput } from "./appointment-schema";
 import { asyncHandler } from "../../utils/async-handler";
 import { sendSuccess } from "../../utils/response-handler";
 import { requireUser } from "../../middleware/require-user";
 import { createError } from "../../utils/app-error";
-import { getPatientByUserId } from "../patients/patient-service";
 import { UserParams } from "../../types/express";
 import { prisma } from "../../lib/prisma";
-import { send } from "node:process";
 
 export const getMyAppointments = asyncHandler(
   async (req: Request, res: Response) => {

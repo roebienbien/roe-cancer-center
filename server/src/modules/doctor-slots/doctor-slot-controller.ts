@@ -20,7 +20,7 @@ export const assignDoctorToSlot = asyncHandler(async (req, res) => {
     slotId,
   );
 
-  console.log("DoctorSlot", req.body);
+  console.log("DoctorSlot", req.params);
 
   return sendSuccess(res, {
     data: doctorSlot,
