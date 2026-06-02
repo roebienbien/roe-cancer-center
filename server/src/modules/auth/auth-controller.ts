@@ -13,6 +13,8 @@ import {
 import { AuthJwtPayload } from "../../types/express";
 import { logger } from "../../utils/logger";
 import { RegisterUserInput } from "./auth-schema";
+import { getUserById } from "../users/user-service";
+import { requireUser } from "../../middleware/require-user";
 
 export const registerUser = asyncHandler<{}, {}, RegisterUserInput>(
   async (req, res) => {
@@ -72,6 +74,16 @@ export const refreshAccessToken = asyncHandler((req, res) => {
   res.cookie("accessToken", accessToken, accessTokenCookieOptions);
 
   return sendSuccess(res, { data: null, message: "Token refreshed" });
+});
+
+export const me = asyncHandler(async (req, res) => {
+  const { userId } = requireUser(req);
+
+  const user = await getUserById(userId);
+
+  // logger.info({ user }, "Me fetched");
+  logger.info({ userId: user.id, role: user.role }, "Me fetched");
+  return sendSuccess(res, { data: user });
 });
 
 export const logoutUser = asyncHandler((_, res) => {

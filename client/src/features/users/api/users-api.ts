@@ -1,9 +1,10 @@
 import { api } from '@/services/api';
 
+export type Role = 'ADMIN' | 'PATIENT' | 'DOCTOR';
 export type User = {
   id: string;
   email: string;
-  role: string;
+  role: Role;
 };
 
 type getUsersResponse = {
@@ -16,7 +17,11 @@ export const userApi = api.injectEndpoints({
       query: () => '/users',
       providesTags: ['Users'],
     }),
+    getUserById: builder.query<User, string>({
+      query: (id) => `/users/${id}`,
+      providesTags: ['Users'],
+    }),
   }),
 });
 
-export const { useGetUsersQuery } = userApi;
+export const { useGetUsersQuery, useGetUserByIdQuery } = userApi;

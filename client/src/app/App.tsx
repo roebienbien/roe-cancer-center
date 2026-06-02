@@ -14,6 +14,7 @@ import EditDoctorPage from '@/features/doctors/EditDoctorPage';
 import DoctorPage from '@/features/doctors/DoctorPage';
 import DoctorLayout from '@/features/doctors/DoctorLayout';
 import DoctorDashboard from '@/features/doctors/DoctorDashboard';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -65,25 +66,30 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/doctors',
-        element: <DoctorLayout />,
+        element: <ProtectedRoute allowedRoles={['PATIENT', 'DOCTOR']} />,
         children: [
           {
-            // path: 'new',
-            index: true,
-            element: <DoctorDashboard />,
-          },
-          {
-            path: 'new',
-            element: <RegisterDoctorPage />,
-          },
-          {
-            path: ':doctorId',
-            element: <DoctorPage />,
-          },
-          {
-            path: ':doctorId/edit',
-            element: <EditDoctorPage />,
+            path: '/doctors',
+            element: <DoctorLayout />,
+            children: [
+              {
+                // path: 'new',
+                index: true,
+                element: <DoctorDashboard />,
+              },
+              {
+                path: 'new',
+                element: <RegisterDoctorPage />,
+              },
+              {
+                path: ':doctorId',
+                element: <DoctorPage />,
+              },
+              {
+                path: ':doctorId/edit',
+                element: <EditDoctorPage />,
+              },
+            ],
           },
         ],
       },

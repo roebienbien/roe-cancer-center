@@ -17,7 +17,7 @@ export const authApi = api.injectEndpoints({
       }),
     }),
 
-    me: builder.query({
+    me: builder.query<void, void>({
       query: () => '/auth/me',
       providesTags: ['Auth'],
     }),
