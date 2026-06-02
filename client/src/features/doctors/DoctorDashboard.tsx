@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
 import { useGetAllDoctorsQuery } from './doctor-api';
+import DoctorPage from './DoctorPage';
 
 const DoctorDashboard = () => {
   const navigate = useNavigate();
@@ -7,7 +8,7 @@ const DoctorDashboard = () => {
 
   if (isLoading) return <p>Loading...</p>;
 
-  if (!doctors) return <p> No Doctors Found</p>;
+  if (!doctors?.data.length) return <p> No Doctors Found</p>;
 
   return (
     <div>
@@ -27,7 +28,14 @@ const DoctorDashboard = () => {
         </thead>
         <tbody>
           {doctors?.data.map((d) => (
-            <tr key={d.id} onClick={() => navigate(`/patients/${d.id}`)} className='cursor-pointer hover:bg-red-200'>
+            <tr
+              key={d.id}
+              onClick={() => {
+                navigate(`/doctors/${d.id}`);
+                console.log('Clicked', d.id);
+              }}
+              className='cursor-pointer hover:bg-red-200'
+            >
               <td className='border p-2'>{d.lastName}</td>
               <td className='border p-2'>{d.firstName}</td>
               <td className='border p-2'>{d.middleName}</td>

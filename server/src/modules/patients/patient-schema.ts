@@ -3,8 +3,8 @@ import { upperString } from "../../utils/zod-validators";
 
 export const patientBodySchema = z.object({
   lastName: upperString("lastName"),
-  firstName: upperString("lastName"),
-  middleName: upperString("lastName"),
+  firstName: upperString("firstName"),
+  middleName: upperString("middleName"),
   // lastName: z.string().min(1, "Last name is required"),
   // firstName: z.string().min(1, "First name is required"),
   // middleName: z.string().min(1, "Middle name is required"),
@@ -23,7 +23,9 @@ export const updatePatientSchema = z.object({
   body: patientBodySchema.partial(),
 });
 
-export type RegisterPatientInput = z.infer<typeof registerPatientSchema>;
+export type RegisterPatientInput = z.infer<
+  typeof registerPatientSchema
+>["body"];
 export type UpdatePatientInput = z.infer<typeof updatePatientSchema>["body"];
 
 // export const registerPatientSchema = z.object({

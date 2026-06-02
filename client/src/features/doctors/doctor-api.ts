@@ -31,7 +31,12 @@ const doctorApi = api.injectEndpoints({
       query: () => `${DOCTOR_URL}/`,
       providesTags: ['Doctor'],
     }),
+
+    getDoctorById: builder.query<Doctor, string>({
+      query: (id) => `${DOCTOR_URL}/${id}`,
+      providesTags: ['Doctor'],
+    }),
   }),
 });
 
-export const { useCreateDoctorMutation, useGetAllDoctorsQuery } = doctorApi;
+export const { useCreateDoctorMutation, useGetDoctorByIdQuery, useGetAllDoctorsQuery } = doctorApi;

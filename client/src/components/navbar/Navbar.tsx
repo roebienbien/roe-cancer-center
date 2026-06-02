@@ -22,7 +22,7 @@ const NavLinks = [
   },
   {
     title: 'Doctor',
-    to: '/doctor',
+    to: '/doctors',
   },
   {
     title: 'Appointment',

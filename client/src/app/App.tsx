@@ -10,6 +10,10 @@ import RegisterDoctorPage from '@/features/doctors/RegisterDoctorPage';
 import RegisterPatientPage from '@/features/patient/RegisterPatientPage';
 import EditPatientPage from '@/features/patient/EditPatientPage';
 import PatientPage from '@/features/patient/PatientPage';
+import EditDoctorPage from '@/features/doctors/EditDoctorPage';
+import DoctorPage from '@/features/doctors/DoctorPage';
+import DoctorLayout from '@/features/doctors/DoctorLayout';
+import DoctorDashboard from '@/features/doctors/DoctorDashboard';
 
 const router = createBrowserRouter([
   {
@@ -61,9 +65,27 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/doctor',
-        // path: '/patient/register',
-        element: <RegisterDoctorPage />,
+        path: '/doctors',
+        element: <DoctorLayout />,
+        children: [
+          {
+            // path: 'new',
+            index: true,
+            element: <DoctorDashboard />,
+          },
+          {
+            path: 'new',
+            element: <RegisterDoctorPage />,
+          },
+          {
+            path: ':doctorId',
+            element: <DoctorPage />,
+          },
+          {
+            path: ':doctorId/edit',
+            element: <EditDoctorPage />,
+          },
+        ],
       },
     ],
   },

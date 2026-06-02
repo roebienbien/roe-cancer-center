@@ -5,8 +5,10 @@ import { CreateDoctorInput } from "./doctor-schema";
 import * as doctorService from "./doctor-service";
 import { Request, Response } from "express";
 
-export const createDoctor = asyncHandler(
-  async (req: Request<{}, {}, CreateDoctorInput>, res: Response) => {
+export const createDoctor = asyncHandler<{}, {}, CreateDoctorInput>(
+  async (req, res) => {
+    // export const createDoctor = asyncHandler(
+    //   async (req: Request<{}, {}, CreateDoctorInput>, res: Response) => {
     const { userId } = requireUser(req);
 
     const doctor = await doctorService.createDoctor(userId, req.body);
@@ -19,10 +21,14 @@ export const createDoctor = asyncHandler(
   },
 );
 
-export const getAllDoctors = asyncHandler(
-  async (req: Request, res: Response) => {
-    const doctors = await doctorService.getAllDoctors();
+export const getAllDoctors = asyncHandler(async (_, res) => {
+  const doctors = await doctorService.getAllDoctors();
 
-    return sendSuccess(res, { data: doctors, message: "Doctors fetched" });
-  },
-);
+  return sendSuccess(res, { data: doctors, message: "Doctors fetched" });
+});
+
+export const getDoctorById = asyncHandler(async (req, res) => {
+  const doctor = await doctorService.getDoctorById(req.params.id);
+
+  return sendSuccess(res, { data: doctor });
+});

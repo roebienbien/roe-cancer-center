@@ -28,21 +28,22 @@ const RegisterDoctorForm = () => {
     confirm('Doctor created');
   };
   return (
-    <div className='flex flex-col gap-y-8 bg-red-100 p-10'>
+    <div className='flex flex-col gap-y-8 bg-blue-100 p-10'>
       <Typography as='h2' variant='h2' className='text-center'>
-        Registes as Doctor
+        Register as Doctor
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='grid grid-cols-3 gap-4'>
-          <Input id='lastName' label='Last Name' register={register} errors={errors} />
-
-          <Input id='firstName' label='First Name' register={register} errors={errors} />
-
-          <Input id='middleName' label='Middle Name' register={register} errors={errors} />
-
-          <Input id='specialization' label='Specialization' register={register} errors={errors} />
-
-          <Input id='phone' type='tel' label='Phone' register={register} errors={errors} />
+          <div className='col-span-3'>
+            <Typography>FULL NAME</Typography>
+            <div className='grid grid-cols-3 gap-4'>
+              <Input id='lastName' register={register} errors={errors} />
+              <Input id='firstName' register={register} errors={errors} />
+              <Input id='middleName' register={register} errors={errors} />
+            </div>
+          </div>
+          <Input id='specialization' register={register} errors={errors} />
+          <Input id='phone' type='tel' register={register} errors={errors} />
         </div>
         <div className='mt-4 flex justify-between'>
           <Button variant='secondary'>Cancel</Button>
