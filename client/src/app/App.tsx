@@ -4,17 +4,20 @@ import HomePage from '../pages/home/HomePage';
 import LoginPage from '../features/auth/pages/LoginPage';
 import Layout from '../components/layout/Layout';
 import RegisterPage from '@/features/auth/pages/RegisterPage';
-import { Dashboard } from '@/features/users/Dashboard';
+import { UserDashboard } from '@/features/users/UserDashboard';
 import MyAppointmentsPage from '@/features/appointments/MyAppointmentPage';
 import RegisterDoctorPage from '@/features/doctors/RegisterDoctorPage';
 import RegisterPatientPage from '@/features/patient/RegisterPatientPage';
 import EditPatientPage from '@/features/patient/EditPatientPage';
-import PatientPage from '@/features/patient/PatientPage';
+import PatientPage from '@/features/patient/PatientProfilePage';
 import EditDoctorPage from '@/features/doctors/EditDoctorPage';
 import DoctorPage from '@/features/doctors/DoctorPage';
 import DoctorLayout from '@/features/doctors/DoctorLayout';
 import DoctorDashboard from '@/features/doctors/DoctorDashboard';
 import ProtectedRoute from './routes/ProtectedRoute';
+import ForbiddenPage from '@/pages/ForbiddenPage';
+import PatientLayout from '@/features/patient/PatientLayout';
+import PatientProfilePage from '@/features/patient/PatientProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +26,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/',
+        index: true,
         element: <HomePage />,
       },
       {
@@ -40,28 +43,37 @@ const router = createBrowserRouter([
       },
       {
         path: '/users',
-        element: <Dashboard />,
+        element: <UserDashboard />,
+        children: [],
       },
       {
-        path: '/patient',
-        // path: '/patient/register',
-        element: <RegisterPatientPage />,
+        path: '/users/:id',
+        element: <PatientProfilePage />,
       },
       {
-        path: '/patients',
-        // element: <RegisterPatientPage />,
+        element: <ProtectedRoute allowedRoles={['PATIENT', 'DOCTOR']} />,
         children: [
           {
-            path: 'new',
-            element: <RegisterPatientPage />,
-          },
-          {
-            path: ':patientId',
-            element: <PatientPage />,
-          },
-          {
-            path: ':patientId/edit',
-            element: <EditPatientPage />,
+            path: 'patients/me',
+            element: <PatientLayout />,
+            children: [
+              {
+                path: 'profile',
+                element: <PatientProfilePage />,
+              },
+              {
+                path: 'profile/new',
+                element: <RegisterPatientPage />,
+              },
+              {
+                path: 'profile/edit',
+                element: <EditPatientPage />,
+              },
+              // { index: true, element: <PatientAppointments /> },
+              // { path: 'records', element: <MedicalRecords /> },
+              // { path: 'doctors', element: <DoctorsPage /> },
+              // { path: 'settings', element: <SettingsPage /> },
+            ],
           },
         ],
       },
@@ -92,6 +104,11 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: '/forbidden',
+        // path: '/patient/register',
+        element: <ForbiddenPage />,
       },
     ],
   },

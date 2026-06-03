@@ -3,11 +3,11 @@ import { useGetAllPatientQuery } from './patient-api';
 
 const PatientDashBoard = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetAllPatientQuery();
+  const { data: patients, isLoading } = useGetAllPatientQuery();
 
   if (isLoading) return <p>Loading...</p>;
 
-  if (!data) return <p>No Patient found</p>;
+  if (!patients) return <p>No Patient found</p>;
   return (
     <div>
       <h3 className='mb-4 text-xl font-semibold'>Patient Dashboard</h3>
@@ -26,7 +26,7 @@ const PatientDashBoard = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.data.map((p) => (
+          {patients.map((p) => (
             <tr key={p.id} onClick={() => navigate(`/patients/${p.id}`)} className='cursor-pointer hover:bg-red-200'>
               <td className='border p-2'>{p.lastName}</td>
               <td className='border p-2'>{p.firstName}</td>

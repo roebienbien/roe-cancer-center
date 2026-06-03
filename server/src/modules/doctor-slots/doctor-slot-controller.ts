@@ -1,7 +1,6 @@
 import { asyncHandler } from "../../utils/async-handler";
 import { sendSuccess } from "../../utils/response-handler";
 import * as doctorSlotService from "./doctor-slot-service";
-import { Request, Response } from "express";
 
 export const getAvailableDoctorSlots = asyncHandler(async (_, res) => {
   const slots = await doctorSlotService.getAvailableDoctorSlots();

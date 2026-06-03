@@ -14,7 +14,30 @@ import { logger } from "../../utils/logger";
 // - slot generation
 // - appointment booking
 // - doctor profile creation
-//
+
+export async function assignDoctorToSlot(doctorId: string, slotId: string) {
+  // Parallel DB calls with promise.all instead of sequential
+  const [doctor, slot] = await Promise.all([
+    prisma.doctor.findUnique({ where: { id: doctorId } }),
+    prisma.slot.findUnique({ where: { id: slotId } }),
+  ]);
+
+  if (!doctor) throw createError("Doctor not found", 404);
+  if (!slot) throw createError("Slot not found", 404);
+
+  const existing = await prisma.doctorSlot.findUnique({
+    where: { doctorId_slotId: { doctorId, slotId } },
+  });
+
+  if (existing) throw createError("Doctor alread assigned to this slot", 409);
+
+  return prisma.doctorSlot.create({
+    data: {
+      doctorId,
+      slotId,
+    },
+  });
+}
 
 export async function getAvailableDoctorSlots() {
   const doctorSlots = await prisma.doctorSlot.findMany({
@@ -54,27 +77,4 @@ export async function getAvailableDoctorSlots() {
       booked: ds._count.appointments,
       capacity: ds.slot.capacity,
     }));
-}
-export async function assignDoctorToSlot(doctorId: string, slotId: string) {
-  // Parallel DB calls with promise.all instead of sequential
-  const [doctor, slot] = await Promise.all([
-    prisma.doctor.findUnique({ where: { id: doctorId } }),
-    prisma.slot.findUnique({ where: { id: slotId } }),
-  ]);
-
-  if (!doctor) throw createError("Doctor not found", 404);
-  if (!slot) throw createError("Slot not found", 404);
-
-  const existing = await prisma.doctorSlot.findUnique({
-    where: { doctorId_slotId: { doctorId, slotId } },
-  });
-
-  if (existing) throw createError("Doctor alread assigned to this slot", 409);
-
-  return prisma.doctorSlot.create({
-    data: {
-      doctorId,
-      slotId,
-    },
-  });
 }

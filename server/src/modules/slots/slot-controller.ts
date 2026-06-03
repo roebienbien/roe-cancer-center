@@ -16,13 +16,13 @@ export const createSlot = asyncHandler<{}, {}, CreateSlotInput>(
   },
 );
 
-// export const getAvailableSlots = asyncHandler(
-//   async (_req: Request, res: Response) => {
-//     const slots = await slotService.getAvaialbleSlots();
-//
-//     return sendSuccess(res, {
-//       data: slots,
-//       message: "Available slots fetched",
-//     });
-//   },
-// );
+export const getAvailableSlots = asyncHandler(
+  async (_req: Request, res: Response) => {
+    const slots = await slotService.getAvailableSlots();
+
+    return sendSuccess(res, {
+      data: slots,
+      message: "Available slots fetched",
+    });
+  },
+);

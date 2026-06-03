@@ -1,11 +1,13 @@
 import { Button } from '@/components/ui/button/Button';
-import './Dashboard.scss';
-import { useGetUsersQuery } from './api/users-api';
+import { useGetUserByIdQuery, useGetUsersQuery } from './api/users-api';
 import type { User } from './api/users-api';
+import { useNavigate, useParams } from 'react-router';
 
-export const Dashboard = () => {
+export const UserDashboard = () => {
   const { data, isLoading, isError, error } = useGetUsersQuery();
+  const { userId } = useParams();
   const users = data?.data ?? [];
+  const navigate = useNavigate();
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) {
@@ -36,19 +38,18 @@ export const Dashboard = () => {
         <table className='w-full border-collapse'>
           <thead>
             <tr className='border-b bg-gray-100'>
+              <th className='p-3 text-left font-semibold'>id</th>
               <th className='p-3 text-left font-semibold'>Email</th>
-
               <th className='p-3 text-left font-semibold'>Role</th>
-
               <th className='p-3 text-right font-semibold'>Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {users.map((user: User) => (
-              <tr key={user.id} className='border-b hover:bg-gray-50'>
+              <tr onClick={() => navigate(user.id)} key={user.id} className='cursor-pointer border-b hover:bg-gray-50'>
+                <td className='p-3'>{user.id}</td>
                 <td className='p-3'>{user.email}</td>
-
                 <td className='p-3'>{user.role}</td>
 
                 <td className='p-3'>

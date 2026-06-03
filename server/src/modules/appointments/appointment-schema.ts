@@ -2,7 +2,6 @@ import { z } from "zod";
 
 export const createAppointmentSchema = z.object({
   body: z.object({
-    patientId: z.uuid(),
     doctorSlotId: z.uuid(),
   }),
 });

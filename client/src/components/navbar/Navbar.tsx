@@ -1,4 +1,3 @@
-import { useParams } from 'react-router';
 import { Button } from '../ui/button/Button';
 import './Navbar.scss';
 import { useLogoutMutation } from '@/features/auth/api/auth-api';
@@ -14,11 +13,7 @@ const NavLinks = [
   },
   {
     title: 'DPatient ',
-    to: '/patients/new',
-  },
-  {
-    title: 'Patient',
-    to: `/patients/`,
+    to: '/patients/me',
   },
   {
     title: 'Doctor',
@@ -29,6 +24,7 @@ const NavLinks = [
     to: '/appointments',
   },
 ];
+
 const Navbar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
 
@@ -46,7 +42,7 @@ const Navbar = () => {
       <nav className='flex w-[80%] items-center justify-between'>
         <Button to={'/'} variant='tertiary' className='text-xl'>
           {/* <img src={rccLogo} alt='rcc-logo' className='text-sm' height={10} width={10} /> */}
-          Logo
+          RCC
         </Button>
         <ul className='flex gap-x-2'>
           {NavLinks.map((link, index) => (

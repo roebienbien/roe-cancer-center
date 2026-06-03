@@ -1,3 +1,4 @@
+import DoctorSlotDashboard from '../doctor-slots/DoctorSlotDashboard';
 import { useGetAppointmentsQuery } from './api/appointment-api';
 import { AppointmentList } from './AppointmentList';
 import CreateAppointmentForm from './CreateAppointmentForm';
@@ -17,6 +18,9 @@ export default function MyAppointmentsPage() {
       <CreateAppointmentForm />
 
       <AppointmentList appointments={data?.data || []} />
+
+      <div>DOCTORSLOT DOCTORSLOT</div>
+      <DoctorSlotDashboard />
     </div>
   );
 }

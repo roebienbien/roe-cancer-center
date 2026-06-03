@@ -1,8 +1,5 @@
-import bcrypt from "bcrypt";
-import { CreateUserInput } from "./user-schema";
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
-import { Prisma } from "@prisma/client";
 
 // Improve into safeUser() mapper
 export const userSelect = {

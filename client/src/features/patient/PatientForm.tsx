@@ -44,8 +44,11 @@ const PatientForm = ({ mode = 'create' }: Props) => {
   });
 
   useEffect(() => {
-    if (mode === 'edit' && patientResponse?.data) {
-      reset(patientResponse.data);
+    // if (mode === 'edit' && patientResponse?.data) {
+    //   reset(patientResponse.data);
+    // }
+    if (mode === 'edit' && patientResponse) {
+      reset(patientResponse);
     }
   }, [patientResponse, reset]);
 

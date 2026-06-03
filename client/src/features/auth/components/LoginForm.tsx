@@ -25,7 +25,7 @@ export default function LoginForm() {
   const onSubmit = (data: LoginFormData) => {
     console.log(JSON.stringify(data));
     login(data);
-    navigate('/patients/new');
+    navigate('/');
   };
 
   return (

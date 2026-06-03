@@ -7,31 +7,19 @@ import { requireUser } from "../../middleware/require-user";
 import { createError } from "../../utils/app-error";
 import { UserParams } from "../../types/express";
 import { prisma } from "../../lib/prisma";
-
-export const getMyAppointments = asyncHandler(
-  async (req: Request, res: Response) => {
-    const { userId } = requireUser(req);
-
-    const appointments = await appointmentService.getMyAppointments(userId);
-
-    return sendSuccess(res, {
-      data: appointments,
-      message: "appointments fetched",
-    });
-  },
-);
+import { getPatientByUserId } from "../patients/patient-service";
 
 export const createAppointment = asyncHandler(
   async (req: Request<{}, {}, CreateAppointmentInput>, res: Response) => {
+    const { userId } = requireUser(req);
     const { doctorSlotId } = req.body;
 
-    const { userId } = requireUser(req);
-    // const patient = await getPatientByUserId(userId);
-    const patient = await prisma.patient.findUnique({
-      where: {
-        userId: userId,
-      },
-    });
+    const patient = await getPatientByUserId(userId);
+    // const patient = await prisma.patient.findUnique({
+    //   where: {
+    //     userId: userId,
+    //   },
+    // });
 
     if (!patient) {
       throw createError("Patient profile required before booking", 400);
@@ -46,6 +34,19 @@ export const createAppointment = asyncHandler(
       data: appointment,
       message: "Appointment created",
       statusCode: 201,
+    });
+  },
+);
+
+export const getMyAppointments = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { userId } = requireUser(req);
+
+    const appointments = await appointmentService.getMyAppointments(userId);
+
+    return sendSuccess(res, {
+      data: appointments,
+      message: "appointments fetched",
     });
   },
 );

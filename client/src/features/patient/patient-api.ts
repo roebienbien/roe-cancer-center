@@ -17,6 +17,8 @@ type GetPatientResponse = {
 };
 
 export type GetAllPatientsResponse = {
+  // success: boolean;
+  // message: string;
   data: Patient[];
 };
 
@@ -31,6 +33,7 @@ export const patientApi = api.injectEndpoints({
         body,
       }),
     }),
+
     updatePatient: builder.mutation({
       query: (body) => ({
         url: `${PATIENT_URL}/me`,
@@ -38,16 +41,25 @@ export const patientApi = api.injectEndpoints({
         body,
       }),
     }),
-    getPatientById: builder.query<GetPatientResponse, string>({
+
+    getMe: builder.query<Patient, void>({
+      query: () => `${PATIENT_URL}/me`,
+      transformResponse: (response: GetPatientResponse) => response.data,
+      providesTags: ['Auth'],
+    }),
+
+    getPatientById: builder.query<Patient, string>({
       query: (id) => `${PATIENT_URL}/${id}`,
+      transformResponse: (response: GetPatientResponse) => response.data,
       providesTags: ['Patient'],
     }),
 
-    getAllPatient: builder.query<GetAllPatientsResponse, void>({
+    getAllPatient: builder.query<Patient[], void>({
       query: () => `${PATIENT_URL}`,
+      transformResponse: (response: GetAllPatientsResponse) => response.data,
       providesTags: ['Patient'],
     }),
   }),
 });
 
-export const { useRegisterPatientMutation, useUpdatePatientMutation, useGetPatientByIdQuery, useGetAllPatientQuery } = patientApi;
+export const { useGetMeQuery, useRegisterPatientMutation, useUpdatePatientMutation, useGetPatientByIdQuery, useGetAllPatientQuery } = patientApi;

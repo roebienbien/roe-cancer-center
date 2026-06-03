@@ -6,12 +6,8 @@ import { createSlotSchema } from "./slot-schema";
 
 const router = express.Router();
 
-router.post(
-  "/",
-  // authenticate,
-  validateResource(createSlotSchema),
-  slotController.createSlot,
-);
+router.post("/", validateResource(createSlotSchema), slotController.createSlot);
+router.get("/available", slotController.getAvailableSlots);
 router.get("/test", () => console.log("Hello"));
 
 export default router;

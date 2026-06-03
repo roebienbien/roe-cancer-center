@@ -1,6 +1,5 @@
 import Typography from '@/components/ui/Typography';
 import LoginForm from '../components/LoginForm';
-import { Dashboard } from '@/features/users/Dashboard';
 
 const LoginPage = () => {
   return (

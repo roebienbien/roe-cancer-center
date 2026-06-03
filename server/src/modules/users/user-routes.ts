@@ -9,6 +9,10 @@ const router = Router();
 
 //router.post("/", validateResource(createUserSchema), userController.createUser);
 router.get("/", authenticate, userController.getAllUsers);
+
+// auth/me is better
+// router.get("/me", authenticate, userController.getMyProfile);
+//
 router.get("/:id", authenticate, userController.getUserById);
 
 router.delete(

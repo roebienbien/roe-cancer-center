@@ -15,6 +15,8 @@ const ProtectedRoute = ({ allowedRoles }: Props) => {
 
   if (!user) return <Navigate to='/login' replace />;
 
+  console.log('user', user);
+
   if (allowedRoles && !allowedRoles.includes(user.role)) {
     return <Navigate to='/forbidden' replace />;
   }
