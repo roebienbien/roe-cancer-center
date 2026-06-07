@@ -56,7 +56,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }: Props) => {
   };
 
   return (
-    <aside className={`fixed z-[98] min-h-screen bg-blue-50 p-4 transition-transform duration-300 ${isSidebarOpen ? 'w-[200px]' : 'w-[80px]'}`}>
+    <aside className={`fixed z-[98] min-h-screen bg-blue-50 p-4 transition-all duration-300 ${isSidebarOpen ? 'w-[200px]' : 'w-[80px]'}`}>
       {/* <Typography>Side bar</Typography> */}
       <div className='mb-4 flex justify-between'>
         <Typography as='h2' variant='h2'>

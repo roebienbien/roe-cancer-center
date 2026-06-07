@@ -4,8 +4,6 @@ import Typography from '@/components/ui/Typography';
 import { Button } from '@/components/ui/button/Button';
 
 const PatientProfilePage = () => {
-  // const { patientId } = useParams();
-  // const { data: patient, isLoading, error } = useGetPatientByIdQuery(patientId!);
   const { data: patient, isLoading, error } = useGetMeQuery();
   const navigate = useNavigate();
 

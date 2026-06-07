@@ -18,6 +18,8 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import ForbiddenPage from '@/pages/ForbiddenPage';
 import PatientLayout from '@/features/patient/PatientLayout';
 import PatientProfilePage from '@/features/patient/PatientProfilePage';
+import AppointmentLayout from '@/features/appointments/AppointmentLayout';
+import DoctorSlotDetailsPage from '@/features/doctor-slots/DoctorSlotDetailsPage';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/appointments',
-        element: <MyAppointmentsPage />,
+        element: <AppointmentLayout />,
       },
       {
         path: '/register',
@@ -104,6 +106,11 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: '/doctor-slots/:doctorSlotId',
+        // path: '/patient/register',
+        element: <DoctorSlotDetailsPage />,
       },
       {
         path: '/forbidden',

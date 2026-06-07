@@ -78,3 +78,22 @@ export async function getAvailableDoctorSlots() {
       capacity: ds.slot.capacity,
     }));
 }
+
+export async function getDoctorSlotById(id: string) {
+  const slot = await prisma.doctorSlot.findUnique({
+    where: { id },
+    include: {
+      doctor: true,
+      slot: true,
+      _count: {
+        select: {
+          appointments: true,
+        },
+      },
+    },
+  });
+
+  if (!slot) throw createError("Slot not found", 404);
+
+  return slot;
+}

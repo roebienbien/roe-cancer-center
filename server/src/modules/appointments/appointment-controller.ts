@@ -43,6 +43,7 @@ export const getMyAppointments = asyncHandler(
     const { userId } = requireUser(req);
 
     const appointments = await appointmentService.getMyAppointments(userId);
+    console.log("patient: ", appointments);
 
     return sendSuccess(res, {
       data: appointments,

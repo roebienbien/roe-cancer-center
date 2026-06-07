@@ -1,25 +1,42 @@
 import { api } from '@/services/api';
 
-type Slot = {
+type Doctor = {
+  name: string;
+  specialization: string;
+};
+
+type DoctorSlot = {
   id: string;
   startAt: string;
+  doctor: Doctor;
   endAt: string;
-  capacity: number;
   createdAt: string;
   updatedAt: string;
+  booked: number;
+  capacity: number;
   assignments: unknown[];
 };
 
-type GetAvailableSlots = {
-  data: Slot[];
+type GetAvailableDoctorSlotsResponse = {
+  data: DoctorSlot[];
 };
+
+type GetDoctorSlotByIdResponse = {
+  data: DoctorSlot;
+};
+
+const DOCTOR_SLOT_URL = '/doctor-slots';
 const doctorSlotApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getAvailableDoctorSlots: builder.query<Slot[], void>({
-      query: () => '/doctor-slots/available',
-      transformResponse: (response: GetAvailableSlots) => response.data,
+    getAvailableDoctorSlots: builder.query<DoctorSlot[], void>({
+      query: () => `${DOCTOR_SLOT_URL}/available`,
+      transformResponse: (response: GetAvailableDoctorSlotsResponse) => response.data,
+    }),
+    getDoctorSlotById: builder.query<DoctorSlot, string>({
+      query: (id: string) => `${DOCTOR_SLOT_URL}/${id}`,
+      transformResponse: (response: GetDoctorSlotByIdResponse) => response.data,
     }),
   }),
 });
 
-export const { useGetAvailableDoctorSlotsQuery } = doctorSlotApi;
+export const { useGetAvailableDoctorSlotsQuery, useGetDoctorSlotByIdQuery } = doctorSlotApi;

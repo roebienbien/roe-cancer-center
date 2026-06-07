@@ -18,6 +18,8 @@ router.get(
   authenticate,
   doctorSlotController.getAvailableDoctorSlots,
 );
+
+router.get("/:id", authenticate, doctorSlotController.getDoctorSlotsById);
 // router.get("/", (req, res) => res.send("Hello"));
 
 export default router;

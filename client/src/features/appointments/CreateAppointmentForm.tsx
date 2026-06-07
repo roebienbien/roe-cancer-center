@@ -4,6 +4,7 @@ import { CreateAppointmentFormData, createAppointmentSchema } from './appointmen
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button/Button';
 import Input from '@/components/ui/input/Input';
+import DoctorSlotDashboard from '../doctor-slots/DoctorSlotDashboard';
 
 const CreateAppointmentForm = () => {
   const [createAppointment, { isLoading, isError }] = useCreateAppointmentMutation();
@@ -15,27 +16,20 @@ const CreateAppointmentForm = () => {
   } = useForm<CreateAppointmentFormData>({
     resolver: zodResolver(createAppointmentSchema),
     defaultValues: {
-      startAt: '',
-      endAt: '',
-      patientId: '',
-      notes: '',
+      doctorSlodId: '',
     },
   });
 
+  // const onSubmit = (data: CreateAppointmentFormData) => {
+  //   createAppointment({ ...data, startAt: new Date(data.startAt).toISOString(), endAt: new Date(data.endAt).toISOString() });
+  // };
+
   const onSubmit = (data: CreateAppointmentFormData) => {
-    createAppointment({ ...data, startAt: new Date(data.startAt).toISOString(), endAt: new Date(data.endAt).toISOString() });
+    console.log('Submit');
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-      <div className='grid gap-3'>
-        <Input<CreateAppointmentFormData> id='patientId' label='Patient ID' type='text' register={register} errors={errors} />
-
-        <Input<CreateAppointmentFormData> id='startAt' label='Start Time' type='datetime-local' register={register} errors={errors} />
-
-        <Input<CreateAppointmentFormData> id='endAt' label='End Time' type='datetime-local' register={register} errors={errors} />
-
-        <Input<CreateAppointmentFormData> id='notes' label='Notes' type='text' register={register} errors={errors} />
-      </div>
+      <DoctorSlotDashboard />
 
       <Button type='submit' disabled={isLoading} className='w-full'>
         {isLoading ? 'Creating...' : 'Create Appointment'}

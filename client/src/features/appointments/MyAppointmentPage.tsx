@@ -1,26 +1,54 @@
-import DoctorSlotDashboard from '../doctor-slots/DoctorSlotDashboard';
-import { useGetAppointmentsQuery } from './api/appointment-api';
-import { AppointmentList } from './AppointmentList';
-import CreateAppointmentForm from './CreateAppointmentForm';
+import { useGetMyAppointmentsQuery } from './api/appointment-api';
+import AppointmentCard from './components/AppointmentCard';
+import AppointmentList from './components/AppointmentList';
 
-export default function MyAppointmentsPage() {
-  const { data, isLoading } = useGetAppointmentsQuery();
+import { useSearchParams } from 'react-router';
+
+const MyAppointmentsPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const tab = searchParams.get('tab') ?? 'upcoming';
+  const { data: upcoming, isLoading } = useGetMyAppointmentsQuery();
 
   if (isLoading) return <p>Loading...</p>;
 
-  if (!data) {
+  if (!upcoming) {
     return <div>No Appointments found</div>;
   }
 
   return (
-    <div className='flex h-screen flex-col items-center justify-center'>
-      <h1 className='mb-4 text-xl font-bold'>My Appointments</h1>
-      <CreateAppointmentForm />
+    <>
+      <button onClick={() => setSearchParams({ tab: 'upcoming' })}>Upcoming</button>
 
-      <AppointmentList appointments={data?.data || []} />
+      <button onClick={() => setSearchParams({ tab: 'history' })}>History</button>
 
-      <div>DOCTORSLOT DOCTORSLOT</div>
-      <DoctorSlotDashboard />
-    </div>
+      <button onClick={() => setSearchParams({ tab: 'cancelled' })}>Cancelled</button>
+
+      {tab === 'upcoming' && <AppointmentList title='Upcoming' emptyMessage='No upcomming apointments' appointments={upcoming} />}
+      {tab === 'history' && <AppointmentList title='History' emptyMessage='No appointment history yet' appointments={[]} />}
+      {tab === 'cancelled' && <AppointmentList title='Cancelled' emptyMessage='No cancelled appointments' appointments={[]} />}
+    </>
   );
-}
+};
+
+export default MyAppointmentsPage;
+
+// export default function MyAppointmentsPage() {
+//   const { data: appointments, isLoading } = useGetMyAppointmentsQuery();
+//
+//   if (isLoading) return <p>Loading...</p>;
+//
+//   if (!appointments) {
+//     return <div>No Appointments found</div>;
+//   }
+//
+//   return (
+//     <div className='flex h-screen flex-col items-center justify-center'>
+//       <h1 className='mb-4 text-xl font-bold'>My Appointments</h1>
+//       <AppointmentList title={'Upcoming'} appointments={appointments} />
+//       {/* {appointments.map((a) => ( */}
+//       {/*   <AppointmentCard key={a.id} appointment={a} /> */}
+//       {/* ))} */}
+//     </div>
+//   );
+// }

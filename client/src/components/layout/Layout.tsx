@@ -15,9 +15,9 @@ const Layout = () => {
         <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? 'ml-[200px]' : 'ml-[80px]'}`}>
           <Outlet />
+          <Footer />
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
