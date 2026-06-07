@@ -1,13 +1,15 @@
+import { Button } from '@/components/ui/button/Button';
 import { useGetMyAppointmentsQuery } from './api/appointment-api';
 import AppointmentCard from './components/AppointmentCard';
 import AppointmentList from './components/AppointmentList';
 
 import { useSearchParams } from 'react-router';
+import Tabs from '@/components/tab/Tabs';
 
 const MyAppointmentsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = searchParams.get('tab') ?? 'upcoming';
 
-  const tab = searchParams.get('tab') ?? 'upcoming';
   const { data: upcoming, isLoading } = useGetMyAppointmentsQuery();
 
   if (isLoading) return <p>Loading...</p>;
@@ -16,39 +18,53 @@ const MyAppointmentsPage = () => {
     return <div>No Appointments found</div>;
   }
 
+  const tabItems = [
+    {
+      label: 'Upcoming',
+      value: 'upcoming',
+    },
+    {
+      label: 'History',
+      value: 'history',
+    },
+    {
+      label: 'Cancelled',
+      value: 'cancelled',
+    },
+  ];
+  const tabContent = {
+    upcoming: {
+      title: 'Upcoming',
+      emptyMessage: 'No upcoming appointments.',
+      appointments: upcoming,
+    },
+    history: {
+      title: 'History',
+      emptyMessage: 'No appointment history yet.',
+      appointments: [], // change
+    },
+    cancelled: {
+      title: 'Cancelled',
+      emptyMessage: 'No cancelled appointments.',
+      appointments: [], // todo:change to actual cancelled data
+    },
+  } as const;
+
+  const currentTab = tabContent[activeTab as keyof typeof tabContent];
+
   return (
-    <>
-      <button onClick={() => setSearchParams({ tab: 'upcoming' })}>Upcoming</button>
+    <div className=''>
+      <div className=''>
+        <Tabs items={tabItems} activeTab={activeTab} onChange={(tab) => setSearchParams({ tab })} />
+      </div>
 
-      <button onClick={() => setSearchParams({ tab: 'history' })}>History</button>
+      <AppointmentList title={currentTab.title} emptyMessage={currentTab.emptyMessage} appointments={currentTab.appointments} />
 
-      <button onClick={() => setSearchParams({ tab: 'cancelled' })}>Cancelled</button>
-
-      {tab === 'upcoming' && <AppointmentList title='Upcoming' emptyMessage='No upcomming apointments' appointments={upcoming} />}
-      {tab === 'history' && <AppointmentList title='History' emptyMessage='No appointment history yet' appointments={[]} />}
-      {tab === 'cancelled' && <AppointmentList title='Cancelled' emptyMessage='No cancelled appointments' appointments={[]} />}
-    </>
+      {/* {activeTab === 'upcoming' && <AppointmentList title='Upcoming' emptyMessage='No upcomming apointments' appointments={upcoming} />} */}
+      {/* {activeTab === 'history' && <AppointmentList title='History' emptyMessage='No appointment history yet' appointments={[]} />} */}
+      {/* {activeTab === 'cancelled' && <AppointmentList title='Cancelled' emptyMessage='No cancelled appointments' appointments={[]} />} */}
+    </div>
   );
 };
 
 export default MyAppointmentsPage;
-
-// export default function MyAppointmentsPage() {
-//   const { data: appointments, isLoading } = useGetMyAppointmentsQuery();
-//
-//   if (isLoading) return <p>Loading...</p>;
-//
-//   if (!appointments) {
-//     return <div>No Appointments found</div>;
-//   }
-//
-//   return (
-//     <div className='flex h-screen flex-col items-center justify-center'>
-//       <h1 className='mb-4 text-xl font-bold'>My Appointments</h1>
-//       <AppointmentList title={'Upcoming'} appointments={appointments} />
-//       {/* {appointments.map((a) => ( */}
-//       {/*   <AppointmentCard key={a.id} appointment={a} /> */}
-//       {/* ))} */}
-//     </div>
-//   );
-// }

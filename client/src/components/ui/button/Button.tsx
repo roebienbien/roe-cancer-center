@@ -3,12 +3,6 @@ import { twMerge } from 'tailwind-merge';
 
 type Variant = 'primary' | 'secondary' | 'tertiary';
 
-const variants: Record<Variant, string> = {
-  primary: 'bg-primary text-white hover:bg-primary-dark',
-  secondary: 'bg-white text-primary border border-primary hover:bg-gray-100',
-  tertiary: 'text-primary hover:bg-gray-100',
-};
-
 type Props = {
   children: React.ReactNode;
   onClick?: () => void;
@@ -18,10 +12,17 @@ type Props = {
   className?: string;
   disabled?: boolean;
   type?: 'submit' | 'button';
+  isActive?: boolean;
 };
 
-export const Button = ({ onClick, children, href, to, variant = 'primary', className, disabled, type = 'button' }: Props) => {
-  const baseClass = twMerge(`border-1 p-2 w-fit hover:bg-blue-400 ${variants[variant]} ${className}`);
+const variants: Record<Variant, string> = {
+  primary: 'bg-primary text-white hover:bg-primary-dark',
+  secondary: 'bg-white text-primary border border-primary hover:bg-gray-100',
+  tertiary: 'text-primary hover:bg-gray-100',
+};
+
+export const Button = ({ onClick, children, href, to, variant = 'primary', className, disabled, type = 'button', isActive = false }: Props) => {
+  const baseClass = twMerge(`border-1 p-2 w-fit ${isActive ? 'bg-red-200 hover:bg-red-200' : variants[variant]} ${className}`);
 
   // React Router Link
   if (to) {
