@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { useCreateDoctorMutation } from './doctor-api';
 import { CreateDoctorFormData, createDoctorSchema } from './doctor-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Text from '@/components/ui/Text';
-import { Button } from '@/components/ui/button/Button';
-import Input from '@/components/ui/input/Input';
+import Text from '@/components/primitives/Text';
+import { Button } from '@/components/primitives/button/Button';
+import Input from '@/components/primitives/input/Input';
 
 const RegisterDoctorForm = () => {
   const [createDoctor] = useCreateDoctorMutation();

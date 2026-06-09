@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button/Button';
+import { Button } from '@/components/primitives/button/Button';
 import { useGetUserByIdQuery, useGetUsersQuery } from './api/users-api';
 import type { User } from './api/users-api';
 import { useNavigate, useParams } from 'react-router';

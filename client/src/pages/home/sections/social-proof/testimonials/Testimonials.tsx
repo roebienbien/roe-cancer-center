@@ -1,4 +1,4 @@
-import Text from '@/components/ui/Text';
+import Text from '@/components/primitives/Text';
 import TestimonialCard, { TTestimonial } from './TestimonialCard';
 import Stack from '@/components/stack/Stack';
 

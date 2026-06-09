@@ -1,5 +1,5 @@
-import { Button } from '../ui/button/Button';
-import Text from '../ui/Text';
+import { Button } from '@/components/primitives/button/Button';
+import Text from '@/components/primitives/Text';
 
 type TFooterLink = {
   name: string;

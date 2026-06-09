@@ -1,6 +1,6 @@
 import { data, useParams } from 'react-router';
 import { useGetUserByIdQuery } from './api/users-api';
-import Text from '@/components/ui/Text';
+import Text from '@/components/primitives/Text';
 
 const UserProfilePage = () => {
   const { id } = useParams();

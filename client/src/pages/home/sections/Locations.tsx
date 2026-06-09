@@ -1,5 +1,5 @@
-import { CardProps } from '../../../components/ui/grid-card/Card';
-import GridCard from '../../../components/ui/grid-card/GridCard';
+import { CardProps } from '../../../components/primitives/grid-card/Card';
+import GridCard from '../../../components/primitives/grid-card/GridCard';
 
 const Location: CardProps[] = [
   {

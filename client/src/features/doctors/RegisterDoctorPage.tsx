@@ -1,4 +1,4 @@
-import Text from '@/components/ui/Text';
+import Text from '@/components/primitives/Text';
 import RegisterDoctorForm from './RegisterDoctorForm';
 import DoctorDashboard from './DoctorDashboard';
 

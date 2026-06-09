@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Button } from '../ui/button/Button';
-import Text from '../ui/Text';
+import { Button } from '../primitives/button/Button';
+import Text from '../primitives/Text';
 import { FaCalendarCheck, FaFileMedical, FaUser } from 'react-icons/fa';
 import { FaChevronLeft, FaGear, FaUserDoctor } from 'react-icons/fa6';
 

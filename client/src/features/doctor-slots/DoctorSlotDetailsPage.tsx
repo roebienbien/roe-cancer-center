@@ -1,4 +1,4 @@
-import Text from '@/components/ui/Text';
+import Text from '@/components/primitives/Text';
 import { useParams } from 'react-router';
 import { useGetAvailableDoctorSlotsQuery, useGetDoctorSlotByIdQuery } from './doctor-slot-api';
 

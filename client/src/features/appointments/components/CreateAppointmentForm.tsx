@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button/Button';
-import Input from '@/components/ui/input/Input';
+import { Button } from '@/components/primitives/button/Button';
+import Input from '@/components/primitives/input/Input';
 import DoctorSlotDashboard from '@/features/doctor-slots/DoctorSlotDashboard';
 import { useCreateAppointmentMutation } from '../api/appointment-api';
 import { CreateAppointmentFormData, createAppointmentSchema } from '../schemas/appointment-schema';

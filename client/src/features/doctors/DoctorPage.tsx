@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router';
 import { useGetDoctorByIdQuery } from './doctor-api';
-import Text from '@/components/ui/Text';
-import { Button } from '@/components/ui/button/Button';
+import Text from '@/components/primitives/Text';
+import { Button } from '@/components/primitives/button/Button';
 
 const DoctorPage = () => {
   const { doctorId } = useParams();

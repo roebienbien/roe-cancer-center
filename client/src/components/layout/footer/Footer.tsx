@@ -1,8 +1,9 @@
 import { SiFacebook, SiX, SiInstagram, SiLinkedin } from 'react-icons/si';
 import { IconType } from 'react-icons/lib';
-import { Button } from '../ui/button/Button';
 import FooterLinks, { TLinkList } from './FooterLinks';
-import Text from '../ui/Text';
+import { Button } from '@/components/primitives/button/Button';
+
+import Text from '@/components/primitives/Text';
 
 type TSocials = {
   name: string;

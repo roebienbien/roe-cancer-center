@@ -1,4 +1,4 @@
-import ZigzagLayout from '../../../components/ui/layout/zigzag/ZigzagLayout';
+import ZigzagLayout from '../../../components/primitives/layout/zigzag/ZigzagLayout';
 
 const TreatmentsData = [
   {

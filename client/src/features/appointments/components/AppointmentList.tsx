@@ -1,7 +1,7 @@
-import Text from '@/components/ui/Text';
 import AppointmentCard from './AppointmentCard';
 import { Appointment } from '../api/appointment-api';
-import { Button } from '@/components/ui/button/Button';
+import { Button } from '@/components/primitives/button/Button';
+import Text from '@/components/primitives/Text';
 
 type Props = {
   title: string;

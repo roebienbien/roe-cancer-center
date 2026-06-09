@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button/Button';
-import Input from '@/components/ui/input/Input';
+import { Button } from '@/components/primitives/button/Button';
+import Input from '@/components/primitives/input/Input';
 import { useUpdatePatientMutation, useGetPatientByIdQuery, useRegisterPatientMutation } from './patient-api';
-import Text from '@/components/ui/Text';
+import Text from '@/components/primitives/Text';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { PatientFormInput, registerPatientSchema, updatePatientSchema } from './patient-schema';

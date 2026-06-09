@@ -1,4 +1,4 @@
-import UnsplashImage from '../ui/UnsplashImage';
+import UnsplashImage from '../primitives/UnsplashImage';
 
 type TPosition = 'left' | 'center' | 'right';
 

@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button/Button';
+import { Button } from '@/components/primitives/button/Button';
 import Stack from '@/components/stack/Stack';
-import Br from '@/components/ui/br/Br';
 import UnsplashImage from '@/components/img/UnsplashImage';
-import Text from '@/components/ui/Text';
+import Text from '@/components/primitives/Text';
+import ResponsiveBreak from '@/components/primitives/ResponsiveBreak';
 
 // const Slides: TSlides[] = [
 //   {
@@ -34,13 +34,13 @@ const Hero = () => {
         {/* <img src={rccJustLogo} alt='rcc-logo' className='hero__logo' /> */}
         <Stack className='gap-y-4'>
           <Text as='h1' variant='h1' className='text-6xl'>
-            Get a professional <Br />
+            Get a professional <ResponsiveBreak />
             diagnosis in your
-            <Br />
+            <ResponsiveBreak />
             neighborhood
           </Text>
           <h2 className=''>
-            Leading experts in all major fields are just around the corner <Br />
+            Leading experts in all major fields are just around the corner <ResponsiveBreak />
             Book your appointment today.
           </h2>
           <Button to='/book' className='w-fit'>

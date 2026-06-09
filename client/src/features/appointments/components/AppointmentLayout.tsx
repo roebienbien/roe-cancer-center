@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router';
-import { Button } from '@/components/ui/button/Button';
-import Text from '@/components/ui/Text';
+import { Button } from '@/components/primitives/button/Button';
+import Text from '@/components/primitives/Text';
 
 const AppointmentLayout = () => {
   return (

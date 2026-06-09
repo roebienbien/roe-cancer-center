@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { LoginFormData, loginSchema } from '../schema/login-schema';
-import Input from '@/components/ui/input/Input';
+import Input from '@/components/primitives/input/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button/Button';
+import { Button } from '@/components/primitives/button/Button';
 import './LoginForm.scss';
 import { useLoginMutation } from '../api/auth-api';
 import { useNavigate } from 'react-router';

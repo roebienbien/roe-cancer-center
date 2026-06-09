@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button/Button';
 import { useForm } from 'react-hook-form';
 import { RegisterFormValues } from '../schema/register-schema';
 import { useRegisterMutation } from '../api/auth-api';
-import Text from '@/components/ui/Text';
-import Input from '@/components/ui/input/Input';
+import Input from '@/components/primitives/input/Input';
+import { Button } from '@/components/primitives/button/Button';
+import Text from '@/components/primitives/Text';
 
 const RegisterForm = () => {
   const [userRegister, { isLoading, isError }] = useRegisterMutation();

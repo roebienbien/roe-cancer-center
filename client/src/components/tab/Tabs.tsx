@@ -1,4 +1,4 @@
-import { Button } from '../ui/button/Button';
+import { Button } from '../primitives/button/Button';
 
 type TabItem = {
   value: string;

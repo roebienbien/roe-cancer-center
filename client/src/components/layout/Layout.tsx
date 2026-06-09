@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router';
 import Navbar from '../navbar/Navbar';
-import './Layout.scss';
-import Footer from '../footer/Footer';
+import Footer from './footer/Footer';
 import Sidebar from './Sidebar';
 import { useState } from 'react';
 // import { Sidebar } from 'lucide-react';

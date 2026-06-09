@@ -1,9 +1,0 @@
-@use '@styles/util' as u;
-
-.break {
-  display: none;
-
-  @include u.bp(md) {
-    display: block;
-  }
-}
