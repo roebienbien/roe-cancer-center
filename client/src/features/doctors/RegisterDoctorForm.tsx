@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useCreateDoctorMutation } from './doctor-api';
 import { CreateDoctorFormData, createDoctorSchema } from './doctor-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 import { Button } from '@/components/ui/button/Button';
 import Input from '@/components/ui/input/Input';
 
@@ -29,13 +29,13 @@ const RegisterDoctorForm = () => {
   };
   return (
     <div className='flex flex-col gap-y-8 bg-blue-100 p-10'>
-      <Typography as='h2' variant='h2' className='text-center'>
+      <Text as='h2' variant='h2' className='text-center'>
         Register as Doctor
-      </Typography>
+      </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='grid grid-cols-3 gap-4'>
           <div className='col-span-3'>
-            <Typography>FULL NAME</Typography>
+            <Text>FULL NAME</Text>
             <div className='grid grid-cols-3 gap-4'>
               <Input id='lastName' register={register} errors={errors} />
               <Input id='firstName' register={register} errors={errors} />

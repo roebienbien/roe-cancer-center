@@ -14,9 +14,17 @@ const variants = {
   body: 'text-base',
   label: 'text-sm font-medium',
 };
+const defaultTag: Record<NonNullable<TextProps['variant']>, keyof JSX.IntrinsicElements> = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  body: 'p',
+  label: 'span',
+};
 
 const Text = ({ as: Tag = 'p', variant = 'body', children, className = '' }: TextProps) => {
-  return <Tag className={twMerge(variants[variant], className)}>{children}</Tag>;
+  const ResolvedTag = Tag ?? defaultTag[variant];
+  return <ResolvedTag className={twMerge(variants[variant], className)}>{children}</ResolvedTag>;
 };
 
 export default Text;

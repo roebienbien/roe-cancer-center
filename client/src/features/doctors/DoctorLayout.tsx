@@ -1,10 +1,10 @@
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 import { Outlet } from 'react-router';
 
 const DoctorLayout = () => {
   return (
     <div>
-      <Typography>Doctor Layout</Typography>
+      <Text>Doctor Layout</Text>
       <Outlet />
     </div>
   );

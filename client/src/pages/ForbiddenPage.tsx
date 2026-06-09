@@ -1,9 +1,9 @@
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 
 const ForbiddenPage = () => {
   return (
     <div>
-      <Typography>403 - Forbidden</Typography>
+      <Text>403 - Forbidden</Text>
       <p>You do nt have permission to access this page</p>
     </div>
   );

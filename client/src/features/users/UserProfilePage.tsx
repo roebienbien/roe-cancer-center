@@ -1,6 +1,6 @@
 import { data, useParams } from 'react-router';
 import { useGetUserByIdQuery } from './api/users-api';
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 
 const UserProfilePage = () => {
   const { id } = useParams();
@@ -10,7 +10,7 @@ const UserProfilePage = () => {
 
   return (
     <div>
-      <Typography>Hello {user.email}</Typography>
+      <Text>Hello {user.email}</Text>
     </div>
   );
 };

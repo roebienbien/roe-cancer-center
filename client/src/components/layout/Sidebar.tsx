@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '../ui/button/Button';
-import Typography from '../ui/Typography';
+import Text from '../ui/Text';
 import { FaCalendarCheck, FaFileMedical, FaUser } from 'react-icons/fa';
 import { FaChevronLeft, FaGear, FaUserDoctor } from 'react-icons/fa6';
 
@@ -57,11 +57,11 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }: Props) => {
 
   return (
     <aside className={`fixed z-[98] min-h-screen bg-blue-50 p-4 transition-all duration-300 ${isSidebarOpen ? 'w-[200px]' : 'w-[80px]'}`}>
-      {/* <Typography>Side bar</Typography> */}
+      {/* <Text>Side bar</Text> */}
       <div className='mb-4 flex justify-between'>
-        <Typography as='h2' variant='h2'>
+        <Text as='h2' variant='h2'>
           RCC
-        </Typography>
+        </Text>
         <Button onClick={handleSidebar} className=''>
           <FaChevronLeft className={`transition-transform duration-300 ${!isSidebarOpen ? 'rotate-180' : ''}`} />
         </Button>

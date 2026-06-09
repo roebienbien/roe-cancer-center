@@ -13,12 +13,20 @@ type Props = {
 
 const Tabs = ({ items, activeTab, onChange }: Props) => {
   return (
-    <div className=''>
-      {items.map((tab) => (
-        <Button onClick={() => onChange(tab.value)} variant='tertiary' className='' isActive={activeTab === tab.value}>
-          {tab.label}
-        </Button>
-      ))}
+    <div className='w-fit bg-surface'>
+      <div className='flex'>
+        {items.map((tab) => (
+          <Button
+            key={tab.value}
+            onClick={() => onChange(tab.value)}
+            variant='tertiary'
+            className='border-1 border px-10'
+            isActive={activeTab === tab.value}
+          >
+            {tab.label}
+          </Button>
+        ))}
+      </div>
     </div>
   );
 };

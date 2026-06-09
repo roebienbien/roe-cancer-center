@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button/Button';
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 import { Outlet } from 'react-router';
 
 const PatientLayout = () => {
@@ -27,11 +27,11 @@ const PatientLayout = () => {
   ];
   return (
     <div className='min-h-screen'>
-      <Typography>Patient Page</Typography>
+      <Text>Patient Page</Text>
       <div className='flex w-full bg-red-100'>
         {/* SIDEBAR */}
         <div className='p-10'>
-          <Typography>Side bar</Typography>
+          <Text>Side bar</Text>
           <ul className='flex flex-col gap-4'>
             {sidebarLinks.map((nav, index) => (
               <Button key={index} to={`/patients/me/${nav.to}`}>

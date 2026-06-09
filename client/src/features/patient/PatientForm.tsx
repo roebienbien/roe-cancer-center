@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button/Button';
 import Input from '@/components/ui/input/Input';
 import { useUpdatePatientMutation, useGetPatientByIdQuery, useRegisterPatientMutation } from './patient-api';
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { PatientFormInput, registerPatientSchema, updatePatientSchema } from './patient-schema';
@@ -71,12 +71,12 @@ const PatientForm = ({ mode = 'create' }: Props) => {
     <div className='rounded-xl bg-surface p-10 shadow-lg'>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col gap-y-4'>
-          <Typography as='h1' variant='h1' className='text-center'>
+          <Text as='h1' variant='h1' className='text-center'>
             {mode === 'create' ? 'Patient Registration Form' : 'Update Patient Profile'}
-          </Typography>
+          </Text>
           <div className='grid grid-cols-3 gap-4'>
             <div className='col-span-full'>
-              <Typography>FULL NAME</Typography>
+              <Text>FULL NAME</Text>
               <div className='grid grid-cols-3 gap-4'>
                 <Input id='lastName' register={register} errors={errors} />
                 <Input id='firstName' register={register} errors={errors} />

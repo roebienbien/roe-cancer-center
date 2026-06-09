@@ -1,4 +1,4 @@
-import Text from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 import { Quote } from 'lucide-react';
 import './TestimonialCard.scss';
 import UnsplashImage from '@/components/img/UnsplashImage';

@@ -1,5 +1,5 @@
 import { Button } from '../ui/button/Button';
-import Typography from '../ui/Typography';
+import Text from '../ui/Text';
 
 type TFooterLink = {
   name: string;
@@ -15,7 +15,7 @@ export type TLinkList = {
 const FooterLinks = ({ title, links }: TLinkList) => {
   return (
     <nav className=''>
-      <Typography className='font-medium'>{title}</Typography>
+      <Text className='font-medium'>{title}</Text>
       <ul className=''>
         {links.map((link, index) => (
           <li key={index} className=''>

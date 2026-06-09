@@ -1,4 +1,4 @@
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 import { useParams } from 'react-router';
 import { useGetAvailableDoctorSlotsQuery, useGetDoctorSlotByIdQuery } from './doctor-slot-api';
 
@@ -9,7 +9,7 @@ const DoctorSlotDetailsPage = () => {
   console.log(doctorSlotId);
   return (
     <div className='space-y-6'>
-      <Typography variant='h1'>Doctor Slot Details</Typography>
+      <Text variant='h1'>Doctor Slot Details</Text>
 
       <div className='rounded-lg border p-4'>
         <h2 className='mb-2 font-semibold'>Doctor Information</h2>

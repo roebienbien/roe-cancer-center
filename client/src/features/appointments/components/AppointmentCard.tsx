@@ -10,7 +10,7 @@ type Props = {
 
 const AppointmentCard = ({ appointment }: Props) => {
   return (
-    <div className='rounded-lg border p-4 shadow-sm'>
+    <div className='rounded-lg border bg-surface p-4 shadow-sm'>
       <div className='mb-3 flex items-center justify-between'>
         <h3 className='font-semibold'>{appointment.doctorName}</h3>
 

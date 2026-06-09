@@ -2,7 +2,7 @@ import { SiFacebook, SiX, SiInstagram, SiLinkedin } from 'react-icons/si';
 import { IconType } from 'react-icons/lib';
 import { Button } from '../ui/button/Button';
 import FooterLinks, { TLinkList } from './FooterLinks';
-import Typography from '../ui/Typography';
+import Text from '../ui/Text';
 
 type TSocials = {
   name: string;
@@ -88,12 +88,12 @@ const Footer = () => {
     <footer className='h-[400px] bg-zinc-900 p-20 text-white'>
       <div className='grid h-full grid-cols-5'>
         <div className='col-span-3 flex flex-col gap-y-4'>
-          <Typography as='h3' variant='h1'>
+          <Text as='h3' variant='h1'>
             Ataraxis
-          </Typography>
-          <Typography className='max-w-96'>
+          </Text>
+          <Text className='max-w-96'>
             Lacus sed, quis vitae cursus tempor diam finibus tellus, dolor Morbi nec, vitae nunc ipsum, ultrices felis risus ac at.{' '}
-          </Typography>
+          </Text>
           <div className='flex gap-x-4'>
             {Socials.map((social, index) => (
               <a href={social.url} key={index} className='rounded-full bg-zinc-50 p-2'>

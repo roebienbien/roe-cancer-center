@@ -1,5 +1,5 @@
 import Card from '@/components/card/Card';
-import Text from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 import { Button } from '@/components/ui/button/Button';
 import './PricingCard.scss';
 import { CircleCheck, CircleX } from 'lucide-react';

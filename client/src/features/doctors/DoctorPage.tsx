@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router';
 import { useGetDoctorByIdQuery } from './doctor-api';
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 import { Button } from '@/components/ui/button/Button';
 
 const DoctorPage = () => {
@@ -10,7 +10,7 @@ const DoctorPage = () => {
 
   return (
     <div>
-      <Typography>Doctor Profile</Typography>
+      <Text>Doctor Profile</Text>
       {isLoading ? (
         <p>Loading...</p>
       ) : !data ? (

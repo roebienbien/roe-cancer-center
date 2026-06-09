@@ -1,9 +1,9 @@
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 
 const EditDoctorPage = () => {
   return (
     <div>
-      <Typography>Edit Doctor Page</Typography>
+      <Text>Edit Doctor Page</Text>
     </div>
   );
 };

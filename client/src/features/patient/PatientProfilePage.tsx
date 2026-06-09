@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router';
 import { useGetMeQuery, useGetPatientByIdQuery } from './patient-api';
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 import { Button } from '@/components/ui/button/Button';
 
 const PatientProfilePage = () => {
@@ -17,7 +17,7 @@ const PatientProfilePage = () => {
 
   return (
     <div className='bg-blue-200 p-10'>
-      <Typography>Patient Page</Typography>
+      <Text>Patient Page</Text>
       <pre>{JSON.stringify(patient, null, 2)}</pre>
       <div>{id}</div>
       <div>{firstName}</div>

@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button/Button';
 import Stack from '@/components/stack/Stack';
 import Br from '@/components/ui/br/Br';
 import UnsplashImage from '@/components/img/UnsplashImage';
-import Typography from '@/components/ui/Typography';
+import Text from '@/components/ui/Text';
 
 // const Slides: TSlides[] = [
 //   {
@@ -33,12 +33,12 @@ const Hero = () => {
       <div className='flex items-center justify-center gap-10'>
         {/* <img src={rccJustLogo} alt='rcc-logo' className='hero__logo' /> */}
         <Stack className='gap-y-4'>
-          <Typography as='h1' variant='h1' className='text-6xl'>
+          <Text as='h1' variant='h1' className='text-6xl'>
             Get a professional <Br />
             diagnosis in your
             <Br />
             neighborhood
-          </Typography>
+          </Text>
           <h2 className=''>
             Leading experts in all major fields are just around the corner <Br />
             Book your appointment today.

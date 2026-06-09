@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
-import { useCreateAppointmentMutation } from './api/appointment-api';
-import { CreateAppointmentFormData, createAppointmentSchema } from './appointment-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button/Button';
 import Input from '@/components/ui/input/Input';
-import DoctorSlotDashboard from '../doctor-slots/DoctorSlotDashboard';
+import DoctorSlotDashboard from '@/features/doctor-slots/DoctorSlotDashboard';
+import { useCreateAppointmentMutation } from '../api/appointment-api';
+import { CreateAppointmentFormData, createAppointmentSchema } from '../schemas/appointment-schema';
 
 const CreateAppointmentForm = () => {
   const [createAppointment, { isLoading, isError }] = useCreateAppointmentMutation();
