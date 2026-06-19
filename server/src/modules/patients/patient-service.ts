@@ -38,14 +38,7 @@ export async function registerPatient(
   return prisma.patient.create({
     data: {
       userId,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      middleName: data.middleName,
-      birthDate: new Date(data.birthDate),
-      sex: data.sex,
-      phone: data.phone,
-      address: data.address,
-      notes: data.notes,
+      ...data,
     },
   });
 }

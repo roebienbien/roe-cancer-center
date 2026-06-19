@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form';
-import { RegisterFormValues } from '../schema/register-schema';
 import { useRegisterMutation } from '../api/auth-api';
 import Input from '@/components/primitives/input/Input';
 import { Button } from '@/components/primitives/button/Button';
 import Text from '@/components/primitives/Text';
+import { RegisterFormInput, registerSchema } from '../schemas/auth-schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const RegisterForm = () => {
   const [userRegister, { isLoading, isError }] = useRegisterMutation();
@@ -11,15 +12,20 @@ const RegisterForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<RegisterFormInput>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       email: `test${Math.floor(Math.random() * 10_000)}@test.com`,
       password: 'Password123!',
       confirmPassword: 'Password123!',
+      lastName: 'arnaiz',
+      firstName: 'roe bien',
+      // middleName: '',
+      birthDate: new Date('1999-11-27'),
+      mobileNumber: '12345678910',
     },
   });
-
-  const onSubmit = (data: RegisterFormValues) => {
+  const onSubmit = (data: RegisterFormInput) => {
     console.log(JSON.stringify(data));
     userRegister(data);
   };

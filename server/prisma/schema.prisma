@@ -47,7 +47,7 @@ model ChemoSession {
 model Medication {
   id String @id @default(uuid())
 
-  name   String?
+  name   String
   dosage String
 
   route MedicationRoute
@@ -61,7 +61,7 @@ model ChemoAdministration {
   sessionId String
   session   ChemoSession @relation(fields: [sessionId], references: [id])
 
-  medication   Medication? @relation(fields: [medicationId], references: [id])
+  medication   Medication @relation(fields: [medicationId], references: [id])
   medicationId String
 
   startAt DateTime
@@ -125,10 +125,17 @@ model Slot {
 // ====================
 
 model User {
-  id          String    @id @default(uuid())
-  email       String    @unique
-  password    String
-  role        Role      @default(PATIENT)
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  role     Role   @default(PATIENT)
+
+  lastName     String
+  firstName    String
+  middleName   String?
+  birthDate    DateTime
+  mobileNumber String?
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
@@ -145,22 +152,14 @@ model Doctor {
   id     String @id @default(uuid())
   userId String @unique
 
-  lastName   String
-  firstName  String
-  middleName String
-
   specialization String? //oncology, general, etc.
-  licenseNumber  String? @unique
-
-  phone  String?
-  email  String?
-  status ProfileStatus @default(ACTIVE)
+  licenseNumber  String?       @unique
+  status         ProfileStatus @default(ACTIVE)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   user        User         @relation(fields: [userId], references: [id])
-  //  appointments Appointment[]
   chemoCycles ChemoCycle[]
   doctorSlots DoctorSlot[]
 }
@@ -168,16 +167,16 @@ model Doctor {
 model Patient {
   id     String @id @default(uuid())
   userId String @unique
+  sex    Sex
 
-  lastName   String?
-  firstName  String?
-  middleName String?
-  birthDate  DateTime
-  sex        String?
-
-  phone   String?
-  // make this full address later
-  address String?
+  // full address
+  street     String
+  barangay   String
+  city       String
+  province   String
+  region     String
+  postalCode String
+  country    String
 
   //medical-related 
   notes  String?
@@ -259,4 +258,9 @@ enum SessionStatus {
   CHECKED_IN
   ADMINISTERED
   COMPLETED
+}
+
+enum Sex {
+  MALE
+  FEMALE
 }

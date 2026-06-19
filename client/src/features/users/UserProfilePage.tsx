@@ -1,16 +1,22 @@
-import { data, useParams } from 'react-router';
-import { useGetUserByIdQuery } from './api/users-api';
 import Text from '@/components/primitives/Text';
+import { useMeQuery } from '../auth/api/auth-api';
+import { useGetMeQuery } from '../patient/patient-api';
 
 const UserProfilePage = () => {
-  const { id } = useParams();
-  const { data: user } = useGetUserByIdQuery(id!);
+  const { data: user, isLoading, error } = useMeQuery();
+  const { data: patient } = useGetMeQuery();
 
-  if (!user) return <p>User not found</p>;
+  if (isLoading) return <Text>Loading</Text>;
+
+  if (error) return <Text>Not authenticated</Text>;
+
+  if (!user) return <Text>User not found</Text>;
 
   return (
     <div>
-      <Text>Hello {user.email}</Text>
+      <Text>Hello {user.id}</Text>
+      <Text>{user.email}</Text>
+      <Text>{patient?.firstName}</Text>
     </div>
   );
 };

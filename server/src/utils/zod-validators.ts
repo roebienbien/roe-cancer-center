@@ -13,7 +13,7 @@ export const upperString = (field: string) => {
 };
 
 export const requiredString = (field: string) => {
-  z.string().trim().min(1, `${field} is required`);
+  z.string().min(1, `${field} is required`);
 };
 
 export const emailString = () => {

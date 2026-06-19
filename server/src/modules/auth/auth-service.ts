@@ -32,6 +32,11 @@ export async function registerUser(data: RegisterUserInput) {
       email: data.email,
       password: hashedPassword,
       role: "PATIENT",
+      lastName: data.lastName,
+      firstName: data.firstName,
+      middleName: data.middleName,
+      birthDate: new Date(data.birthDate),
+      mobileNumber: data.mobileNumber,
     },
     // omit password
     select: userSelect,

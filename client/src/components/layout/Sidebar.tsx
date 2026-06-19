@@ -3,6 +3,8 @@ import { Button } from '../primitives/button/Button';
 import Text from '../primitives/Text';
 import { FaCalendarCheck, FaFileMedical, FaUser } from 'react-icons/fa';
 import { FaChevronLeft, FaGear, FaUserDoctor } from 'react-icons/fa6';
+import { useMeQuery } from '@/features/auth/api/auth-api';
+import { useGetMeQuery } from '@/features/patient/patient-api';
 
 const sidebarLinks = [
   {
@@ -55,12 +57,16 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }: Props) => {
     setIsSidebarOpen((prevMode: boolean) => !prevMode);
   };
 
+  const { data: user } = useMeQuery();
+  const { data: patient } = useGetMeQuery();
+  const displayName = patient?.firstName || user?.email;
+
   return (
     <aside className={`fixed z-[98] min-h-screen bg-blue-50 p-4 transition-all duration-300 ${isSidebarOpen ? 'w-[200px]' : 'w-[80px]'}`}>
       {/* <Text>Side bar</Text> */}
       <div className='mb-4 flex justify-between'>
         <Text as='h2' variant='h2'>
-          RCC
+          {user ? <Text>{displayName}</Text> : <Text>Guest</Text>}
         </Text>
         <Button onClick={handleSidebar} className=''>
           <FaChevronLeft className={`transition-transform duration-300 ${!isSidebarOpen ? 'rotate-180' : ''}`} />

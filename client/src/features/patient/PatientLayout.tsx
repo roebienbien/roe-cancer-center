@@ -5,24 +5,8 @@ import { Outlet } from 'react-router';
 const PatientLayout = () => {
   const sidebarLinks = [
     {
-      title: 'Appointments',
-      to: '/:id',
-    },
-    {
-      title: 'Medical Records',
-      to: '/:id',
-    },
-    {
-      title: 'Doctors',
-      to: '/:id',
-    },
-    {
-      title: 'Profile',
+      title: 'Register',
       to: 'profile/new',
-    },
-    {
-      title: 'Settings',
-      to: '/:id',
     },
   ];
   return (
@@ -31,7 +15,6 @@ const PatientLayout = () => {
       <div className='flex w-full bg-red-100'>
         {/* SIDEBAR */}
         <div className='p-10'>
-          <Text>Side bar</Text>
           <ul className='flex flex-col gap-4'>
             {sidebarLinks.map((nav, index) => (
               <Button key={index} to={`/patients/me/${nav.to}`}>

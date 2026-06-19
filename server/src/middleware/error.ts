@@ -39,6 +39,8 @@ function normalizeError(err: any) {
       type: err.name,
       message: err.message,
       stack: err.stack,
+      errors: (err as AppError).errors,
+      // stack: err.stack,
     };
   }
 
