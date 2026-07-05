@@ -19,16 +19,16 @@ const Input = <T extends FieldValues>({ type = 'text', label, id, autoComplete, 
   // const placeholder = id.replace(/([A-Z])/g, ' $1').replace(/^./, (char) => char.toUpperCase());
   const placeholder = id.replace(/([A-Z])/g, ' $1').toUpperCase();
   return (
-    <>
+    <div className='flex flex-col'>
       {label && (
-        <label htmlFor={id} className='mb-1 block'>
+        <label htmlFor={id} className='mb-1 block font-semibold'>
           {label}
         </label>
       )}
       <input {...register(id as any)} id={id} type={type} placeholder={placeholder} className={inputBaseClass} autoComplete={autoComplete} />
 
-      <ErrorMessage errors={errors} name={id as any} render={({ message }) => <span className='text-red-500'>{message}</span>} />
-    </>
+      <ErrorMessage errors={errors} name={id as any} render={({ message }) => <span className='text-xs text-red-500'>{message}</span>} />
+    </div>
   );
 };
 

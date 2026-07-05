@@ -3,14 +3,14 @@ import './HomePage.scss';
 import SocialProof from './sections/social-proof/SocialProof';
 import PricingPlan from './sections/pricing-plan/PricingPlan';
 import Testimonials from './sections/social-proof/testimonials/Testimonials';
-import RegisterForm from '@/features/auth/components/RegisterForm';
-import RegisterPage from '@/features/auth/pages/RegisterPage';
+import RegisterForm from '@/features/auth/components/RegisterUserForm';
+import RegisterUserPage from '@/features/auth/pages/RegisterUserPage';
 
 function HomePage() {
   return (
     <>
       <Hero />
-      <RegisterPage />
+      <RegisterUserPage />
       {/* <SocialProof /> */}
       {/* <PricingPlan /> */}
       {/* <Testimonials /> */}

@@ -4,7 +4,7 @@ const ForbiddenPage = () => {
   return (
     <div>
       <Text>403 - Forbidden</Text>
-      <p>You do nt have permission to access this page</p>
+      <p>You don't have permission to access this page</p>
     </div>
   );
 };

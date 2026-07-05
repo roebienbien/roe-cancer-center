@@ -33,13 +33,15 @@ const PatientForm = ({ mode = 'create' }: Props) => {
   } = useForm<PatientFormInput>({
     resolver: zodResolver(schema),
     defaultValues: {
-      lastName: 'Arnaiz',
-      firstName: 'John',
-      middleName: 'A',
-      sex: 'Male',
-      birthDate: '1990-01-01',
-      phone: '09123456789',
-      address: 'Taguig',
+      sex: 'FEMALE',
+      barangay: 'Barangay San Antonio',
+      street: '123 Rizal Street',
+      city: 'Taguig',
+      province: 'Metro Manila',
+      region: 'NCR',
+      postalCode: '1630',
+      country: 'PH',
+      notes: 'Patient has a history of hypertension.',
     },
   });
 
@@ -76,22 +78,18 @@ const PatientForm = ({ mode = 'create' }: Props) => {
           </Text>
           <div className='grid grid-cols-3 gap-4'>
             <div className='col-span-full'>
-              <Text>FULL NAME</Text>
+              <Text>Full Address</Text>
               <div className='grid grid-cols-3 gap-4'>
-                <Input id='lastName' register={register} errors={errors} />
-                <Input id='firstName' register={register} errors={errors} />
-                <Input id='middleName' register={register} errors={errors} />
+                <Input id='barangay' register={register} errors={errors} />
+                <Input id='street' register={register} errors={errors} />
+                <Input id='city' register={register} errors={errors} />
+                <Input id='province' register={register} errors={errors} />
+                <Input id='region' register={register} errors={errors} />
+                <Input id='postalCode' register={register} errors={errors} />
+                <Input id='country' register={register} errors={errors} />
               </div>
             </div>
-
             <Input id='sex' register={register} errors={errors} />
-
-            <Input id='birthDate' type='date' label='Birth Date' register={register} errors={errors} />
-
-            <Input id='phone' type='tel' register={register} errors={errors} />
-
-            <Input id='address' register={register} errors={errors} />
-
             <Input id='notes' register={register} errors={errors} />
           </div>
           <div className='flex justify-between'>

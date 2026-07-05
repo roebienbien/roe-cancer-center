@@ -13,7 +13,10 @@ export const registerSchema = z
     lastName: z.string().min(1, 'lastName is required'),
     firstName: z.string().min(1, 'firstName is required'),
     middleName: z.string().optional(),
-    birthDate: z.coerce.date(),
+    // birthDate: z.coerce.date(),
+    birthYear: z.coerce.number(),
+    birthMonth: z.coerce.number(),
+    birthDay: z.coerce.number(),
     mobileNumber: z.string().min(1, 'mobileNumber is required'),
   })
   .refine((data) => data.password === data.confirmPassword, {

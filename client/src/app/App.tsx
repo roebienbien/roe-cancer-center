@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFoundPage from '../pages/NotFoundPage';
 import HomePage from '../pages/home/HomePage';
-import LoginPage from '../features/auth/pages/LoginPage';
+import LoginUserPage from '../features/auth/pages/LoginUserPage';
 import Layout from '../components/layout/Layout';
-import RegisterPage from '@/features/auth/pages/RegisterPage';
+import RegisterUserPage from '@/features/auth/pages/RegisterUserPage';
 import { UserDashboard } from '@/features/users/UserDashboard';
 import RegisterDoctorPage from '@/features/doctors/RegisterDoctorPage';
 import RegisterPatientPage from '@/features/patient/RegisterPatientPage';
@@ -53,11 +53,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/register',
-        element: <RegisterPage />,
+        element: <RegisterUserPage />,
       },
       {
         path: '/login',
-        element: <LoginPage />,
+        element: <LoginUserPage />,
       },
       {
         path: '/users',

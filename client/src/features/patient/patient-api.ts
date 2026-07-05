@@ -2,13 +2,14 @@ import { api } from '@/services/api';
 
 export type Patient = {
   id: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
+  barangay: string;
+  street: string;
+  city: string;
+  region: string;
+  province: string;
+  postalCode: string;
+  country: string;
   sex: string;
-  birthDate: string;
-  phone: string;
-  address: string;
   notes?: string;
 };
 

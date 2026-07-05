@@ -1,7 +1,7 @@
 import Text from '@/components/primitives/Text';
 import LoginForm from '../components/LoginForm';
 
-const LoginPage = () => {
+const LoginUserPage = () => {
   return (
     <div className='flex h-screen items-center justify-center'>
       <div className='flex flex-col gap-y-4 rounded-xl bg-blue-200 p-8'>
@@ -15,4 +15,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginUserPage;
