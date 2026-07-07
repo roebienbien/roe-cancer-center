@@ -12,6 +12,7 @@ const RegisterUserForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<RegisterFormInput>({
     resolver: zodResolver(registerSchema),
@@ -34,7 +35,7 @@ const RegisterUserForm = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center gap-y-4 rounded-xl bg-surface p-10 shadow-md'>
+    <div className='flex w-[80%] flex-col justify-center gap-y-4 rounded-xl bg-surface p-10 shadow-md'>
       <Text as='h1' variant='h1' className='text-center'>
         Register Form
       </Text>
@@ -47,11 +48,18 @@ const RegisterUserForm = () => {
             <Input id='middleName' register={register} errors={errors} />
           </div>
         </div>
+        <Input id='mobileNumber' label='Mobile Number' register={register} errors={errors} />
+        <BirthDateSelect register={register} errors={errors} watch={watch} />
         <Input id='email' label='Email' register={register} errors={errors} autoComplete='email' />
         <Input id='password' label='Password' type='password' register={register} errors={errors} />
         <Input id='confirmPassword' label='Confirm Password' type='password' register={register} errors={errors} />
-        <Input id='mobileNumber' register={register} errors={errors} />
-        <BirthDateSelect register={register} errors={errors} />
+        <Text>
+          People who use our service may have uploaded your contact information to Facebook. Learn more. <br />
+          By tapping Submit, you agree to create an account and to Facebook's Terms, Privacy Policy, and Cookies Policy.
+          <br />
+          The Privacy Policy describes the ways we can use the information we collect when you create an account. For example, we use this information
+          to provide, personalize and improve our products, including ads.
+        </Text>
         <Button type='submit' className='w-full'>
           {isLoading ? 'Submitting' : 'Submit'}{' '}
         </Button>

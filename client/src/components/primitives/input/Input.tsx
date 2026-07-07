@@ -15,7 +15,7 @@ type Props<T extends FieldValues> = {
 };
 
 const Input = <T extends FieldValues>({ type = 'text', label, id, autoComplete, register, errors }: Props<T>) => {
-  const inputBaseClass = 'border-2 w-full p-1';
+  const inputBaseClass = 'border border-gray-400 p-2 w-full p-1 rounded-lg';
   // const placeholder = id.replace(/([A-Z])/g, ' $1').replace(/^./, (char) => char.toUpperCase());
   const placeholder = id.replace(/([A-Z])/g, ' $1').toUpperCase();
   return (
