@@ -33,12 +33,15 @@ export default function LoginForm() {
       <div className='grid gap-2'>
         <Input<LoginFormInput> id='email' label={'Email'} type='email' register={register} errors={errors} />
         <Input<LoginFormInput> id='password' label={'password'} type='password' register={register} errors={errors} />
-      </div>
 
-      <Button type='submit' disabled={isLoading} className='w-full'>
-        {isLoading ? 'Logging in' : 'Login'}
-      </Button>
-      {isError && <p className='login-form__error'>Login failed</p>}
+        <Button type='submit' disabled={isLoading} className='w-full'>
+          {isLoading ? 'Logging in' : 'Login'}
+        </Button>
+        <Button to='/register' variant='secondary' className='w-full'>
+          Create new Account
+        </Button>
+        {isError && <p className='login-form__error'>Login failed</p>}
+      </div>
     </form>
   );
 }

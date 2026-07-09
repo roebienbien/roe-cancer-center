@@ -22,7 +22,7 @@ const variants: Record<Variant, string> = {
 };
 
 export const Button = ({ onClick, children, href, to, variant = 'primary', className, disabled, type = 'button', isActive = false }: Props) => {
-  const baseClass = twMerge(`border-1 p-2 w-fit ${isActive ? 'bg-red-200 hover:bg-red-200' : variants[variant]} ${className}`);
+  const baseClass = twMerge(`border-1 p-2 text-center w-fit ${isActive ? 'bg-red-200 hover:bg-red-200' : variants[variant]} ${className}`);
 
   // React Router Link
   if (to) {

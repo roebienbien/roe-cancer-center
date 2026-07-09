@@ -22,8 +22,23 @@ import AppointmentDashboard from '@/features/appointments/components/Appointment
 import AppointmentLayout from '@/features/appointments/components/AppointmentLayout';
 import DoctorSlotDetailsPage from '@/features/doctor-slots/DoctorSlotDetailsPage';
 import MyAppointmentsPage from '@/features/appointments/pages/MyAppointmentPage';
+import AuthLayout from '@/components/layout/AuthLayout';
+import { Toaster } from 'sonner';
 
 const router = createBrowserRouter([
+  {
+    element: <AuthLayout />,
+    children: [
+      {
+        path: '/register',
+        element: <RegisterUserPage />,
+      },
+      {
+        path: '/login',
+        element: <LoginUserPage />,
+      },
+    ],
+  },
   {
     path: '/',
     errorElement: <NotFoundPage />,
@@ -50,14 +65,6 @@ const router = createBrowserRouter([
             element: <CreateAppointmentPage />,
           },
         ],
-      },
-      {
-        path: '/register',
-        element: <RegisterUserPage />,
-      },
-      {
-        path: '/login',
-        element: <LoginUserPage />,
       },
       {
         path: '/users',
@@ -138,7 +145,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <Toaster position='top-center' richColors />
+      <RouterProvider router={router} />;
+    </>
+  );
 }
 
 export default App;

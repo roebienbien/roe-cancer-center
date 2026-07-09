@@ -6,9 +6,13 @@ import Text from '@/components/primitives/Text';
 import { RegisterFormInput, registerSchema } from '../schemas/auth-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import BirthDateSelect from '@/components/primitives/BirthDateSelect';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 const RegisterUserForm = () => {
-  const [userRegister, { isLoading, isError }] = useRegisterMutation();
+  const navigate = useNavigate();
+  const [userRegister, { isLoading, isSuccess, isError, error }] = useRegisterMutation();
   const {
     register,
     handleSubmit,
@@ -28,6 +32,20 @@ const RegisterUserForm = () => {
     },
   });
 
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('Account created successfully');
+      navigate('/login', { state: { registered: true } });
+    }
+  }, [isSuccess, navigate]);
+
+  useEffect(() => {
+    if (isError) {
+      const message = (error as any)?.data?.message ?? 'Something went wrong. Please try again.';
+      toast.error(message);
+    }
+  }, [isError, errors]);
+
   const onSubmit = (data: RegisterFormInput) => {
     const birthDate = new Date(data.birthYear, data.birthMonth - 1, data.birthDay);
     console.log(JSON.stringify(data));
@@ -35,7 +53,7 @@ const RegisterUserForm = () => {
   };
 
   return (
-    <div className='flex w-[80%] flex-col justify-center gap-y-4 rounded-xl bg-surface p-10 shadow-md'>
+    <div className='flex flex-col justify-center gap-y-4 rounded-xl border bg-surface p-10 shadow-md'>
       <Text as='h1' variant='h1' className='text-center'>
         Register Form
       </Text>
@@ -60,8 +78,11 @@ const RegisterUserForm = () => {
           The Privacy Policy describes the ways we can use the information we collect when you create an account. For example, we use this information
           to provide, personalize and improve our products, including ads.
         </Text>
-        <Button type='submit' className='w-full'>
+        <Button type='submit' className='w-full rounded-xl'>
           {isLoading ? 'Submitting' : 'Submit'}{' '}
+        </Button>
+        <Button to='/login' variant='secondary' className='w-full rounded-xl text-center'>
+          Already have an account?
         </Button>
       </form>
     </div>
