@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Button } from '../primitives/button/Button';
 import Text from '../primitives/Text';
 import { FaCalendarCheck, FaFileMedical, FaUser } from 'react-icons/fa';
@@ -13,11 +12,6 @@ const sidebarLinks = [
     icon: FaCalendarCheck,
   },
   {
-    title: 'Medical Records',
-    to: '/records',
-    icon: FaFileMedical,
-  },
-  {
     title: 'Doctors',
     to: '/doctors',
     icon: FaUserDoctor,
@@ -26,6 +20,11 @@ const sidebarLinks = [
     title: 'Profile',
     to: '/profile',
     icon: FaUser,
+  },
+  {
+    title: 'Medical Records',
+    to: '/records',
+    icon: FaFileMedical,
   },
   {
     title: 'Settings',

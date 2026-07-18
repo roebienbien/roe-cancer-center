@@ -1,17 +1,17 @@
 import Text from '@/components/primitives/Text';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/LoginUserForm';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 
 const LoginUserPage = () => {
-  const location = useLocation();
-  useEffect(() => {
-    if (location.state?.registered) {
-      toast.success('Account created! Please log in');
-      window.history.replaceState({}, '');
-    }
-  }, [location.state]);
+  // const location = useLocation();
+  // useEffect(() => {
+  //   if (location.state?.registered) {
+  //     toast.success('Account created! Please log in');
+  //     window.history.replaceState({}, '');
+  //   }
+  // }, [location.state]);
 
   return (
     <div className='flex h-screen items-center justify-center'>

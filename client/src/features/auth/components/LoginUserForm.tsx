@@ -7,7 +7,7 @@ import { useLoginMutation } from '../api/auth-api';
 import { useNavigate } from 'react-router';
 import { LoginFormInput, loginSchema } from '../schemas/auth-schema';
 
-export default function LoginForm() {
+export default function LoginUserForm() {
   const navigate = useNavigate();
   const [login, { isLoading, isError }] = useLoginMutation();
   const {

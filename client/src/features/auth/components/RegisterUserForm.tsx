@@ -32,24 +32,15 @@ const RegisterUserForm = () => {
     },
   });
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success('Account created successfully');
+  const onSubmit = async (data: RegisterFormInput) => {
+    try {
+      const birthDate = new Date(data.birthYear, data.birthMonth - 1, data.birthDay);
+      await userRegister({ ...data, birthDate }).unwrap();
+      toast.success('Accounte created successfully');
       navigate('/login', { state: { registered: true } });
+    } catch (error: any) {
+      toast.error(error?.data?.message ?? 'Something wnt wrong. Please try again.');
     }
-  }, [isSuccess, navigate]);
-
-  useEffect(() => {
-    if (isError) {
-      const message = (error as any)?.data?.message ?? 'Something went wrong. Please try again.';
-      toast.error(message);
-    }
-  }, [isError, errors]);
-
-  const onSubmit = (data: RegisterFormInput) => {
-    const birthDate = new Date(data.birthYear, data.birthMonth - 1, data.birthDay);
-    console.log(JSON.stringify(data));
-    userRegister({ ...data, birthDate });
   };
 
   return (
@@ -73,10 +64,6 @@ const RegisterUserForm = () => {
         <Input id='confirmPassword' label='Confirm Password' type='password' register={register} errors={errors} />
         <Text>
           People who use our service may have uploaded your contact information to Facebook. Learn more. <br />
-          By tapping Submit, you agree to create an account and to Facebook's Terms, Privacy Policy, and Cookies Policy.
-          <br />
-          The Privacy Policy describes the ways we can use the information we collect when you create an account. For example, we use this information
-          to provide, personalize and improve our products, including ads.
         </Text>
         <Button type='submit' className='w-full rounded-xl'>
           {isLoading ? 'Submitting' : 'Submit'}{' '}

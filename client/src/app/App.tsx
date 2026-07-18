@@ -8,7 +8,6 @@ import { UserDashboard } from '@/features/users/UserDashboard';
 import RegisterDoctorPage from '@/features/doctors/RegisterDoctorPage';
 import RegisterPatientPage from '@/features/patient/RegisterPatientPage';
 import EditPatientPage from '@/features/patient/EditPatientPage';
-import PatientPage from '@/features/patient/PatientProfilePage';
 import EditDoctorPage from '@/features/doctors/EditDoctorPage';
 import DoctorPage from '@/features/doctors/DoctorPage';
 import DoctorLayout from '@/features/doctors/DoctorLayout';
@@ -21,7 +20,7 @@ import CreateAppointmentPage from '@/features/appointments/pages/CreateAppointme
 import AppointmentDashboard from '@/features/appointments/components/AppointmentDashboard';
 import AppointmentLayout from '@/features/appointments/components/AppointmentLayout';
 import DoctorSlotDetailsPage from '@/features/doctor-slots/DoctorSlotDetailsPage';
-import MyAppointmentsPage from '@/features/appointments/pages/MyAppointmentPage';
+import MyAppointmentsPage from '@/features/appointments/pages/MyAppointmentsPage';
 import AuthLayout from '@/components/layout/AuthLayout';
 import { Toaster } from 'sonner';
 

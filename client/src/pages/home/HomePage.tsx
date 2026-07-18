@@ -10,7 +10,6 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <RegisterUserPage />
       {/* <SocialProof /> */}
       {/* <PricingPlan /> */}
       {/* <Testimonials /> */}

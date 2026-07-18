@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { test, expect, vi } from 'vitest';
 import '@testing-library/jest-dom';
-import LoginForm from './LoginForm';
+import LoginForm from './LoginUserForm';
 
 // ✅ mock the hook BEFORE tests run
 vi.mock('./useLogin', () => ({
