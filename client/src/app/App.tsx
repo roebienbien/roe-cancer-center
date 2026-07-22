@@ -102,7 +102,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        element: <ProtectedRoute allowedRoles={['PATIENT', 'DOCTOR']} />,
+        element: <ProtectedRoute allowedRoles={['DOCTOR']} />,
         children: [
           {
             path: '/doctors',

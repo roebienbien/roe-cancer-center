@@ -7,12 +7,11 @@ import { RegisterFormInput, registerSchema } from '../schemas/auth-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import BirthDateSelect from '@/components/primitives/BirthDateSelect';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { toast } from 'sonner';
 
 const RegisterUserForm = () => {
   const navigate = useNavigate();
-  const [userRegister, { isLoading, isSuccess, isError, error }] = useRegisterMutation();
+  const [userRegister, { isLoading }] = useRegisterMutation();
   const {
     register,
     handleSubmit,

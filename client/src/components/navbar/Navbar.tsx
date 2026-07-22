@@ -8,18 +8,6 @@ const NavLinks = [
     to: '/',
   },
   {
-    title: 'Users',
-    to: '/users',
-  },
-  {
-    title: 'DPatient ',
-    to: '/patients/me',
-  },
-  {
-    title: 'Doctor',
-    to: '/doctors',
-  },
-  {
     title: 'Appointment',
     to: '/appointments',
   },
