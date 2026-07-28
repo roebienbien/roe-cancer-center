@@ -6,20 +6,19 @@ import Layout from '../components/layout/Layout';
 import RegisterUserPage from '@/features/auth/pages/RegisterUserPage';
 import { UserDashboard } from '@/features/users/UserDashboard';
 import RegisterDoctorPage from '@/features/doctors/RegisterDoctorPage';
-import RegisterPatientPage from '@/features/patient/RegisterPatientPage';
-import EditPatientPage from '@/features/patient/EditPatientPage';
+import RegisterPatientPage from '@/features/patients/RegisterPatientPage';
+import EditPatientPage from '@/features/patients/EditPatientPage';
 import EditDoctorPage from '@/features/doctors/EditDoctorPage';
 import DoctorPage from '@/features/doctors/DoctorPage';
 import DoctorLayout from '@/features/doctors/DoctorLayout';
 import DoctorDashboard from '@/features/doctors/DoctorDashboard';
 import ProtectedRoute from './routes/ProtectedRoute';
 import ForbiddenPage from '@/pages/ForbiddenPage';
-import PatientLayout from '@/features/patient/PatientLayout';
-import PatientProfilePage from '@/features/patient/PatientProfilePage';
+import PatientLayout from '@/features/patients/PatientLayout';
+import PatientProfilePage from '@/features/patients/PatientProfilePage';
 import CreateAppointmentPage from '@/features/appointments/pages/CreateAppointmentPage';
 import AppointmentDashboard from '@/features/appointments/components/AppointmentDashboard';
 import AppointmentLayout from '@/features/appointments/components/AppointmentLayout';
-import DoctorSlotDetailsPage from '@/features/doctor-slots/DoctorSlotDetailsPage';
 import MyAppointmentsPage from '@/features/appointments/pages/MyAppointmentsPage';
 import AuthLayout from '@/components/layout/AuthLayout';
 import { Toaster } from 'sonner';
@@ -102,6 +101,15 @@ const router = createBrowserRouter([
         ],
       },
       {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: '/doctors/new',
+            element: <RegisterDoctorPage />,
+          },
+        ],
+      },
+      {
         element: <ProtectedRoute allowedRoles={['DOCTOR']} />,
         children: [
           {
@@ -129,11 +137,11 @@ const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: '/doctor-slots/:doctorSlotId',
-        // path: '/patient/register',
-        element: <DoctorSlotDetailsPage />,
-      },
+      // {
+      //   path: '/doctor-slots/:doctorSlotId',
+      //   // path: '/patient/register',
+      //   element: <DoctorSlotDetailsPage />,
+      // },
       {
         path: '/forbidden',
         // path: '/patient/register',

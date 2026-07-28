@@ -25,8 +25,8 @@ import ResponsiveBreak from '@/components/primitives/ResponsiveBreak';
 //
 
 const doctorPatient =
-  'https://images.unsplash.com/photo-1631815590058-860e4f83c1e8?q=80&w=842&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
-
+  // 'https://images.unsplash.com/photo-1631815590058-860e4f83c1e8?q=80&w=842&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+  'https://images.unsplash.com/photo-1712215544003-af10130f8eb3?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
 const Hero = () => {
   return (
     <section className='flex min-h-screen items-center justify-center'>
@@ -35,7 +35,7 @@ const Hero = () => {
         <Stack className='gap-y-4'>
           <Text as='h1' variant='h1' className='text-6xl'>
             Get a professional <ResponsiveBreak />
-            diagnosis in your
+            treatments in your
             <ResponsiveBreak />
             neighborhood
           </Text>
@@ -48,7 +48,7 @@ const Hero = () => {
             Book an appointment{' '}
           </Button>
         </Stack>
-        <UnsplashImage src={doctorPatient} alt={'doctor-and-patient'} className='h-[700px] w-[500px]' />
+        <UnsplashImage src={doctorPatient} alt={'doctor-and-patient'} isFlipped className='h-[700px] w-[500px] rounded-2xl' />
       </div>
 
       {/* <Carousel Slides={Slides} className='hero__carousel' /> */}

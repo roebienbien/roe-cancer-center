@@ -3,7 +3,7 @@ import Text from '../primitives/Text';
 import { FaCalendarCheck, FaFileMedical, FaUser } from 'react-icons/fa';
 import { FaChevronLeft, FaGear, FaUserDoctor } from 'react-icons/fa6';
 import { useMeQuery } from '@/features/auth/api/auth-api';
-import { useGetMeQuery } from '@/features/patient/patient-api';
+import { useGetMeQuery } from '@/features/patients/patient-api';
 
 const sidebarLinks = [
   {
@@ -58,7 +58,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }: Props) => {
 
   const { data: user } = useMeQuery();
   const { data: patient } = useGetMeQuery();
-  const displayName = patient?.firstName || user?.email;
+  const displayName = patient?.id || user?.email;
 
   return (
     <aside className={`fixed z-[98] min-h-screen bg-blue-50 p-4 transition-all duration-300 ${isSidebarOpen ? 'w-[200px]' : 'w-[80px]'}`}>

@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import Text from '@/components/primitives/Text';
+import { Button } from '@/components/primitives/button/Button';
 
 const roleLabels: Record<string, string> = {
   doctor: 'a doctor',
@@ -19,11 +20,11 @@ const ForbiddenPage = () => {
     : "You don't have permission to access this page.";
 
   return (
-    <div>
+    <div className='h-[100dvh]'>
       <Text>403 - Forbidden</Text>
       <p>{message}</p>
       {from && <p className='text-sm text-gray-500'>Attempted page: {from}</p>}
-      <button onClick={() => navigate(homeRouteFor(userRole))}>Go to your dashboard</button>
+      <Button onClick={() => navigate(homeRouteFor(userRole))}>Go back dashboard</Button>
     </div>
   );
 };

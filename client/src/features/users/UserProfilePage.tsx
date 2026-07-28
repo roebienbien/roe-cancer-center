@@ -1,6 +1,6 @@
 import Text from '@/components/primitives/Text';
 import { useMeQuery } from '../auth/api/auth-api';
-import { useGetMeQuery } from '../patient/patient-api';
+import { useGetMeQuery } from '../patients/patient-api';
 
 const UserProfilePage = () => {
   const { data: user, isLoading, error } = useMeQuery();
@@ -16,7 +16,7 @@ const UserProfilePage = () => {
     <div>
       <Text>Hello {user.id}</Text>
       <Text>{user.email}</Text>
-      <Text>{patient?.firstName}</Text>
+      <Text>{patient?.id}</Text>
     </div>
   );
 };

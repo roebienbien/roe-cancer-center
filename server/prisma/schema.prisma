@@ -153,8 +153,13 @@ model Doctor {
   userId String @unique
 
   specialization String? //oncology, general, etc.
-  licenseNumber  String?       @unique
-  status         ProfileStatus @default(ACTIVE)
+  licenseNumber  String?            @unique
+  status         ProfileStatus      @default(ACTIVE)
+  verification   VerificationStatus @default(PENDING)
+
+  verifiedAt      DateTime?
+  verifiedById    String?
+  rejectionReason String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -222,6 +227,12 @@ enum ProfileStatus {
   ACTIVE
   INACTIVE
   ARCHIVED
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
 }
 
 enum AppointmentStatus {

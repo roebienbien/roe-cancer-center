@@ -1,17 +1,16 @@
 import { asyncHandler } from "../../utils/async-handler";
 import { requireUser } from "../../middleware/require-user";
 import { sendSuccess } from "../../utils/response-handler";
-import { CreateDoctorInput } from "./doctor-schema";
+import { RgisterDoctorInput } from "./doctor-schema";
 import * as doctorService from "./doctor-service";
-import { Request, Response } from "express";
 
-export const createDoctor = asyncHandler<{}, {}, CreateDoctorInput>(
+export const registerDoctor = asyncHandler<{}, {}, RgisterDoctorInput>(
   async (req, res) => {
     // export const createDoctor = asyncHandler(
     //   async (req: Request<{}, {}, CreateDoctorInput>, res: Response) => {
     const { userId } = requireUser(req);
 
-    const doctor = await doctorService.createDoctor(userId, req.body);
+    const doctor = await doctorService.registerDoctor(userId, req.body);
 
     return sendSuccess(res, {
       data: doctor,

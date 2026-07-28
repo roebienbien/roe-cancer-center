@@ -3,7 +3,7 @@ import { Role } from '@/features/users/api/users-api';
 import { Navigate, Outlet, useLocation } from 'react-router';
 
 type Props = {
-  allowedRoles: Role[];
+  allowedRoles?: Role[];
 };
 
 const ProtectedRoute = ({ allowedRoles }: Props) => {
@@ -12,7 +12,7 @@ const ProtectedRoute = ({ allowedRoles }: Props) => {
 
   if (!user) return <Navigate to='/login' replace />;
 
-  if (!allowedRoles.includes(user.role)) {
+  if (!allowedRoles?.includes(user.role)) {
     return (
       <Navigate
         to='/forbidden'
