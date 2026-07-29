@@ -1,10 +1,10 @@
 import { asyncHandler } from "../../utils/async-handler";
 import { requireUser } from "../../middleware/require-user";
 import { sendSuccess } from "../../utils/response-handler";
-import { RgisterDoctorInput } from "./doctor-schema";
+import { RegisterDoctorInput } from "./doctor-schema";
 import * as doctorService from "./doctor-service";
 
-export const registerDoctor = asyncHandler<{}, {}, RgisterDoctorInput>(
+export const registerDoctor = asyncHandler<{}, {}, RegisterDoctorInput>(
   async (req, res) => {
     // export const createDoctor = asyncHandler(
     //   async (req: Request<{}, {}, CreateDoctorInput>, res: Response) => {
@@ -28,6 +28,22 @@ export const getAllDoctors = asyncHandler(async (_, res) => {
 
 export const getDoctorById = asyncHandler(async (req, res) => {
   const doctor = await doctorService.getDoctorById(req.params.id);
+
+  return sendSuccess(res, { data: doctor });
+});
+
+export const verifyDoctor = asyncHandler(async (req, res) => {
+  const { doctorId } = req.params;
+  const { decision, rejectionReason } = req.body;
+  // const adminId = req.user.userId; // from auth middleware, populated on req.user
+  const adminId = "admin";
+
+  const doctor = await doctorService.verifyDoctor(
+    doctorId,
+    adminId,
+    decision,
+    rejectionReason,
+  );
 
   return sendSuccess(res, { data: doctor });
 });

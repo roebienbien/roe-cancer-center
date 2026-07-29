@@ -1,8 +1,11 @@
 import { prisma } from "../../lib/prisma";
 import { createError } from "../../utils/app-error";
-import { RgisterDoctorInput } from "./doctor-schema";
+import { RegisterDoctorInput } from "./doctor-schema";
 
-export async function registerDoctor(userId: string, data: RgisterDoctorInput) {
+export async function registerDoctor(
+  userId: string,
+  data: RegisterDoctorInput,
+) {
   return prisma.$transaction(async (tx) => {
     const existing = await tx.doctor.findUnique({
       where: { userId },
